@@ -18,9 +18,6 @@ public class User {
     private List<ShippingAddress> shipping_addresses;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CartItem> cartItems;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Order> orders;
 
     public Integer getUser_id() {return user_id;}
