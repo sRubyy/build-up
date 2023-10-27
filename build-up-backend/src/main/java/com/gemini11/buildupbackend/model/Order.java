@@ -21,8 +21,8 @@ public class Order {
     private Status status; // Many orders belong to one status
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user; // Many orders belong to one user
+    @JoinColumn(name = "owner_account_id")
+    private Account account; // Many orders belong to one user
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;
@@ -43,12 +43,12 @@ public class Order {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public List<OrderItem> getOrderItems() {
