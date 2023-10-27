@@ -24,8 +24,8 @@ public class Product {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private User seller;
+    @JoinColumn(name = "seller_account_id")
+    private Account account;
 
     public String getName() {
         return name;
@@ -83,11 +83,11 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public User getSeller() {
-        return seller;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setSeller(User seller) {
-        this.seller = seller;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
