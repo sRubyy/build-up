@@ -23,8 +23,8 @@ public class ShippingAddress {
     private String postcode;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user; // Many shipping addresses belong to one user
+    @JoinColumn(name = "account_id")
+    private Account account; // Many shipping addresses belong to one user
 
     public String getName() {
         return name;
@@ -90,11 +90,11 @@ public class ShippingAddress {
         this.postcode = postcode;
     }
 
-    public User getUser() {
-        return user;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
