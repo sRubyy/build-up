@@ -1,18 +1,14 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import './app.scss';
+import { Outlet } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
+import Navbar from './components/global/Navbar';
 
 function App() {
   return (
     <Provider store={store}>
       <div>
-        <div className="global-nav">
-          Nav
-          <Link to={'/'}>Home</Link>
-          <Link to={'/cart'}>Cart</Link>
-        </div>
+        <Navbar />
         <Outlet />
       </div>
     </Provider>

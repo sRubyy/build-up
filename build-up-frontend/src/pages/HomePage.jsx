@@ -1,9 +1,20 @@
 import React from 'react';
+import '../scss/homepage/homepage.scss';
+import BrandSwiper from '../components/homepage/BrandSwiper';
 
 function HomePage() {
   return (
     <div>
-      <h1>Home Page</h1>
+      <div className="banner-homepage"></div>
+      <div className="body-homepage">
+        <BrandSwiper />
+        <div className="promote-block">
+          <div>
+            <h1>New Arrival</h1>
+            <p>All Shoes already ready to ship! Don’t hesitate to buy it</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
