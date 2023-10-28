@@ -7,8 +7,8 @@ function BrandSwiper() {
 
   return (
     <div className="brand-swiper">
-      {brands.map((brand) => (
-        <BrandIcon name={brand} />
+      {brands.map((brand, index) => (
+        <BrandIcon key={index} name={brand} />
       ))}
     </div>
   );
