@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "account")
 public class Account {
 
     @Id
@@ -24,6 +24,9 @@ public class Account {
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Order> orders;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CreditCard> creditCards;
 
     public Account() {}
 
