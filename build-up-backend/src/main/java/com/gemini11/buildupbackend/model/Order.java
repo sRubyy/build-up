@@ -10,9 +10,11 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer order_id;
+    @Column(name = "order_id")
+    private Integer orderId;
 
-    private LocalDateTime order_date;
+    @Column(name = "order_date")
+    private LocalDateTime orderDate;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
@@ -25,10 +27,35 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;
 
-    public Integer getOrderId() {return order_id;}
-    public LocalDateTime getOrder_date() {return order_date;}
-    public User getUser() {return user;}
-    public List<OrderItem> getOrderItems() {return orderItems;}
-    public void setOrderItems(List<OrderItem> orderItems) {this.orderItems = orderItems;}
-    public void setOrder_date(LocalDateTime order_date) {this.order_date = order_date;}
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }
