@@ -1,4 +1,14 @@
 .global-nav {
-    background-color: aliceblue;
-    padding: 4px 0;
+  background-color: #ffffff;
+  border-bottom: #e3e3e3 solid 1px;
+  display: flex;
+  justify-content: center;
+  padding: 22px 0;
+
+  // font for buildup text
+  color: #1f1f1f;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
 }
