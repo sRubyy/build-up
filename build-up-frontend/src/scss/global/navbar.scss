@@ -12,6 +12,7 @@
 
     &--branding-text {
       color: #1f1f1f;
+      font-family: 'MontserratExtraBold';
       font-size: 22px;
       font-style: normal;
       font-weight: 800;
@@ -57,6 +58,12 @@
     gap: 32px;
     align-items: center;
     white-space: nowrap;
+
+    color: #1f1f1f;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 
   &__cart-icon {
