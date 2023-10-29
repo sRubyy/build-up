@@ -27,8 +27,18 @@
 
     &--img {
       align-self: center;
-      width: 60px;
+      width: 55px;
     }
+  }
+
+  &__font {
+    white-space: nowrap;
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }
 }
 
@@ -47,4 +57,21 @@
 .promote-block {
   margin-bottom: 32px;
   text-align: center;
+
+  &__title {
+    color: #252525;
+    font-family: 'MontserratBold';
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  &__sub-title {
+    color: #252525;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
 }
