@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 public class AuthenticationController {
 
     private final AccountService accountService;
@@ -107,7 +108,7 @@ public class AuthenticationController {
         ));
     }
 
-    @GetMapping("/accounts")
+    @GetMapping("/account/findAll")
     public ResponseEntity<ResponseObject> getAccounts() {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(
                 LocalDateTime.now(),
@@ -117,7 +118,7 @@ public class AuthenticationController {
         ));
     }
 
-    @GetMapping("/account/{username}")
+    @GetMapping("/account/findAccountByUsername/{username}")
     public ResponseEntity<ResponseObject> getAccountByUsername(@PathVariable String username) {
         Optional<Account> account = accountService.getAccountByUsername(username);
         return account.map(value -> ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(
@@ -133,7 +134,7 @@ public class AuthenticationController {
         )));
     }
 
-    @DeleteMapping("/account/{username}")
+    @DeleteMapping("/account/delete/{username}")
     public ResponseEntity<ResponseObject> deleteAccountByUsername(@PathVariable String username) {
         accountService.deleteAccountByUsername(username);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(
