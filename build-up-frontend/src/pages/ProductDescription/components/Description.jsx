@@ -5,10 +5,7 @@ import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
 
 export const Description = () => {
   return (
-    <div
-      className="col"
-      style={{ fontFamily: 'Montserrat', marginLeft: '7%', marginTop: '3%' }}
-    >
+    <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
       <div className="row">
         <div className="col">
           <p className="fs-5 fw-semibold">New Balance 530 White Silver Navy</p>
@@ -209,10 +206,16 @@ export const Description = () => {
         </div>
       </div>
       <div className="row mt-2">
-        <hr class="hr hr-blurry opacity-10" />
+        <hr className="hr hr-blurry opacity-10" />
       </div>
-      <div className="d-flex justify-content-around mt-3">
-        <div className="d-flex justify-content-around">
+      <div
+        className="d-flex justify-content-center mt-3"
+        style={{ gap: '22px' }}
+      >
+        <div
+          className="d-flex justify-content-around"
+          style={{ alignItems: 'center' }}
+        >
           <div>
             <GoShieldCheck
               size={32}
@@ -222,7 +225,10 @@ export const Description = () => {
           </div>
           <div>100% Authentic Guarantee</div>
         </div>
-        <div className="d-flex justify-content-around">
+        <div
+          className="d-flex justify-content-around"
+          style={{ alignItems: 'center' }}
+        >
           <div>
             <GoShieldLock
               size={32}
@@ -234,12 +240,12 @@ export const Description = () => {
         </div>
       </div>
       <div className="d-flex justify-content-between mt-4">
-        <div className="d-flex justify-content-around ">
+        <div className="d-flex justify-content-around" style={{ width: '49%' }}>
           <button
             className="btn text-light"
             type="button"
             style={{
-              width: '300px',
+              width: '100%',
               height: '50px',
               borderRadius: '8px',
               backgroundColor: 'black',
@@ -249,12 +255,12 @@ export const Description = () => {
             Sell
           </button>
         </div>
-        <div className="d-flex justify-content-around">
+        <div className="d-flex justify-content-around" style={{ width: '49%' }}>
           <button
             className=" btn text-light"
             type="button"
             style={{
-              width: '300px',
+              width: '100%',
               height: '50px',
               borderRadius: '8px',
               backgroundColor: '#00B227',
