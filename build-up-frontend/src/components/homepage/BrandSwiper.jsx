@@ -6,10 +6,12 @@ function BrandSwiper() {
   const brands = ['Nike', 'Adidas', 'New Balance', 'Gucci', 'Chanel', 'Celine'];
 
   return (
-    <div className="brand-swiper">
-      {brands.map((brand, index) => (
-        <BrandIcon key={index} name={brand} />
-      ))}
+    <div className="swiper-container">
+      <div className="swiper-container__brand">
+        {brands.map((brand, index) => (
+          <BrandIcon key={index} name={brand} />
+        ))}
+      </div>
     </div>
   );
 }
