@@ -25,12 +25,16 @@
   }
 }
 
-.brand-swiper {
+.swiper-container {
   display: flex;
-  overflow-x: scroll;
-  gap: 108px;
-  margin: 64px 0;
   justify-content: center;
+
+  &__brand {
+    display: flex;
+    overflow-x: auto;
+    gap: 108px;
+    margin: 64px 0;
+  }
 }
 
 .promote-block {
