@@ -4,7 +4,7 @@ import '../../scss/product_description/product_description.scss';
 
 export const ProductDescription = () => {
   return (
-    <div>
+    <div className="product-detail">
       <div className="path">
         <div>Home</div>
         <div style={{ marginLeft: '1%', marginRight: '1%' }}>
@@ -54,7 +54,7 @@ export const ProductDescription = () => {
         <div>New Balance 530 White Silver Navy</div>
       </div>
 
-      <div className="row" style={{ marginLeft: '12%', marginRight: '14%' }}>
+      <div className="row">
         <div className="col mt-5">
           <img
             className="img_shoes"
