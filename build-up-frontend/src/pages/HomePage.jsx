@@ -10,8 +10,10 @@ function HomePage() {
         <BrandSwiper />
         <div className="promote-block">
           <div>
-            <h1>New Arrival</h1>
-            <p>All Shoes already ready to ship! Don’t hesitate to buy it</p>
+            <h1 className="promote-block__title">New Arrival</h1>
+            <p className="promote-block__sub-title">
+              All Shoes already ready to ship! Don’t hesitate to buy it
+            </p>
           </div>
         </div>
       </div>
