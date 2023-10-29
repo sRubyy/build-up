@@ -13,10 +13,18 @@ function Navbar() {
           type="text"
           placeholder="search your style here"
         />
-        <div className="global-nav__search-icon"></div>
+        <img
+          className="global-nav__search-icon"
+          src="image/icon/search.png"
+          alt=""
+        />
       </div>
       <div className="global-nav__right">
-        <div className="global-nav__cart-icon"></div>
+        <img
+          className="global-nav__cart-icon"
+          src="image/icon/cart.png"
+          alt=""
+        />
         <div>Sign up</div>
         <div>Log in</div>
       </div>
