@@ -2,6 +2,7 @@ import React from 'react';
 import { Description } from './components/Description';
 import '../../scss/product_description/product_description.scss';
 import { SizeSelection } from './components/SizeSelection';
+import { AvailableList } from './components/AvailableList';
 
 export const ProductDescription = () => {
   return (
