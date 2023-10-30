@@ -1,6 +1,7 @@
 import React from 'react';
 import { Description } from './components/Description';
 import '../../scss/product_description/product_description.scss';
+import { SizeSelection } from './components/SizeSelection';
 
 export const ProductDescription = () => {
   return (
@@ -55,13 +56,15 @@ export const ProductDescription = () => {
       </div>
 
       <div className="row">
-        <div className="col mt-5">
+        <div className="col mt-5 image-wrapper">
           <img
             className="img_shoes"
             src={require('./../../images/Rectangle 17.png')}
+            alt={''}
           />
         </div>
-        <Description />
+        {/*<Description />*/}
+        <SizeSelection />
       </div>
     </div>
   );

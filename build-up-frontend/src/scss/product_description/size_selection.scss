@@ -1,0 +1,113 @@
+.header {
+  display: flex;
+  margin-bottom: 16px;
+  justify-content: space-between;
+
+  &__text {
+    text-align: center;
+  }
+
+  &__back-button,
+  &__close-button {
+    align-self: center;
+    width: 28px;
+    height: 28px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.select-type {
+  display: flex;
+  margin-bottom: 16px;
+
+  &__button {
+    width: 50%;
+    text-align: center;
+    padding: 16px 0;
+
+    color: #252525;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    border-bottom: 1px solid #e3e3e3;
+
+    &--selected {
+      @extend .select-type__button;
+      border-bottom: 1.5px solid #252525;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__second-desc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+
+  &__size-desc {
+    color: #252525;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &__size-chart {
+    color: #9d9d9d;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: underline;
+  }
+
+  &__size-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 16px;
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  &__box {
+    width: 90px;
+    height: 73px;
+    border-radius: 6px;
+    border: 1px solid #9d9d9d;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+      border: 1.5px solid #252525;
+    }
+
+    &--size {
+      color: #252525;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+
+    &--price {
+      color: #00b227;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      opacity: 0.4;
+    }
+  }
+}
