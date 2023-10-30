@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Description } from './components/Description';
 import '../../scss/product_description/product_description.scss';
-import { SizeSelection } from './components/SizeSelection';
-import { AvailableList } from './components/AvailableList';
+import { Details } from './components/Details';
+// import '../../scss/product_description/product_description.scss'
 
 export const ProductDescription = () => {
+
+    const [component, setComponent] = useState("/des")
+
+    const handleComponent = (value) => {
+        setComponent(value)
+    } 
+
   return (
     <div className="product-detail">
       <div className="path">
@@ -57,15 +64,13 @@ export const ProductDescription = () => {
       </div>
 
       <div className="row">
-        <div className="col mt-5 image-wrapper">
+        <div className="col mt-5">
           <img
             className="img_shoes"
             src={require('./../../images/Rectangle 17.png')}
-            alt={''}
           />
         </div>
-        {/*<Description />*/}
-        <SizeSelection />
+        {component === "/des" ? (<Description handleComponent={handleComponent}/>): (<Details handleComponent={handleComponent}/>)}
       </div>
     </div>
   );

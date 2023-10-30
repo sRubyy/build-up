@@ -3,7 +3,7 @@ import { IoIosFlash } from 'react-icons/io';
 import { BiSolidPlaneAlt } from 'react-icons/bi';
 import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
 
-export const Description = () => {
+export const Description = (props) => {
   return (
     <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
       <div className="row">
@@ -251,6 +251,8 @@ export const Description = () => {
               backgroundColor: 'black',
               fontSize: '18px',
             }}
+
+            onClick={() => props.handleComponent("/det")}
           >
             Sell
           </button>
@@ -266,6 +268,7 @@ export const Description = () => {
               backgroundColor: '#00B227',
               fontSize: '18px',
             }}
+            
           >
             Buy
           </button>
