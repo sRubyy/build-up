@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -17,6 +18,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+    @CrossOrigin
     @GetMapping("/findAll")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = new ArrayList<>();
@@ -31,6 +33,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/findProductsBySellerId/{id}")
     public ResponseEntity<List<Product>> getProductsBySellerId(@PathVariable("id") int sellerId) {
         List<Product> products = new ArrayList<>();
@@ -45,6 +48,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/findProductsByProductId/{id}")
     public ResponseEntity<Product> getProductsByProductId(@PathVariable("id") int productId) {
         Product product = productService.getProductById(productId);
@@ -55,6 +59,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @PostMapping("/addProduct")
     public ResponseEntity<Product> addProduct(@RequestBody Product _product) {
         Product product = productService.addProduct(_product);
@@ -65,6 +70,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @PostMapping("/editProduct/{id}")
     public ResponseEntity<Product> editProduct(@PathVariable("id") int id, @RequestBody Product _product) {
         Product product = productService.editProduct(id, _product);
@@ -75,6 +81,7 @@ public class ProductController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") int _id) {
         Integer id = productService.deleteProduct(_id);
