@@ -1,12 +1,53 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../../scss/my_sell_product/my_sell_product.scss'
 import { async } from 'q';
+import ProductModel from '../../models/ProductModel';
+import { error } from 'console';
 export const MySelllProduct = () => {
 
+    const [products, setProducts] = useState<ProductModel>([]);
+    const [httpError, setHttpError] = useState(null);
+
+
     useEffect(() => {
+
         const fetchSellerProducts = async () => {
             
-        }
+            const url = "http://localhost:8080/api/product/findAll";
+
+            const response = await fetch(url);
+        
+
+            if (!response.ok) {
+                throw new Error('Error found');
+            }
+
+            const responseJson = await response.json();
+
+            const loadedSellerProducts = [];
+
+            for(const key in responseJson){
+                const product = new ProductModel(
+                    responseJson[key].name,
+                    responseJson[key].description,
+                    responseJson[key].price,
+                    responseJson[key].type,
+                    responseJson[key].size,
+                    responseJson[key].brandNew
+                )
+
+                product.setCreatedAt(responseJson[key].createdAt)
+
+                loadedSellerProducts.push(product)
+            }
+
+            setProducts(loadedSellerProducts)
+
+            console.log(loadedSellerProducts)
+        };
+        fetchSellerProducts().catch((error) => {
+            etHttpError(error.message);
+        })
     })
 
     return(
