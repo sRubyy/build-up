@@ -4,11 +4,14 @@ import BrandSwiper from '../components/homepage/BrandSwiper';
 import { ItemShowcaseList } from '../components/homepage/ItemShowcaseList';
 import newArrivalItem from '../data/new-arrival-item.json';
 import justDropItem from '../data/just-drop-item.json';
+import HalloweenBanner from '../images/banner_halloween.png';
 
 function HomePage() {
   return (
     <div>
-      <div className="banner-homepage"></div>
+      <div className={'banner'}>
+        <img className="banner-homepage" src={HalloweenBanner} alt={''}/>
+      </div>
       <div className="body-homepage">
         <BrandSwiper />
         <div className="promote-block">
