@@ -4,10 +4,14 @@
 
 .path {
   color: #9d9d9d;
-  font-size: 20px;
-  font-weight: 400;
   word-wrap: break-word;
   display: flex;
+
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .path_element {
@@ -22,4 +26,10 @@
 
 .row_content {
   display: flex;
+}
+
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
