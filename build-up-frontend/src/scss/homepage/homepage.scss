@@ -1,7 +1,12 @@
-.banner-homepage {
-  background-color: #d9d9d9;
-  height: 644px;
+.banner {
+  display: flex;
   margin-top: 32px;
+  justify-content: center;
+  //background-color: #d9d9d9;
+}
+
+.banner-homepage {
+  height: 644px;
 }
 
 .body-homepage {
