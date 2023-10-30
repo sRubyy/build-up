@@ -6,16 +6,19 @@ export const SizeSelection = () => {
   const [isNewType, setIsNewType] = useState(true);
 
   const toggleSelectMode = () => {
-    if (isNewType) {
-      setIsNewType(false);
-    } else {
-      setIsNewType(true);
-    }
+    setIsNewType(!isNewType);
   };
 
   return (
     <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
-      <div className="row" style={{ borderBottom: '1px solid #E3E3E3' }}>
+      <div
+        className="row"
+        style={{
+          borderBottom: '1px solid #E3E3E3',
+          marginLeft: '0',
+          marginRight: '0',
+        }}
+      >
         <div className="col header">
           <div className={'header__back-button'}>
             <svg
