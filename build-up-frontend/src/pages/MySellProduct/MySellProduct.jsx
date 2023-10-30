@@ -1,5 +1,14 @@
+import { useEffect } from 'react';
 import '../../scss/my_sell_product/my_sell_product.scss'
+import { async } from 'q';
 export const MySelllProduct = () => {
+
+    useEffect(() => {
+        const fetchSellerProducts = async () => {
+            
+        }
+    })
+
     return(
     <div>
         <div className="path">
