@@ -10,9 +10,9 @@ export const ProductDescription = () => {
 
     const handleComponent = (value) => {
         setComponent(value)
-    } 
-
-  return (
+    }
+    
+    return (
     <div className="product-detail">
       <div className="path">
         <div>Home</div>

@@ -107,11 +107,66 @@ export const ProductCheckout = () => {
       </div>
 
       <div className="row">
-        <div className="col mt-5">
-          <img
-            className="img_shoes"
-            src={require('./../../images/Rectangle 17.png')}
-          />
+        <div className="col" style={{marginRight: '8%', marginTop: '7.524%'}}>
+        <div className="row" style={{marginLeft: '3%'}}>
+        <div className="d-flex justify-content-start" >
+          <div style={{marginRight: '5%'}}>
+            <img
+                className="img_shoe"
+                style={{width: '160px',height: '130px'}}
+                src={require('./../../images/Rectangle 17.png')}
+            />
+          </div>
+          <div>
+            <p className="fs-4 fw-semibold">Summary Product detail</p>
+            <p className="fs-5 fw-semibold">New Balance 530 White Silver Navy</p>
+            <p className="fs-5" style={{color: '#9D9D9D'}}>NEW BALANCE | MR530SG</p>
+          </div>
+        </div>
+      </div>
+      <div className="row mt-2 m">
+        <hr class="hr hr-blurry opacity-10" style={{marginLeft: '2%'}}/>
+      </div>
+      <div className="d-flex justify-content-between mt-4">
+            <div className="d-flex justify-content-start ">
+    
+                <div>
+                    <p className='fs-5' style={{color:"#9D9D9D"}}>Ask Price</p>
+                </div>
+            </div>
+            <div className="d-flex justify-content-end">
+                <div>
+                    <p className='fs-5 fw-bold'>5,000.-</p>
+                </div>
+            </div>
+        </div>
+        <div className="d-flex justify-content-between ">
+            <div className="d-flex justify-content-start ">
+                <div>
+                    <p className='fs-5' style={{color:"#9D9D9D"}}>Size</p>
+                </div>
+            </div>
+            <div className="d-flex justify-content-end">
+                <div>
+                    <p className='fs-5 fw-bold'>US 4</p>
+                </div>
+                
+            </div>
+        </div>
+        <div className="d-flex justify-content-between ">
+            <div className="d-flex justify-content-start ">
+            
+                <div>
+                    <p className='fs-5' style={{color:"#9D9D9D"}}>Condition</p>
+                </div>
+            </div>
+            <div className="d-flex justify-content-end">
+                <div>
+                    <p className='fs-5 fw-bold'>Brand new</p>
+                </div>
+                
+            </div>
+        </div>
         </div>
         <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
       <div className="row">

@@ -6,9 +6,12 @@ font-size: 20px;
 font-weight: 400; 
 word-wrap: break-word;
 margin-top: 2.4%;
-margin-left: 7%;
 display: flex;
 }
+
+.product-detail {
+    margin: 36px 10% 0;
+  }
 
 .path_element{
 margin-right: 20px;
@@ -24,3 +27,12 @@ height: 260px;
 display: flex;
 }
 
+.showcaselist{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 3.8%;
+}
+
+.textdes{
+    margin-left: 3%;
+}
