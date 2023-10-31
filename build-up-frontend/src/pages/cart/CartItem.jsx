@@ -1,9 +1,16 @@
 import '../../scss/my_cart/my_cart.scss';
+import { useState } from 'react';
 
 function CartItem() {
+  const [isRemoveMode, setIsRemoveMode] = useState(false);
+
+  const toggleRemoveMode = () => {
+    setIsRemoveMode(!isRemoveMode);
+  };
+
   return (
     <div className={'cart-item'}>
-      <div className={'cart-item__select-button'}></div>
+      {!isRemoveMode && <div className={'cart-item__select-button'}></div>}
       <img
         className={'cart-item__img'}
         src={
@@ -11,7 +18,7 @@ function CartItem() {
         }
       ></img>
       <div className={'cart-item__info'}>
-        <div className={'cart-item__name'}>
+        <div className={'cart-item__name'} onClick={toggleRemoveMode}>
           New Balance 530 White Silver Navy
         </div>
         <div className={'cart-item__sub-name'}>NEW BALANCE | MR530SG</div>
@@ -42,6 +49,7 @@ function CartItem() {
         <div className={'cart-item__price'}>Price: 3,900.-</div>
       </div>
       <div className={'cart-item__amount'}>1 items</div>
+      {isRemoveMode && <div className={'cart-item__delete-button'}>Delete</div>}
     </div>
   );
 }
