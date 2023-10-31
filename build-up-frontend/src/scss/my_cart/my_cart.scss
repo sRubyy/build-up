@@ -1,0 +1,172 @@
+.cart-container {
+  max-width: 686px;
+}
+
+.text-header {
+  margin-top: 80px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #adadad;
+
+  &__my-cart-title {
+    margin-bottom: 8px;
+    color: #000;
+    font-family: 'MontserratBold';
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  &__my-cart-subtitle {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+.cart-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 39px 0;
+}
+
+.cart-item {
+  display: flex;
+
+  &__select-button {
+    min-width: 20px;
+    height: 20px;
+    border: 2px solid #9d9d9d;
+    border-radius: 10%;
+    align-self: center;
+    margin-right: 32px;
+  }
+
+  &__name {
+    color: #252525;
+    font-family: MontserratBold;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__sub-name {
+    color: #9d9d9d;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  &__img {
+    width: 140px;
+    height: 100px;
+    background-color: #d9d9d9;
+    margin-right: 32px;
+  }
+
+  &__info {
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-right: 42px;
+  }
+
+  &__size {
+    display: flex;
+    align-items: baseline;
+
+    color: #252525;
+    font-family: MontserratBold;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  &__dropdown {
+    border: 0;
+    background-color: unset;
+
+    color: #252525;
+    font-family: 'Montserrat Medium';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    &--item {
+      @extend .cart-item__dropdown;
+      margin-bottom: 4px;
+      text-align: right;
+    }
+  }
+
+  &__price {
+    color: #d7455b;
+    font-family: MontserratBold;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  &__amount {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+.checkout {
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__total-button {
+    display: flex;
+    gap: 14px;
+  }
+
+  &__total-text {
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &__price {
+    margin-right: 16px;
+
+    color: #d7455b;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__button {
+    padding: 12px 16px;
+    border-radius: 4px;
+    background: #00b227;
+
+    color: #fff;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
+
+.dropdown-menu {
+  min-width: 100px !important;
+}
