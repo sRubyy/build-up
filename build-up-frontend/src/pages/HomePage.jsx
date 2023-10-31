@@ -10,7 +10,7 @@ function HomePage() {
   return (
     <div>
       <div className={'banner'}>
-        <img className="banner-homepage" src={HalloweenBanner} alt={''}/>
+        <img className="banner-homepage" src={HalloweenBanner} alt={''} />
       </div>
       <div className="body-homepage">
         <BrandSwiper />
