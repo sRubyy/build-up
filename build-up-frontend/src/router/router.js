@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import HomePage from '../pages/HomePage';
 import Register from '../pages/Register';
-import SignIn from '../pages/Sign-In';
+import SignIn from '../pages/SignIn';
 import { ProductDescription } from '../pages/ProductDescription/ProductDescription';
 import ShoppingCart from '../pages/cart/ShoppingCart';
 
@@ -31,6 +31,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/sign-in',
-    element: <SignIn />
+    element: <SignIn />,
   },
 ]);

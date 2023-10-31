@@ -2,44 +2,36 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/register-and-sign-in/register-and-sign-in.scss';
 
-const Register = () => {
+const SignIn = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [c_password, setCPassword] = useState('');
-  const [error, setError] = useState(null);
 
-  const handleRegister = async (e) => {
+  const SignIn = async (e) => {
     e.preventDefault();
     const account = { username, password };
-    if (password !== c_password) {
-      console.log('Confirm password much match the password.');
-      return;
-    }
     try {
-      const response = await fetch('http://localhost:8080/api/register', {
+      const response = await fetch('http://localhost:8080/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(account),
       });
-      if (response.status === 201) {
-        navigate('/sign-in');
-        console.log('Register successful!');
+      if (response.status === 200) {
+        navigate('/');
+        console.log('Sign-in successful');
       } else {
-        // Handle registration errors here
-        const data = await response.json();
-        setError(data.message);
+        // Handle sign-in errors here
+        console.error('Sign-in failed');
       }
     } catch (error) {
-      console.error('Error', error);
-      setError('An error occurred during registration.');
+      console.error('Error:', error);
     }
   };
 
   return (
     <div className={'auth-container'}>
       <div className="register">
-        <h2 className="form-title">Register</h2>
+        <h2 className="form-title">Sign In</h2>
         <form method="POST" className="register-form">
           <div className="form-group">
             <label>Username:</label>
@@ -61,18 +53,8 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="form-group">
-            <label>Confirm Password:</label>
-            <input
-              type="password"
-              name="c_password"
-              placeholder="confirm your password"
-              value={c_password}
-              onChange={(e) => setCPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" onClick={handleRegister}>
-            Register
+          <button type="submit" onClick={SignIn}>
+            Sign In
           </button>
         </form>
       </div>
@@ -80,4 +62,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignIn;
