@@ -46,7 +46,7 @@ export const MySelllProduct = () => {
             console.log(loadedSellerProducts)
         };
         fetchSellerProducts().catch((error) => {
-            etHttpError(error.message);
+            setHttpError(error.message);
         })
     })
 
