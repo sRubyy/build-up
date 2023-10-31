@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import '../../scss/my_sell_product/my_sell_product.scss'
 import { async } from 'q';
 import ProductModel from '../../models/ProductModel';
-import { error } from 'console';
+import ItemShowcase from './components/ItemShowcase';
 export const MySelllProduct = () => {
 
-    const [products, setProducts] = useState<ProductModel>([]);
+    const [products, setProducts] = useState([]);
     const [httpError, setHttpError] = useState(null);
 
 
@@ -34,9 +34,9 @@ export const MySelllProduct = () => {
                     responseJson[key].type,
                     responseJson[key].size,
                     responseJson[key].brandNew
-                )
+                );
 
-                product.setCreatedAt(responseJson[key].createdAt)
+                product.setCreatedAt(responseJson[key].createdAt);
 
                 loadedSellerProducts.push(product)
             }
@@ -48,10 +48,18 @@ export const MySelllProduct = () => {
         fetchSellerProducts().catch((error) => {
             setHttpError(error.message);
         })
-    })
+    }, []);
+
+    if(httpError){
+        return(
+            <div className="container m-5">
+                <p>{httpError}</p>
+            </div>
+        )
+    }
 
     return(
-    <div>
+    <div className='product-detail'>
         <div className="path">
             <div style={{height: '30px'}}>Home</div>
             <div style={{ marginLeft: '1%', marginRight: '1%' , height: '30px'}}>
@@ -71,7 +79,17 @@ export const MySelllProduct = () => {
             <div style={{height: '30px'}}>My Sell Products</div>
             
         </div>
-        <div style={{marginLeft: '6%'}}>
+        <div className="showcaselist">
+            {products.map((item) => (
+                <div>
+                    <ItemShowcase
+                        name={item.name}
+                        price={item.price}
+                    />
+                </div>
+            ))}
+        </div>
+        {/* <div style={{marginLeft: '6%'}}>
             <div className="row" style={{width:'360px'}}>
                 <div className="col mt-5">
                     <img
@@ -94,7 +112,7 @@ export const MySelllProduct = () => {
             </div>
             </div>
             
-        </div>
+        </div> */}
     </div>
     );
 }
