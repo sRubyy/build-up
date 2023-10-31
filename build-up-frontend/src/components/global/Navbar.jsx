@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../scss/global/navbar.scss';
-
+import { Link } from 'react-router-dom';
 function Navbar() {
   return (
     <div className="global-nav">
-      <div className="global-nav__left global-nav__left--branding-text">
-        Buildup
+      <div className="global-nav__left">
+        <Link className={'global-nav__left--branding-text'} to={'/'}>Buildup</Link>
       </div>
       <div className="global-nav__center">
         <input
