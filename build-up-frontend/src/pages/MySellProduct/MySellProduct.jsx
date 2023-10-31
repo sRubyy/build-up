@@ -2,59 +2,10 @@ import { useEffect, useState } from 'react';
 import '../../scss/my_sell_product/my_sell_product.scss'
 import { async } from 'q';
 import ProductModel from '../../models/ProductModel';
-<<<<<<< HEAD
-// import { error } from 'console';
+import ItemShowcase from './components/ItemShowcase';
 export const MySelllProduct = () => {
 
-    // const [products, setProducts] = useState<ProductModel>([]);
-    // const [httpError, setHttpError] = useState(null);
-    //
-    //
-    // useEffect(() => {
-    //
-    //     const fetchSellerProducts = async () => {
-    //
-    //         const url = "http://localhost:8080/api/product/findAll";
-    //
-    //         const response = await fetch(url);
-    //
-    //
-    //         if (!response.ok) {
-    //             throw new Error('Error found');
-    //         }
-    //
-    //         const responseJson = await response.json();
-    //
-    //         const loadedSellerProducts = [];
-    //
-    //         for(const key in responseJson){
-    //             const product = new ProductModel(
-    //                 responseJson[key].name,
-    //                 responseJson[key].description,
-    //                 responseJson[key].price,
-    //                 responseJson[key].type,
-    //                 responseJson[key].size,
-    //                 responseJson[key].brandNew
-    //             )
-    //
-    //             product.setCreatedAt(responseJson[key].createdAt)
-    //
-    //             loadedSellerProducts.push(product)
-    //         }
-    //
-    //         setProducts(loadedSellerProducts)
-    //
-    //         console.log(loadedSellerProducts)
-    //     };
-    //     fetchSellerProducts().catch((error) => {
-    //         setHttpError(error.message);
-    //     })
-    // })
-=======
-import { error } from 'console';
-export const MySelllProduct = () => {
-
-    const [products, setProducts] = useState<ProductModel>([]);
+    const [products, setProducts] = useState([]);
     const [httpError, setHttpError] = useState(null);
 
 
@@ -83,9 +34,9 @@ export const MySelllProduct = () => {
                     responseJson[key].type,
                     responseJson[key].size,
                     responseJson[key].brandNew
-                )
+                );
 
-                product.setCreatedAt(responseJson[key].createdAt)
+                product.setCreatedAt(responseJson[key].createdAt);
 
                 loadedSellerProducts.push(product)
             }
@@ -97,11 +48,18 @@ export const MySelllProduct = () => {
         fetchSellerProducts().catch((error) => {
             setHttpError(error.message);
         })
-    })
->>>>>>> 4f8ce5fad1ecf0e5a5971359bcc3323cc8d19035
+    }, []);
+
+    if(httpError){
+        return(
+            <div className="container m-5">
+                <p>{httpError}</p>
+            </div>
+        )
+    }
 
     return(
-    <div>
+    <div className='product-detail'>
         <div className="path">
             <div style={{height: '30px'}}>Home</div>
             <div style={{ marginLeft: '1%', marginRight: '1%' , height: '30px'}}>
@@ -121,7 +79,17 @@ export const MySelllProduct = () => {
             <div style={{height: '30px'}}>My Sell Products</div>
             
         </div>
-        <div style={{marginLeft: '6%'}}>
+        <div className="showcaselist">
+            {products.map((item) => (
+                <div>
+                    <ItemShowcase
+                        name={item.name}
+                        price={item.price}
+                    />
+                </div>
+            ))}
+        </div>
+        {/* <div style={{marginLeft: '6%'}}>
             <div className="row" style={{width:'360px'}}>
                 <div className="col mt-5">
                     <img
@@ -144,7 +112,7 @@ export const MySelllProduct = () => {
             </div>
             </div>
             
-        </div>
+        </div> */}
     </div>
     );
 }

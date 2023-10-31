@@ -11,7 +11,7 @@ class ProductModel {
     }
 
     setCreatedAt(date) {
-        this.createdAt = date.toISOString();
+        this.createdAt = date
     }
 }
 
