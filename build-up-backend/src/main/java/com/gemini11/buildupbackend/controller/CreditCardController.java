@@ -1,6 +1,7 @@
 package com.gemini11.buildupbackend.controller;
 
 import com.gemini11.buildupbackend.model.CreditCard;
+import com.gemini11.buildupbackend.model.Product;
 import com.gemini11.buildupbackend.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,4 +61,25 @@ public class CreditCardController {
         CreditCard creditCard = creditCardService.addCreditCard(_creditcard);
         return new ResponseEntity<>(creditCard, HttpStatus.OK);
     }
+
+    @PostMapping("/editCreditCard/{id}")
+    public ResponseEntity<CreditCard> editCreditCard(@PathVariable("id") int id, @RequestBody CreditCard _creditcard) {
+        CreditCard creditCard = creditCardService.editCreditCard(id, _creditcard);
+        if (creditCard == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(creditCard, HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteCreditCard(@PathVariable("id") int _id) {
+        Integer id = creditCardService.deleteCreditCard(_id);
+        if (id == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
 }
