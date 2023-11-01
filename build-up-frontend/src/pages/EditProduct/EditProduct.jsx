@@ -4,51 +4,46 @@ import '../../scss/edit_product/edit_product.scss';
 import { useLocation } from 'react-router-dom';
 import { EditInfo } from './components/EditInfo';
 
-
 export const EditProduct = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [component, setComponent] = useState('/rem');
+  const [data, setData] = useState(null);
 
-    const navigate = useNavigate();
-    const location  = useLocation();
-    const [component, setComponent] = useState("/rem")
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-        if (location.state && location.state.data) {
-            setData(location.state.data);
-        } else {
-            console.error("Data is not available in location state.");
-        }
-    }, [location.state]);
-
-    const handleComponent = (value) => {
-        setComponent(value)
+  useEffect(() => {
+    if (location.state && location.state.data) {
+      setData(location.state.data);
+    } else {
+      console.error('Data is not available in location state.');
     }
+  }, [location.state]);
 
-    const handleRemove = () => {
+  const handleComponent = (value) => {
+    setComponent(value);
+  };
 
-        navigate('/mySellProduct');
+  const handleRemove = () => {
+    navigate('/mySellProduct');
+  };
+
+  const handleEdit = () => {
+    setComponent('/edit');
+  };
+
+  async function deleteProduct() {
+    const url = `http://localhost:8080/api/product/delete/${data.item.id}`;
+    const request = {
+      method: 'DELETE',
+    };
+
+    const deleteProductById = await fetch(url, request);
+    if (!deleteProductById) {
+      throw new Error('Error found');
     }
+    handleRemove();
+  }
 
-    const handleEdit = () => {
-
-        setComponent("/edit")
-    }
-
-
-    async function deleteProduct(){
-        const url = `http://localhost:8080/api/product/delete/${data.item.id}`;
-        const request = {
-            method: "DELETE"
-        }
-
-        const deleteProductById = await fetch(url, request);
-        if (!deleteProductById) {
-            throw new Error('Error found');
-        }
-        handleRemove();
-    }
-    
-    return (
+  return (
     <div className="product-detail">
       <div className="path">
         <div>Home</div>
@@ -106,110 +101,131 @@ export const EditProduct = () => {
             src={require('./../../images/Rectangle 17.png')}
           />
         </div>
-        {component === "/rem" ? (<div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
-      <div className="row">
-        <div className="d-flex justify-content-start">
-          <p className="fs-4 fw-semibold">Information</p>
-        </div>
-      </div>
-      <div className="row mt-2">
-        <hr class="hr hr-blurry opacity-10" />
-      </div>
-        <div className="d-flex justify-content-between mt-4 mb-1">
-            <div className="d-flex justify-content-start ">
-                <div>
-                    <p className='fs-5 fw-bold' >{((data?.item && data.item.name))}</p>
-                </div>
+        {component === '/rem' ? (
+          <div
+            className="col"
+            style={{ fontFamily: 'Montserrat', marginTop: '3%' }}
+          >
+            <div className="row">
+              <div className="d-flex justify-content-start">
+                <p className="fs-4 fw-semibold">Information</p>
+              </div>
             </div>
-            
-        </div>
-        <div className="d-flex justify-content-between mb-4">
-            <div className="d-flex justify-content-start ">
-                
-                <div>
-                    <p className='fs-5' style={{color:"#9D9D9D"}}>{((data?.item && data.item.description))}</p>
-                </div>
+            <div className="row mt-2">
+              <hr class="hr hr-blurry opacity-10" />
             </div>
-            
-        </div>
-        <div className="d-flex justify-content-between mt-4">
-            <div className="d-flex justify-content-start ">
-    
+            <div className="d-flex justify-content-between mt-4 mb-1">
+              <div className="d-flex justify-content-start ">
                 <div>
-                    <p className='fs-5' style={{color:"#9D9D9D"}}>Ask Price</p>
+                  <p className="fs-5 fw-bold">{data?.item && data.item.name}</p>
                 </div>
+              </div>
             </div>
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-between mb-4">
+              <div className="d-flex justify-content-start ">
                 <div>
-                    <p className='fs-5 fw-bold'>{((data?.item && data.item.price))}.-</p>
+                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                    {data?.item && data.item.description}
+                  </p>
                 </div>
+              </div>
             </div>
-        </div>
-        <div className="d-flex justify-content-between ">
-            <div className="d-flex justify-content-start ">
+            <div className="d-flex justify-content-between mt-4">
+              <div className="d-flex justify-content-start ">
                 <div>
-                    <p className='fs-5' style={{color:"#9D9D9D"}}>Size</p>
+                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                    Ask Price
+                  </p>
                 </div>
-            </div>
-            <div className="d-flex justify-content-end">
+              </div>
+              <div className="d-flex justify-content-end">
                 <div>
-                    <p className='fs-5 fw-bold'>US {((data?.item && data.item.size))}</p>
+                  <p className="fs-5 fw-bold">
+                    {data?.item && data.item.price}.-
+                  </p>
                 </div>
-                
+              </div>
             </div>
-        </div>
-        <div className="d-flex justify-content-between" style={{marginBottom: '25%'}}>
-            <div className="d-flex justify-content-start ">
-            
+            <div className="d-flex justify-content-between ">
+              <div className="d-flex justify-content-start ">
                 <div>
-                    <p className='fs-5' style={{color:"#9D9D9D"}}>Condition</p>
+                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                    Size
+                  </p>
                 </div>
-            </div>
-            <div className="d-flex justify-content-end">
+              </div>
+              <div className="d-flex justify-content-end">
                 <div>
-                    <p className='fs-5 fw-bold'>{((data?.item && data.item.condition)) ? "Brand new" : "Used"}</p>
+                  <p className="fs-5 fw-bold">
+                    US {data?.item && data.item.size}
+                  </p>
                 </div>
+              </div>
             </div>
-        </div>
-      
-      
-      <div className="d-flex justify-content-between">
-        <div className="d-flex justify-content-around" style={{ width: '49%' }}>
-          <button
-            className="btn text-white"
-            type="button"
-            style={{
-              width: '100%',
-              height: '50px',
-              borderRadius: '8px',
-              backgroundColor: '#9D9D9D',
-              fontSize: '18px',
-            }}
+            <div
+              className="d-flex justify-content-between"
+              style={{ marginBottom: '25%' }}
+            >
+              <div className="d-flex justify-content-start ">
+                <div>
+                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                    Condition
+                  </p>
+                </div>
+              </div>
+              <div className="d-flex justify-content-end">
+                <div>
+                  <p className="fs-5 fw-bold">
+                    {data?.item && data.item.condition ? 'Brand new' : 'Used'}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            onClick={handleEdit}
-          >
-            Edit
-          </button>
-        </div>
-        <div className="d-flex justify-content-around" style={{ width: '49%' }}>
-          <button
-            className=" btn text-light"
-            type="button"
-            style={{
-              width: '100%',
-              height: '50px',
-              borderRadius: '8px',
-              backgroundColor: '#D7455B',
-              fontSize: '18px',
-            }}
-            
-            onClick={deleteProduct}
-          >
-            Remove
-          </button>
-        </div>
-      </div>
-    </div>): (<EditInfo handleComponent={handleComponent} data={data}/>)}
+            <div className="d-flex justify-content-between">
+              <div
+                className="d-flex justify-content-around"
+                style={{ width: '49%' }}
+              >
+                <button
+                  className="btn text-white"
+                  type="button"
+                  style={{
+                    width: '100%',
+                    height: '50px',
+                    borderRadius: '8px',
+                    backgroundColor: '#9D9D9D',
+                    fontSize: '18px',
+                  }}
+                  onClick={handleEdit}
+                >
+                  Edit
+                </button>
+              </div>
+              <div
+                className="d-flex justify-content-around"
+                style={{ width: '49%' }}
+              >
+                <button
+                  className=" btn text-light"
+                  type="button"
+                  style={{
+                    width: '100%',
+                    height: '50px',
+                    borderRadius: '8px',
+                    backgroundColor: '#D7455B',
+                    fontSize: '18px',
+                  }}
+                  onClick={deleteProduct}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <EditInfo handleComponent={handleComponent} data={data} />
+        )}
       </div>
     </div>
   );

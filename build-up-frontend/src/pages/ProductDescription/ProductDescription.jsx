@@ -5,17 +5,15 @@ import { Details } from './components/Details';
 // import '../../scss/product_description/product_description.scss'
 
 export const ProductDescription = () => {
+  const [component, setComponent] = useState('/des');
+  const name = 'New Balance 530 White Silver Navy';
+  const description = 'NEW BALANCE | MR530SG';
 
-    const [component, setComponent] = useState("/des")
-    const name = "New Balance 530 White Silver Navy";
-    const description = "NEW BALANCE | MR530SG";
-    
+  const handleComponent = (value) => {
+    setComponent(value);
+  };
 
-    const handleComponent = (value) => {
-        setComponent(value)
-    }
-    
-    return (
+  return (
     <div className="product-detail">
       <div className="path">
         <div>Home</div>
@@ -73,7 +71,19 @@ export const ProductDescription = () => {
             src={require('./../../images/Rectangle 17.png')}
           />
         </div>
-        {component === "/des" ? (<Description handleComponent={handleComponent} name={name} description={description} />): (<Details handleComponent={handleComponent} name={name} description={description} />)}
+        {component === '/des' ? (
+          <Description
+            handleComponent={handleComponent}
+            name={name}
+            description={description}
+          />
+        ) : (
+          <Details
+            handleComponent={handleComponent}
+            name={name}
+            description={description}
+          />
+        )}
       </div>
     </div>
   );
