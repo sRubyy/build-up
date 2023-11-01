@@ -85,6 +85,11 @@
 }
 
 .item-slot {
+  &:hover {
+    cursor: pointer;
+    background-color: #f6f6f6;
+  }
+
   &__pic {
     width: 256px;
     height: 256px;

@@ -2,12 +2,24 @@ import React from 'react';
 import { IoIosFlash } from 'react-icons/io';
 import { BiSolidPlaneAlt } from 'react-icons/bi';
 import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
+import { useNavigate } from 'react-router-dom';
 
 export const Description = (props) => {
   const name = 'New Balance 530 White Silver Navy';
   const description = 'NEW BALANCE | MR530SG';
+
+  const navigate = useNavigate();
+
+  const navigateToBuyerPath = () => {
+    props.handleComponent('/bridge');
+    navigate('/productDescription/New Balance 530 White Silver Navy');
+  };
+
   return (
-    <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
+    <div
+      className="col"
+      style={{ fontFamily: 'Montserrat', marginTop: '3rem' }}
+    >
       <div className="row">
         <div className="col">
           <p className="fs-5 fw-semibold">{props.name}</p>
@@ -267,6 +279,7 @@ export const Description = (props) => {
               backgroundColor: '#00B227',
               fontSize: '18px',
             }}
+            onClick={navigateToBuyerPath}
           >
             Buy
           </button>

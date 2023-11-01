@@ -22,13 +22,19 @@ function Navbar() {
         />
       </div>
       <div className="global-nav__right">
-        <img
-          className="global-nav__cart-icon"
-          src="image/icon/cart.png"
-          alt=""
-        />
-        <div>Sign up</div>
-        <div>Log in</div>
+        <Link to={'/my-cart'}>
+          <img
+            className="global-nav__cart-icon"
+            src="image/icon/cart.png"
+            alt=""
+          />
+        </Link>
+        <Link to={'/register'} className={'global-nav__link'}>
+          <div>Sign up</div>
+        </Link>
+        <Link to={'/sign-in'} className={'global-nav__link'}>
+          <div>Log in</div>
+        </Link>
       </div>
     </div>
   );
