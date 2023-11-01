@@ -5,7 +5,9 @@ function Navbar() {
   return (
     <div className="global-nav">
       <div className="global-nav__left">
-        <Link className={'global-nav__left--branding-text'} to={'/'}>Buildup</Link>
+        <Link className={'global-nav__left--branding-text'} to={'/'}>
+          Buildup
+        </Link>
       </div>
       <div className="global-nav__center">
         <input
