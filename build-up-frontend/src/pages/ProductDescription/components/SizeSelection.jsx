@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import '../../../scss/product_description/size_selection.scss';
 import { useState } from 'react';
 import { SizePool } from './SizePool';
+import { ComponentContext } from '../ProductDescription';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const SizeSelection = () => {
   const [isNewType, setIsNewType] = useState(true);
 
+  const handleContext = useContext(ComponentContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname);
   const toggleSelectMode = () => {
     setIsNewType(!isNewType);
   };
 
+  const navigateBack = () => {
+    handleContext('/des');
+    navigate('/productDescription');
+  };
+
   return (
-    <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
+    <div
+      className="col"
+      style={{ fontFamily: 'Montserrat', marginTop: '3rem' }}
+    >
       <div
         className="row"
         style={{
@@ -21,7 +35,7 @@ export const SizeSelection = () => {
         }}
       >
         <div className="col header">
-          <div className={'header__back-button'}>
+          <div className={'header__back-button'} onClick={navigateBack}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="11"

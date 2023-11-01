@@ -9,6 +9,7 @@ import { ProductCheckout } from '../pages/ProductCheckout/ProductCheckout';
 import { MySelllProduct } from '../pages/MySellProduct/MySellProduct';
 import { EditProduct } from '../pages/EditProduct/EditProduct';
 import BuyerCheckout from '../pages/BuyerCheckout';
+import { SizeSelection } from '../pages/ProductDescription/components/SizeSelection';
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,12 @@ export const router = createBrowserRouter([
       {
         path: '/productDescription',
         element: <ProductDescription />,
+        children: [
+          {
+            path: '/productDescription/:name',
+            element: <SizeSelection />,
+          },
+        ],
       },
       {
         path: 'my-cart',
