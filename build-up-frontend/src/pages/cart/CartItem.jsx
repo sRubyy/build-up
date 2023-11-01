@@ -40,7 +40,10 @@ function CartItem({ isDeletable: isDeletable = true }) {
             >
               4 US
             </button>
-            <ul className="dropdown-menu" style={{ width: '0px' }}>
+            <ul
+              className="size-dropdown-menu dropdown-menu"
+              style={{ width: '0px' }}
+            >
               <li>
                 <div className="cart-item__dropdown--item">5 US</div>
               </li>
