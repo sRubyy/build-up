@@ -8,6 +8,7 @@ import ShoppingCart from '../pages/cart/ShoppingCart';
 import { ProductCheckout } from '../pages/ProductCheckout/ProductCheckout';
 import { MySelllProduct } from '../pages/MySellProduct/MySellProduct';
 import { EditProduct } from '../pages/EditProduct/EditProduct';
+import BuyerCheckout from '../pages/BuyerCheckout';
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,11 @@ export const router = createBrowserRouter([
       {
         path: '/editProduct',
         element: <EditProduct />,
-      }
+      },
+      {
+        path: 'checkout',
+        element: <BuyerCheckout />,
+      },
     ],
   },
   {

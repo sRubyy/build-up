@@ -31,6 +31,8 @@
   flex-direction: column;
   gap: 32px;
   margin: 39px 0;
+  max-height: 480px;
+  overflow: auto;
 }
 
 .cart-item {
