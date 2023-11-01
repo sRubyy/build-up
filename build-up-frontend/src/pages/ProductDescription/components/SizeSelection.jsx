@@ -2,7 +2,6 @@ import React from 'react';
 import '../../../scss/product_description/size_selection.scss';
 import { useState } from 'react';
 import { SizePool } from './SizePool';
-import { AvailableList } from './AvailableList';
 
 export const SizeSelection = () => {
   const [isNewType, setIsNewType] = useState(true);
@@ -75,8 +74,7 @@ export const SizeSelection = () => {
           USED
         </div>
       </div>
-      {/*<SizePool />*/}
-      <AvailableList />
+      <SizePool />
     </div>
   );
 };
