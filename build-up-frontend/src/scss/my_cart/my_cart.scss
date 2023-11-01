@@ -109,7 +109,7 @@
     &--item {
       @extend .cart-item__dropdown;
       margin-bottom: 4px;
-      text-align: right;
+      text-align: left;
     }
   }
 
@@ -188,6 +188,6 @@
   }
 }
 
-.dropdown-menu {
+.size-dropdown-menu {
   min-width: 100px !important;
 }

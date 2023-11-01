@@ -3,6 +3,7 @@ import '../scss/checkout/checkout.scss';
 import React from 'react';
 import CartItem from './cart/CartItem';
 import CheckoutSummary from './checkout/CheckoutSummary';
+import CheckoutForm from './checkout/CheckoutForm';
 
 function BuyerCheckout() {
   return (
@@ -40,7 +41,8 @@ function BuyerCheckout() {
             </div>
           </div>
         </div>
-        <CheckoutSummary />
+        {/*<CheckoutSummary />*/}
+        <CheckoutForm />
       </div>
     </div>
   );
