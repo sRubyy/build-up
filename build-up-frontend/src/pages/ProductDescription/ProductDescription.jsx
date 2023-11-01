@@ -7,6 +7,9 @@ import { Details } from './components/Details';
 export const ProductDescription = () => {
 
     const [component, setComponent] = useState("/des")
+    const name = "New Balance 530 White Silver Navy";
+    const description = "NEW BALANCE | MR530SG";
+    
 
     const handleComponent = (value) => {
         setComponent(value)
@@ -70,7 +73,7 @@ export const ProductDescription = () => {
             src={require('./../../images/Rectangle 17.png')}
           />
         </div>
-        {component === "/des" ? (<Description handleComponent={handleComponent}/>): (<Details handleComponent={handleComponent}/>)}
+        {component === "/des" ? (<Description handleComponent={handleComponent} name={name} description={description} />): (<Details handleComponent={handleComponent} name={name} description={description} />)}
       </div>
     </div>
   );
