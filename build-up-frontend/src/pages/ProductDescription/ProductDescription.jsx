@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { Description } from './components/Description';
 import '../../scss/product_description/product_description.scss';
 import { Details } from './components/Details';
-// import '../../scss/product_description/product_description.scss'
+import { Outlet } from 'react-router-dom';
+
+export const ComponentContext = createContext(null);
 
 export const ProductDescription = () => {
   const [component, setComponent] = useState('/des');
@@ -71,18 +73,24 @@ export const ProductDescription = () => {
             src={require('./../../images/Rectangle 17.png')}
           />
         </div>
-        {component === '/des' ? (
+        {component === '/des' && (
           <Description
             handleComponent={handleComponent}
             name={name}
             description={description}
           />
-        ) : (
+        )}
+        {component === '/det' && (
           <Details
             handleComponent={handleComponent}
             name={name}
             description={description}
           />
+        )}
+        {component === '/bridge' && (
+          <ComponentContext.Provider value={handleComponent}>
+            <Outlet />
+          </ComponentContext.Provider>
         )}
       </div>
     </div>
