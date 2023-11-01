@@ -154,11 +154,11 @@ export const ProductCheckout = () => {
                 src={require('./../../images/Rectangle 17.png')}
             />
           </div>
-          <div>
+        <div>
             <p className="fs-4 fw-semibold">Summary Product detail</p>
-            <p className="fs-5 fw-semibold">New Balance 530 White Silver Navy</p>
-            <p className="fs-5" style={{color: '#9D9D9D'}}>NEW BALANCE | MR530SG</p>
-          </div>
+            <p className="fs-5 fw-semibold">{((data && data.name) || (data?.item && data.item.name))}</p>
+            <p className="fs-5" style={{color: '#9D9D9D'}}>{((data && data.description) || (data?.item && data.item.description))}</p>
+        </div>
         </div>
       </div>
       <div className="row mt-2 m">
