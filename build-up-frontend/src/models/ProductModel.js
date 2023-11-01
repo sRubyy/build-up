@@ -13,6 +13,10 @@ class ProductModel {
     setCreatedAt(date) {
         this.createdAt = date
     }
+
+    setId(Id){
+        this.id = Id
+    }
 }
 
 export default ProductModel;

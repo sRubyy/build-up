@@ -38,6 +38,8 @@ export const MySelllProduct = () => {
 
                 product.setCreatedAt(responseJson[key].createdAt);
 
+                product.setId(responseJson[key].productId);
+
                 loadedSellerProducts.push(product)
             }
 
@@ -83,8 +85,7 @@ export const MySelllProduct = () => {
             {products.map((item) => (
                 <div>
                     <ItemShowcase
-                        name={item.name}
-                        price={item.price}
+                        item={item}
                     />
                 </div>
             ))}

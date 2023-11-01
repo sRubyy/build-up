@@ -1,21 +1,20 @@
 import React, { useState, useHistory } from 'react';
-import { IoIosFlash } from 'react-icons/io';
-import { BiSolidPlaneAlt } from 'react-icons/bi';
 import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
-import { ReturnSize } from './ReturnSize';
-import { ReturnCondition } from './ReturnCondition';
 import { HiOutlinePencil } from 'react-icons/hi'
 import { useNavigate } from 'react-router';
+import { ReturnSize } from '../../ProductDescription/components/ReturnSize'
+import { ReturnCondition } from '../../ProductDescription/components/ReturnCondition'
+import ProductModel from '../../../models/ProductModel';
 
-export const Details = (props) => {
+export const EditInfo = (props) => {
 
     // const history = useHistory();
     const navigate = useNavigate();
-    const [size, setSize] = useState("Select size​ (US)");
-    const [condition, setCondition] = useState("Select condition");
+    const [size, setSize] = useState(props.data.item.size);
+    const [condition, setCondition] = useState(props.data.item.brandNew ? "NEW": "USED");
     const [ conditionBoolean, setConditionBoolean] = useState(true);
     const [component, setComponent] = useState("/des");
-    const [ price, setPrice ] = useState('');
+    const [ price, setPrice ] = useState(props.data.item.price);
 
     const handleSize = (value) => {
         setSize(value)
@@ -30,22 +29,23 @@ export const Details = (props) => {
 
 
     const handleClick = () => {
+        props.data.item.price = price
         const data = {
-            size: size,
-            condition: condition,
+            item: props.data.item,
             conditionBoolean: conditionBoolean,
-            price: price,
-            method: "post"
+            method: "put"
         };
 
         navigate('/productCheckout', { state: { data } });
     }
 
+    
+
   return (
     <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
       <div className="row">
         <div className="col">
-          <p className="fs-4 fw-semibold d-flex justify-content-center">Listing Information</p>
+          <p className="fs-4 fw-semibold d-flex justify-content-center">Editing Information</p>
         </div>
       </div>
       <div className="row mt-2">
@@ -168,7 +168,7 @@ export const Details = (props) => {
               fontSize: '18px',
             }}
 
-            onClick={() => props.handleComponent("/des")}
+            onClick={() => props.handleComponent("/rem")}
           >
             Back
           </button>
