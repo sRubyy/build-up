@@ -1,7 +1,7 @@
 import '../../scss/my_cart/my_cart.scss';
 import { useState } from 'react';
 
-function CartItem() {
+function CartItem({ isDeletable: isDeletable = true }) {
   const [isRemoveMode, setIsRemoveMode] = useState(false);
 
   const toggleRemoveMode = () => {
@@ -10,7 +10,9 @@ function CartItem() {
 
   return (
     <div className={'cart-item'}>
-      {!isRemoveMode && <div className={'cart-item__select-button'}></div>}
+      {!isRemoveMode && isDeletable && (
+        <div className={'cart-item__select-button'}></div>
+      )}
       <img
         className={'cart-item__img'}
         src={
@@ -18,7 +20,11 @@ function CartItem() {
         }
       ></img>
       <div className={'cart-item__info'}>
-        <div className={'cart-item__name'} onClick={toggleRemoveMode}>
+        <div
+          className={'cart-item__name'}
+          onClick={toggleRemoveMode}
+          style={!isDeletable ? { cursor: 'initial' } : { cursor: 'pointer' }}
+        >
           New Balance 530 White Silver Navy
         </div>
         <div className={'cart-item__sub-name'}>NEW BALANCE | MR530SG</div>
@@ -30,6 +36,7 @@ function CartItem() {
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              disabled={!isDeletable}
             >
               4 US
             </button>
@@ -49,7 +56,9 @@ function CartItem() {
         <div className={'cart-item__price'}>Price: 3,900.-</div>
       </div>
       <div className={'cart-item__amount'}>1 items</div>
-      {isRemoveMode && <div className={'cart-item__delete-button'}>Delete</div>}
+      {isRemoveMode && isDeletable && (
+        <div className={'cart-item__delete-button'}>Delete</div>
+      )}
     </div>
   );
 }
