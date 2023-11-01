@@ -3,7 +3,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { GoCreditCard } from 'react-icons/go';
 import { FiMapPin } from 'react-icons/fi'
 import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import ProductModel from '../../models/ProductModel';
 
 export const ProductCheckout = () => {

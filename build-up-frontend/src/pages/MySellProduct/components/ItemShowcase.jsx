@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../scss/homepage/homepage.scss';
 import '../../../scss/my_sell_product/my_sell_product.scss';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 function ItemShowcase({ item }) {
     const navigate = useNavigate()
