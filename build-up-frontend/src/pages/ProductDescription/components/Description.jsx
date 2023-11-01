@@ -4,17 +4,20 @@ import { BiSolidPlaneAlt } from 'react-icons/bi';
 import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
 
 export const Description = (props) => {
+
+    const name = "New Balance 530 White Silver Navy";
+    const description = "NEW BALANCE | MR530SG";
   return (
     <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
       <div className="row">
         <div className="col">
-          <p className="fs-5 fw-semibold">New Balance 530 White Silver Navy</p>
+          <p className="fs-5 fw-semibold">{props.name}</p>
         </div>
       </div>
       <div className="row">
         <div className="col">
           <p className="fs-6 fw-lighter text-secondary">
-            NEW BALANCE | MR530SG
+            {props.description}
           </p>
         </div>
       </div>

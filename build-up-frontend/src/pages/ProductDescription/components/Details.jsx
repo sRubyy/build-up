@@ -35,7 +35,9 @@ export const Details = (props) => {
             condition: condition,
             conditionBoolean: conditionBoolean,
             price: price,
-            method: "post"
+            method: "post",
+            name: props.name,
+            description: props.description
         };
 
         navigate('/productCheckout', { state: { data } });
