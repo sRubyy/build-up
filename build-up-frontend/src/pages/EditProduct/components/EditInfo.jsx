@@ -1,7 +1,7 @@
 import React, { useState, useHistory } from 'react';
 import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
 import { HiOutlinePencil } from 'react-icons/hi'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { ReturnSize } from '../../ProductDescription/components/ReturnSize'
 import { ReturnCondition } from '../../ProductDescription/components/ReturnCondition'
 import ProductModel from '../../../models/ProductModel';

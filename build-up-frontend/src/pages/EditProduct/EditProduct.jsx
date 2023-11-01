@@ -169,7 +169,6 @@ export const EditProduct = () => {
                 <div>
                     <p className='fs-5 fw-bold'>{((data?.item && data.item.condition)) ? "Brand new" : "Used"}</p>
                 </div>
-                
             </div>
         </div>
       

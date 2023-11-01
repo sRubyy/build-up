@@ -5,7 +5,7 @@ import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
 import { ReturnSize } from './ReturnSize';
 import { ReturnCondition } from './ReturnCondition';
 import { HiOutlinePencil } from 'react-icons/hi'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 export const Details = (props) => {
 
