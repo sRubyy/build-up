@@ -20,6 +20,10 @@ export const SizePool = () => {
           );
         })}
       </div>
+      <div className={'button-container'}>
+        <div className={'button-container__button'}>Add to cart</div>
+        <div className={'button-container__button--green'}>Checkout</div>
+      </div>
     </>
   );
 };
