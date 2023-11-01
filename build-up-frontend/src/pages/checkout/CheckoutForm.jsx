@@ -29,8 +29,8 @@ function CheckoutForm() {
           Back
         </div>
       </div>
-      <CheckoutAddressForm />
-      {/*<PaymentMethodForm />*/}
+      {/*<CheckoutAddressForm />*/}
+      <PaymentMethodForm />
     </div>
   );
 }

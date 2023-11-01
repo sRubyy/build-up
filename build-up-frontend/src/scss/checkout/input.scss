@@ -27,3 +27,33 @@
 .country-dropdown-menu {
   min-width: 100% !important;
 }
+
+.horizontal-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__text {
+    color: #252525;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &__button {
+    padding: 0;
+    border: 0;
+    background-color: unset;
+  }
+
+  &__item {
+    margin-bottom: 4px;
+    padding: 0 6px;
+    text-align: left;
+
+    &:hover {
+      background-color: #f8f8f8;
+    }
+  }
+}
