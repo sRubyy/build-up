@@ -1,7 +1,6 @@
 package com.gemini11.buildupbackend.controller;
 
 import com.gemini11.buildupbackend.model.CreditCard;
-//import com.gemini11.buildupbackend.model.Product;
 import com.gemini11.buildupbackend.service.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
