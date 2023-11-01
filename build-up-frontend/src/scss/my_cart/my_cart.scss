@@ -109,7 +109,12 @@
     &--item {
       @extend .cart-item__dropdown;
       margin-bottom: 4px;
+      padding: 0 6px;
       text-align: left;
+
+      &:hover {
+        background-color: #f8f8f8;
+      }
     }
   }
 
