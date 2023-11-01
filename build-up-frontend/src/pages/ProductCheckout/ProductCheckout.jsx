@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import { GoCreditCard } from 'react-icons/go';
 import { FiMapPin } from 'react-icons/fi'
@@ -10,19 +10,24 @@ export const ProductCheckout = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const data = location.state.data;
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        if (location.state && location.state.data) {
+            setData(location.state.data);
+        } else {
+            console.error("Data is not available in location state.");
+        }
+    }, [location.state]);
 
     const handleClick1 = () => {
 
         navigate('/productDescription');
     }
 
-
-
-
     async function addProduct(){
         const url = `http://localhost:8080/api/product/addProduct`;
-        if(data.size !== 'Select size​ (US)' && data.condition !== 'Select condition' &&  data.price !== ''){
+        if(data.size !== 'Select size​ (US)' && data.condition !== 'Select condition' && data.price !== ''){
             const product= new ProductModel("New Balance 530 White Silver Navy", "NEW BALANCE | MR530SG", parseFloat(data.price), "shoes", data.size, data.conditionBoolean);
             const now = new Date();
             const year = now.getFullYear();
@@ -53,6 +58,38 @@ export const ProductCheckout = () => {
             navigate('/mySellProduct');
         }
         
+    }
+
+    async function editProduct(){
+        const url = `http://localhost:8080/api/product/editProduct/${data.item.id}`;
+        if(data && data.item && data.item.price > 0){
+            const product= new ProductModel(data.item.name, data.item.description, parseFloat(data.item.price), data.item.type, data.item.size, data.conditionBoolean);
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const formattedTime = new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`);
+            product.setCreatedAt(formattedTime);
+
+            const request = {
+                method: "PUT",
+                body: JSON.stringify(product),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+
+            const editProductById = await fetch(url, request)
+            if(!editProductById){
+                throw new Error('Error found');
+            }
+
+            navigate('/mySellProduct');
+        }
     }
 
   return (
@@ -127,32 +164,35 @@ export const ProductCheckout = () => {
       <div className="row mt-2 m">
         <hr class="hr hr-blurry opacity-10" style={{marginLeft: '2%'}}/>
       </div>
-      <div className="d-flex justify-content-between mt-4">
-            <div className="d-flex justify-content-start ">
-    
-                <div>
-                    <p className='fs-5' style={{color:"#9D9D9D"}}>Ask Price</p>
-                </div>
-            </div>
-            <div className="d-flex justify-content-end">
-                <div>
-                    <p className='fs-5 fw-bold'>5,000.-</p>
-                </div>
-            </div>
-        </div>
-        <div className="d-flex justify-content-between ">
-            <div className="d-flex justify-content-start ">
-                <div>
-                    <p className='fs-5' style={{color:"#9D9D9D"}}>Size</p>
-                </div>
-            </div>
-            <div className="d-flex justify-content-end">
-                <div>
-                    <p className='fs-5 fw-bold'>US 4</p>
-                </div>
-                
-            </div>
-        </div>
+      {data && (
+  <div className="d-flex justify-content-between mt-4">
+    <div className="d-flex justify-content-start">
+      <div>
+        <p className='fs-5' style={{ color:"#9D9D9D" }}>Ask Price</p>
+      </div>
+    </div>
+    <div className="d-flex justify-content-end">
+      <div>
+        <p className='fs-5 fw-bold'>{((data && data.price) || (data?.item && data.item.price))}.-</p>
+      </div>
+    </div>
+  </div>
+)}
+        {data && (
+  <div className="d-flex justify-content-between">
+    <div className="d-flex justify-content-start">
+      <div>
+        <p className='fs-5' style={{ color:"#9D9D9D" }}>Size</p>
+      </div>
+    </div>
+    <div className="d-flex justify-content-end">
+      <div>
+        <p className='fs-5 fw-bold'>US {((data && data.size) || (data?.item && data.item.size))}</p>
+      </div>
+    </div>
+  </div>
+  // ... (other parts that use data properties)
+)}
         <div className="d-flex justify-content-between ">
             <div className="d-flex justify-content-start ">
             
@@ -162,7 +202,7 @@ export const ProductCheckout = () => {
             </div>
             <div className="d-flex justify-content-end">
                 <div>
-                    <p className='fs-5 fw-bold'>Brand new</p>
+                    <p className='fs-5 fw-bold'>{data && data.conditionBoolean ? "Brand new" : "Used"}</p>
                 </div>
                 
             </div>
@@ -171,7 +211,7 @@ export const ProductCheckout = () => {
         <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
       <div className="row">
         <div className="d-flex justify-content-center">
-          <p className="fs-4 fw-semibold">Checkout</p>
+          <p className="fs-4 fw-semibold">Confirmation</p>
         </div>
       </div>
         <div className="d-flex justify-content-between mt-5 mb-1">
@@ -240,11 +280,11 @@ export const ProductCheckout = () => {
                     <p className='fs-5' style={{color:"#9D9D9D"}}>Sub Total</p>
                 </div>
             </div>
-            <div className="d-flex justify-content-end">
+            {data && (<div className="d-flex justify-content-end">
                 <div>
-                    <p className='fs-5'>5000.-</p>
+                    <p className='fs-5'>{((data && data.price) || (data?.item && data.item.price))}.-</p>
                 </div>
-            </div>
+            </div>)}
         </div>
         <div className="d-flex justify-content-between ">
             <div className="d-flex justify-content-start ">
@@ -252,12 +292,12 @@ export const ProductCheckout = () => {
                     <p className='fs-5' style={{color:"#9D9D9D"}}>Transcation fee 7%</p>
                 </div>
             </div>
-            <div className="d-flex justify-content-end">
+            {data && (<div className="d-flex justify-content-end">
                 <div>
-                    <p className='fs-5'>245.-</p>
+                    <p className='fs-5'>{(((data && data.price) || (data?.item && data.item.price))*7)/100}.-</p>
                 </div>
                 
-            </div>
+            </div>)}
         </div>
         <div className="d-flex justify-content-between ">
             <div className="d-flex justify-content-start ">
@@ -268,7 +308,7 @@ export const ProductCheckout = () => {
             </div>
             <div className="d-flex justify-content-end">
                 <div>
-                    <p className='fs-5'>150.-</p>
+                    <p className='fs-5'>{(((data && data.price) || (data?.item && data.item.price)) * 3)/100}.-</p>
                 </div>
                 
             </div>
@@ -282,7 +322,7 @@ export const ProductCheckout = () => {
             </div>
             <div className="d-flex justify-content-end">
                 <div>
-                    <p className='fs-5 fw-semibold' style={{color:'#00B227'}}>4605.00.-</p>
+                    <p className='fs-5 fw-semibold' style={{color:'#00B227'}}>{(((data && data.price) || (data?.item && data.item.price))) - ((((data && data.price) || (data?.item && data.item.price))*7)/100) - ((((data && data.price) || (data?.item && data.item.price))*3)/100)}.-</p>
                 </div>
                 
             </div>
@@ -318,7 +358,7 @@ export const ProductCheckout = () => {
               fontSize: '18px',
             }}
             
-            onClick={addProduct}
+            onClick={data.method === "post" ? addProduct: editProduct}
 
           >
             Submit
