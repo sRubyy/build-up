@@ -71,7 +71,7 @@ public class ProductController {
     }
 
     @CrossOrigin
-    @PostMapping("/editProduct/{id}")
+    @PutMapping("/editProduct/{id}")
     public ResponseEntity<Product> editProduct(@PathVariable("id") int id, @RequestBody Product _product) {
         Product product = productService.editProduct(id, _product);
         if (product == null) {
