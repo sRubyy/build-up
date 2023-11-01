@@ -27,6 +27,10 @@ public class Product {
     @JoinColumn(name = "seller_account_id")
     private Account account;
 
+    public Integer getProductId() {
+        return productId;
+    }
+
     public String getName() {
         return name;
     }
