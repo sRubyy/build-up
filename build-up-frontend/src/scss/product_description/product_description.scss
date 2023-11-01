@@ -1,28 +1,30 @@
-.path{
-    color: #9D9D9D; 
-    font-size: 20px; 
-    font-weight: 400; 
-    word-wrap: break-word;
-    margin-top: 2.4%;
-    display: flex;
-  }
-  
-  .path_element{
-    margin-right: 20px;
-    margin-left: 20px;
-  }
+.path {
+  color: #9d9d9d;
+  font-weight: 400;
+  word-wrap: break-word;
+  margin-top: 2.4%;
+  display: flex;
 
-  .product-detail {
-    margin: 36px 10% 0;
-  }
-  
-  .img_shoes{
-    width: 600px; 
-    height: 500px;
-  }
-  
-  .row_content{
-    display: flex;
-  }
-  
-  
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  line-height: normal;
+}
+
+.path_element {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.product-detail {
+  margin: 36px 10% 0;
+}
+
+.img_shoes {
+  width: 600px;
+  height: 500px;
+}
+
+.row_content {
+  display: flex;
+}

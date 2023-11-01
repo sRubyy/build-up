@@ -4,9 +4,8 @@ import { BiSolidPlaneAlt } from 'react-icons/bi';
 import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
 
 export const Description = (props) => {
-
-    const name = "New Balance 530 White Silver Navy";
-    const description = "NEW BALANCE | MR530SG";
+  const name = 'New Balance 530 White Silver Navy';
+  const description = 'NEW BALANCE | MR530SG';
   return (
     <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
       <div className="row">
@@ -16,9 +15,7 @@ export const Description = (props) => {
       </div>
       <div className="row">
         <div className="col">
-          <p className="fs-6 fw-lighter text-secondary">
-            {props.description}
-          </p>
+          <p className="fs-6 fw-lighter text-secondary">{props.description}</p>
         </div>
       </div>
       <div className="row mt-2">
@@ -254,8 +251,7 @@ export const Description = (props) => {
               backgroundColor: 'black',
               fontSize: '18px',
             }}
-
-            onClick={() => props.handleComponent("/det")}
+            onClick={() => props.handleComponent('/det')}
           >
             Sell
           </button>
@@ -271,7 +267,6 @@ export const Description = (props) => {
               backgroundColor: '#00B227',
               fontSize: '18px',
             }}
-            
           >
             Buy
           </button>
