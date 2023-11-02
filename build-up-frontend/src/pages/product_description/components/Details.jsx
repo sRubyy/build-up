@@ -46,7 +46,10 @@ export const Details = () => {
   };
 
   return (
-    <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
+    <div
+      className="col"
+      style={{ fontFamily: 'Montserrat', marginTop: '3rem' }}
+    >
       <div className="row">
         <div className="col">
           <p className="fs-4 fw-semibold d-flex justify-content-center">
