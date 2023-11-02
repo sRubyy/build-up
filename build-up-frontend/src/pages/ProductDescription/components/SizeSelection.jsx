@@ -3,15 +3,14 @@ import '../../../scss/product_description/size_selection.scss';
 import { useState } from 'react';
 import { SizePool } from './SizePool';
 import { ComponentContext } from '../ProductDescription';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const SizeSelection = () => {
   const [isNewType, setIsNewType] = useState(true);
 
   const handleContext = useContext(ComponentContext);
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log(location.pathname);
+
   const toggleSelectMode = () => {
     setIsNewType(!isNewType);
   };
@@ -88,7 +87,7 @@ export const SizeSelection = () => {
           USED
         </div>
       </div>
-      <SizePool />
+      <SizePool isBrandNew={isNewType} />
     </div>
   );
 };

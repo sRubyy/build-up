@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         element: <ProductDescription />,
         children: [
           {
-            path: '/productDescription/:name',
+            path: '/productDescription/:productName',
             element: <SizeSelection />,
           },
         ],
