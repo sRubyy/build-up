@@ -108,7 +108,15 @@
       font-style: normal;
       font-weight: 700;
       line-height: normal;
-      opacity: 0.4;
+    }
+  }
+
+  &__selected-box {
+    @extend .select-type__box;
+    border: 2px solid #252525;
+
+    &:hover {
+      @extend .select-type__selected-box;
     }
   }
 }

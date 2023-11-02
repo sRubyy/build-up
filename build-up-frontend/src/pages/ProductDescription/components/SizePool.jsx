@@ -1,12 +1,20 @@
 import '../../../scss/product_description/size_selection.scss';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../../store/state-slices/shopping-cart-slice';
 
 export const SizePool = (props) => {
   const [sizePool, setSizePool] = useState([]);
+  const dispatch = useDispatch();
 
   const { productName } = useParams();
   const baseUrl = 'http://localhost:8080';
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const selectItem = (item) => {
+    setSelectedItem(item);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,6 +33,15 @@ export const SizePool = (props) => {
     fetchProducts();
   }, [productName, props.isBrandNew]);
 
+  const selectedStyle = (id) => {
+    if (selectedItem) {
+      return selectedItem.id === id
+        ? 'select-type__selected-box'
+        : 'select-type__box';
+    }
+    return 'select-type__box';
+  };
+
   return (
     <>
       <div className={'select-type__second-desc'}>
@@ -32,12 +49,18 @@ export const SizePool = (props) => {
         <div className={'select-type__size-chart'}>Size Chart</div>
       </div>
       <div className={'select-type__size-pool'}>
-        {sizePool.map((each, i) => {
+        {sizePool.map((each) => {
           return (
-            <div key={i} className={'select-type__box'}>
+            <div
+              key={each.id}
+              className={selectedStyle(each.id)}
+              onClick={() => setSelectedItem(each)}
+            >
               <div>
                 <div className={'select-type__box--size'}>US {each.size}</div>
-                <div className={'select-type__box--price'}>{each.price}.-</div>
+                <div className={'select-type__box--price'}>
+                  {each.minPrice}.-
+                </div>
               </div>
             </div>
           );

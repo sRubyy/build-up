@@ -3,5 +3,8 @@ package com.gemini11.buildupbackend.entity;
 public record SizePoolObject(
         String size,
         Boolean isBrandNew,
-        Double price
+        Double minPrice,
+        Integer id,
+        String name,
+        String description
 ) { }
