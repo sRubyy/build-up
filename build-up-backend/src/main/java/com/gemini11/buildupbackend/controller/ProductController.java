@@ -1,5 +1,6 @@
 package com.gemini11.buildupbackend.controller;
 
+import com.gemini11.buildupbackend.entity.SizePoolObject;
 import com.gemini11.buildupbackend.model.Product;
 import com.gemini11.buildupbackend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,24 @@ public class ProductController {
         } else {
             return new ResponseEntity<>(products, HttpStatus.OK);
         }
+    }
+
+    @CrossOrigin
+    @GetMapping("/findByName/{name}")
+    public ResponseEntity<List<Product>> getAllProductsByName(@PathVariable("name") String name) {
+        List<Product> products = productService.getProductsByName(name);
+        products.forEach(product -> product.setAccount(null));
+        return ResponseEntity.status(HttpStatus.OK).body(products);
+    }
+
+    @CrossOrigin
+    @GetMapping("/findBySizeWithMinPriceAndIsBrandNew/{name}")
+    public ResponseEntity<List<SizePoolObject>> getGroupSizeWithMinPriceByIsBrandNew(@PathVariable("name") String name) {
+        List<List<Object>> data = productService.getSizeWithMinPriceAndIsBrandNew(name);
+        List<SizePoolObject> pool = new ArrayList<>();
+        data.forEach(record -> pool.add(new SizePoolObject(((String) record.get(0)), (Boolean) record.get(1), (Double) record.get(2))));
+
+        return ResponseEntity.status(HttpStatus.OK).body(pool);
     }
 
     @CrossOrigin

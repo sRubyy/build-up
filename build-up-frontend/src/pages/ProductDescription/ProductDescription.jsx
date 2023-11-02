@@ -1,8 +1,8 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { Description } from './components/Description';
 import '../../scss/product_description/product_description.scss';
 import { Details } from './components/Details';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 export const ComponentContext = createContext(null);
 
@@ -10,6 +10,18 @@ export const ProductDescription = () => {
   const [component, setComponent] = useState('/des');
   const name = 'New Balance 530 White Silver Navy';
   const description = 'NEW BALANCE | MR530SG';
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      location.pathname !== '/productDescription' &&
+      (component === '/des' || component === '/det')
+    ) {
+      navigate('/productDescription');
+    }
+  }, []);
 
   const handleComponent = (value) => {
     setComponent(value);

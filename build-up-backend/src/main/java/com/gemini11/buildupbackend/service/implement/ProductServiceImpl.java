@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -26,6 +27,24 @@ public class ProductServiceImpl implements ProductService {
     public Iterable<Product> getProducts() {
         try {
             return productRepository.findAll();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Product> getProductsByName(String name) {
+        try {
+            return productRepository.findByName(name);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<List<Object>> getSizeWithMinPriceAndIsBrandNew(String name) {
+        try {
+            return productRepository.findSizeWithMinPriceAndIsBrandNew(name);
         } catch (Exception e) {
             return null;
         }
