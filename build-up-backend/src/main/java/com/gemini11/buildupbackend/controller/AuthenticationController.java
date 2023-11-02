@@ -5,8 +5,6 @@ import com.gemini11.buildupbackend.entity.ResponseObject;
 import com.gemini11.buildupbackend.model.Account;
 import com.gemini11.buildupbackend.service.AccountService;
 import com.gemini11.buildupbackend.utility.JwtHelper;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,8 @@ public class AuthenticationController {
     private final AccountService accountService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private Set<String> tokenBlacklist = new HashSet<>();
+    private final Set<String> tokenBlacklist = new HashSet<>();
+
     @Autowired
     public AuthenticationController(
             AccountService accountService,
