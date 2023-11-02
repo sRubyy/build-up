@@ -18,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByName(String name);
 
     @Query(value = """
-            SELECT size, is_brand_new, MIN(price) AS min_price
+            SELECT size, is_brand_new, MIN(price) AS min_price, product_id, name, description
             FROM product
             WHERE name = :name
             GROUP BY size, is_brand_new
