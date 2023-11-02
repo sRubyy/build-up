@@ -1,7 +1,30 @@
 import '../../../scss/product_description/size_selection.scss';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-export const SizePool = () => {
+export const SizePool = (props) => {
+  const [sizePool, setSizePool] = useState([]);
+
+  const { productName } = useParams();
+  const baseUrl = 'http://localhost:8080';
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch(
+        `${baseUrl}/api/product/findBySizeWithMinPriceAndIsBrandNew/${productName}`
+      );
+
+      const data = await res.json();
+      setSizePool(
+        data
+          .sort((a, b) => Number(a.size) - Number(b.size))
+          .filter((item) => item.isBrandNew === props.isBrandNew)
+      );
+    };
+
+    fetchProducts();
+  }, [productName, props.isBrandNew]);
+
   return (
     <>
       <div className={'select-type__second-desc'}>
@@ -9,12 +32,12 @@ export const SizePool = () => {
         <div className={'select-type__size-chart'}>Size Chart</div>
       </div>
       <div className={'select-type__size-pool'}>
-        {Array.from(Array(10), (e, i) => {
+        {sizePool.map((each, i) => {
           return (
             <div key={i} className={'select-type__box'}>
               <div>
-                <div className={'select-type__box--size'}>US 4</div>
-                <div className={'select-type__box--price'}>4500.-</div>
+                <div className={'select-type__box--size'}>US {each.size}</div>
+                <div className={'select-type__box--price'}>{each.price}.-</div>
               </div>
             </div>
           );

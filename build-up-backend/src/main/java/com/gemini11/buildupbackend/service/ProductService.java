@@ -2,6 +2,8 @@ package com.gemini11.buildupbackend.service;
 
 import com.gemini11.buildupbackend.model.Product;
 
+import java.util.List;
+
 public interface ProductService {
     Iterable<Product> getProducts();
 
@@ -14,4 +16,8 @@ public interface ProductService {
     Integer deleteProduct(int id);
 
     Product editProduct(int id, Product product);
+
+    List<Product> getProductsByName(String name);
+
+    List<List<Object>> getSizeWithMinPriceAndIsBrandNew(String name);
 }
