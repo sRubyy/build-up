@@ -21,7 +21,14 @@ export const ProductDescription = () => {
     ) {
       navigate('/productDescription');
     }
-  }, []);
+
+    if (
+      location.pathname === '/productDescription' &&
+      component === '/bridge'
+    ) {
+      setComponent('/des');
+    }
+  }, [location.pathname]);
 
   const handleComponent = (value) => {
     setComponent(value);
@@ -79,7 +86,13 @@ export const ProductDescription = () => {
       </div>
 
       <div className="row">
-        <div className="col mt-5">
+        <div
+          className="col mt-5"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
           <img
             className="img_shoes"
             src={require('./../../images/Rectangle 17.png')}

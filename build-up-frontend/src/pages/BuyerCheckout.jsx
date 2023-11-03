@@ -4,8 +4,11 @@ import React from 'react';
 import CartItem from './cart/CartItem';
 import CheckoutSummary from './checkout/CheckoutSummary';
 import CheckoutForm from './checkout/CheckoutForm';
+import { useSelector } from 'react-redux';
 
 function BuyerCheckout() {
+  const myCart = useSelector((state) => state.shoppingCart);
+
   return (
     <div className={'checkout-page'}>
       <div className="path">
@@ -36,13 +39,27 @@ function BuyerCheckout() {
           </div>
           <div>
             <div className={'cart-item-list'}>
-              <CartItem isDeletable={false} />
-              <CartItem isDeletable={false} />
+              {myCart.items.length !== 0 ? (
+                myCart.items.map((item) => (
+                  <CartItem
+                    productId={item.id}
+                    productName={item.name}
+                    productDescription={item.description}
+                    productAmount={item.quantity}
+                    productSize={item.size}
+                    productPrice={item.price}
+                    isBrandNew={item.isBrandNew}
+                    isDeletable={false}
+                  />
+                ))
+              ) : (
+                <div className={'cart-item__no-item'}>No item in cart...</div>
+              )}
             </div>
           </div>
         </div>
-        {/*<CheckoutSummary />*/}
-        <CheckoutForm />
+        <CheckoutSummary />
+        {/*<CheckoutForm />*/}
       </div>
     </div>
   );
