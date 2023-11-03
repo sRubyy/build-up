@@ -1,7 +1,23 @@
 import React from 'react';
 import '../../scss/my_cart/my_cart.scss';
 import '../../scss/checkout/checkout.scss';
+import { useSelector } from 'react-redux';
+
 function CheckoutSummary() {
+  const myCart = useSelector((state) => state.shoppingCart);
+
+  const TAX_FEE = 7;
+  const PROCESS_FEE = 3;
+
+  const subTotal = myCart.totalPrice;
+  const transactionFee = Number(
+    (myCart.totalPrice * (TAX_FEE / 100)).toFixed(2)
+  );
+  const paymentProcessingFee = Number(
+    (myCart.totalPrice * (PROCESS_FEE / 100)).toFixed(2)
+  );
+  const totalPrice = subTotal + transactionFee + paymentProcessingFee;
+
   return (
     <div className={'checkout-page__content-body--right'}>
       <div className={'text-header'} style={{ border: '0' }}>
@@ -87,21 +103,25 @@ function CheckoutSummary() {
         <div className={'checkout-page__ship-and-payment--info-list'}>
           <div>Sub total</div>
           <div className={'checkout-page__ship-and-payment--text-1'}>
-            5,000.-
+            {subTotal}.-
           </div>
         </div>
         <div className={'checkout-page__ship-and-payment--info-list'}>
-          <div>Transaction fee 7%</div>
-          <div className={'checkout-page__ship-and-payment--text-1'}>245.-</div>
+          <div>Transaction fee {TAX_FEE}%</div>
+          <div className={'checkout-page__ship-and-payment--text-1'}>
+            {transactionFee}.-
+          </div>
         </div>
         <div className={'checkout-page__ship-and-payment--info-list'}>
-          <div>Payment processing fee 30%</div>
-          <div className={'checkout-page__ship-and-payment--text-1'}>150.-</div>
+          <div>Payment processing fee {PROCESS_FEE}%</div>
+          <div className={'checkout-page__ship-and-payment--text-1'}>
+            {paymentProcessingFee}.-
+          </div>
         </div>
         <div className={'checkout-page__ship-and-payment--info-list'}>
           <div className={'checkout-page__ship-and-payment--text-2'}>Total</div>
           <div className={'checkout-page__ship-and-payment--text-2'}>
-            4605.00.-
+            {totalPrice}.-
           </div>
         </div>
       </div>

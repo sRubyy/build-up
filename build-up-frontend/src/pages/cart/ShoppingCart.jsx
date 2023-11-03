@@ -2,9 +2,31 @@ import React from 'react';
 import '../../scss/product_description/product_description.scss';
 import '../../scss/my_cart/my_cart.scss';
 import CartItem from './CartItem';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function ShoppingCart() {
-  const myCart = [];
+  const myCart = useSelector((state) => state.shoppingCart);
+  const navigate = useNavigate();
+
+  const checkout = () => {
+    if (myCart.items.length !== 0) {
+      navigate('/checkout');
+    }
+  };
+
+  const CheckIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      fill="gray"
+      className="bi bi-check-square-fill"
+      viewBox="0 0 16 16"
+    >
+      <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z" />
+    </svg>
+  );
 
   return (
     <div className={'product-detail'}>
@@ -34,20 +56,49 @@ function ShoppingCart() {
           </div>
         </div>
         <div className={'cart-item-list'}>
-          <CartItem />
-          <CartItem />
+          {myCart.items.length !== 0 ? (
+            myCart.items.map((item) => (
+              <CartItem
+                productId={item.id}
+                productName={item.name}
+                productDescription={item.description}
+                productAmount={item.quantity}
+                productSize={item.size}
+                productPrice={item.price}
+                isBrandNew={item.isBrandNew}
+              />
+            ))
+          ) : (
+            <div className={'cart-item__no-item'}>No item in cart...</div>
+          )}
         </div>
         <div className={'checkout'}>
           <div className={'checkout__total-button'}>
-            <div
-              className={'cart-item__select-button'}
-              style={{ margin: '0' }}
-            ></div>
+            <div className={'cart-item__select-button'} style={{ margin: '0' }}>
+              {CheckIcon}
+            </div>
             <div className={'checkout__total-text'}>Total</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div className={'checkout__price'}>7,800.-</div>
-            <div className={'checkout__button'}>Checkout</div>
+            <div
+              className={
+                myCart.totalPrice === 0
+                  ? 'checkout__price--none'
+                  : 'checkout__price'
+              }
+            >
+              {myCart.totalPrice}.-
+            </div>
+            <div
+              className={
+                myCart.totalPrice === 0
+                  ? 'checkout__button--none'
+                  : 'checkout__button'
+              }
+              onClick={checkout}
+            >
+              Checkout
+            </div>
           </div>
         </div>
       </div>
