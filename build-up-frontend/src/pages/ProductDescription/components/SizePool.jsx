@@ -1,6 +1,6 @@
 import '../../../scss/product_description/size_selection.scss';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../../store/state-slices/shopping-cart-slice';
 
@@ -11,23 +11,55 @@ export const SizePool = (props) => {
   const { productName } = useParams();
   const baseUrl = 'http://localhost:8080';
   const [selectedItem, setSelectedItem] = useState(null);
+  const navigate = useNavigate();
 
   const selectItem = (item) => {
     setSelectedItem(item);
   };
 
+  const addToCartButtonStyle = () => {
+    return selectedItem
+      ? 'button-container__button'
+      : 'button-container__button--disable';
+  };
+
+  const checkoutButtonStyle = () => {
+    return selectedItem
+      ? 'button-container__button--green'
+      : 'button-container__button--disable';
+  };
+
+  const addToCart = () => {
+    if (selectedItem) {
+      dispatch(addItem({ item: selectedItem, quantity: 1 }));
+      setSelectedItem(null);
+    }
+  };
+
+  const checkout = () => {
+    if (selectedItem) {
+      dispatch(addItem({ item: selectedItem, quantity: 1 }));
+      setSelectedItem(null);
+      navigate('/checkout');
+    }
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch(
-        `${baseUrl}/api/product/findBySizeWithMinPriceAndIsBrandNew/${productName}`
-      );
+      try {
+        const res = await fetch(
+          `${baseUrl}/api/product/findBySizeWithMinPriceAndIsBrandNew/${productName}`
+        );
 
-      const data = await res.json();
-      setSizePool(
-        data
-          .sort((a, b) => Number(a.size) - Number(b.size))
-          .filter((item) => item.isBrandNew === props.isBrandNew)
-      );
+        const data = await res.json();
+        setSizePool(
+          data
+            .sort((a, b) => Number(a.size) - Number(b.size))
+            .filter((item) => item.isBrandNew === props.isBrandNew)
+        );
+      } catch (e) {
+        setSizePool([]);
+      }
     };
 
     fetchProducts();
@@ -49,26 +81,36 @@ export const SizePool = (props) => {
         <div className={'select-type__size-chart'}>Size Chart</div>
       </div>
       <div className={'select-type__size-pool'}>
-        {sizePool.map((each) => {
-          return (
-            <div
-              key={each.id}
-              className={selectedStyle(each.id)}
-              onClick={() => setSelectedItem(each)}
-            >
-              <div>
-                <div className={'select-type__box--size'}>US {each.size}</div>
-                <div className={'select-type__box--price'}>
-                  {each.minPrice}.-
+        {sizePool.length !== 0 ? (
+          sizePool.map((each) => {
+            return (
+              <div
+                key={each.id}
+                className={selectedStyle(each.id)}
+                onClick={() => setSelectedItem(each)}
+              >
+                <div>
+                  <div className={'select-type__box--size'}>US {each.size}</div>
+                  <div className={'select-type__box--price'}>
+                    {each.price}.-
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        ) : (
+          <div className={'select-type__no-item'}>
+            Sorry, there is no related item...
+          </div>
+        )}
       </div>
       <div className={'button-container'}>
-        <div className={'button-container__button'}>Add to cart</div>
-        <div className={'button-container__button--green'}>Checkout</div>
+        <div className={addToCartButtonStyle()} onClick={addToCart}>
+          Add to cart
+        </div>
+        <div className={checkoutButtonStyle()} onClick={checkout}>
+          Checkout
+        </div>
       </div>
     </>
   );

@@ -24,6 +24,11 @@
   display: flex;
   margin-bottom: 16px;
 
+  &__no-item {
+    color: #9d9d9d;
+    font-style: italic;
+  }
+
   &__button {
     width: 50%;
     text-align: center;
@@ -140,9 +145,28 @@
     font-weight: 500;
     line-height: normal;
 
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
+
     &--green {
       @extend .button-container__button;
       background: #00b227;
+    }
+
+    &--disable {
+      @extend .button-container__button;
+      background-color: #9d9d9d;
+
+      &:hover,
+      &:active {
+        cursor: default;
+        opacity: unset;
+      }
     }
   }
 }
