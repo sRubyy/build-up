@@ -44,4 +44,19 @@ public class JwtHelper {
 
         return true;
     }
+
+    public String extractUsernameFromToken(String token) {
+        String subject = null;
+        try {
+            Claims decodedClaims = Jwts.parser()
+                    .setSigningKey(SECRET_KEY)
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            subject = decodedClaims.getSubject();
+        } catch (Exception ignored) {
+        }
+
+        return subject;
+    }
 }

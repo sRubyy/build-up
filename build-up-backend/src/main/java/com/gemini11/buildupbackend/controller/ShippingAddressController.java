@@ -1,14 +1,21 @@
 package com.gemini11.buildupbackend.controller;
 
+import com.gemini11.buildupbackend.entity.LoginTokenDTO;
+import com.gemini11.buildupbackend.entity.ResponseObject;
+import com.gemini11.buildupbackend.model.Account;
 import com.gemini11.buildupbackend.model.ShippingAddress;
+import com.gemini11.buildupbackend.service.AccountService;
 import com.gemini11.buildupbackend.service.ShippingAddressService;
+import com.gemini11.buildupbackend.utility.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/shippingAddress")
@@ -16,6 +23,9 @@ public class ShippingAddressController {
 
     @Autowired
     ShippingAddressService shippingAddressService;
+
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<ShippingAddress>> getShippingAddresses() {
@@ -85,4 +95,34 @@ public class ShippingAddressController {
         }
     }
 
+    @CrossOrigin
+    @PostMapping("/findShippingAddressByToken")
+    public ResponseEntity<ResponseObject> getShippingAddressByToken(@RequestBody LoginTokenDTO tokenDTO) {
+        String username = new JwtHelper().extractUsernameFromToken(tokenDTO.token());
+        if (username == null) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST,
+                    "",
+                    null
+            ), HttpStatus.BAD_REQUEST);
+        }
+        Optional<Account> account = accountService.getAccountByUsername(username);
+        if (account.isEmpty()) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST,
+                    "",
+                    null
+            ), HttpStatus.BAD_REQUEST);
+        }
+        Iterable<ShippingAddress> addresses = shippingAddressService.getShippingAddressesByAccountId(account.get().getAccountId());
+        addresses.forEach(address -> address.setAccount(null));
+        return new ResponseEntity<>(new ResponseObject(
+                LocalDateTime.now(),
+                HttpStatus.OK,
+                "",
+                addresses
+        ), HttpStatus.OK);
+    }
 }

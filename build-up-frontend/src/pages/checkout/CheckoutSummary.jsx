@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import '../../scss/my_cart/my_cart.scss';
 import '../../scss/checkout/checkout.scss';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {
+  PaymentSelectionContext,
+  ShippingAddressSelectionContext,
+} from '../../data/context';
 
 function CheckoutSummary() {
   const myCart = useSelector((state) => state.shoppingCart);
   const navigate = useNavigate();
+
+  const [selectedPayment] = useContext(PaymentSelectionContext);
+  const [selectedAddress] = useContext(ShippingAddressSelectionContext);
 
   const TAX_FEE = 7;
   const PROCESS_FEE = 3;
@@ -19,6 +26,10 @@ function CheckoutSummary() {
     (myCart.totalPrice * (PROCESS_FEE / 100)).toFixed(2)
   );
   const totalPrice = subTotal + transactionFee + paymentProcessingFee;
+
+  const shortenAddressName = (name) => {
+    return name.length > 40 ? `${name.substring(0, 40)}...` : name;
+  };
 
   return (
     <div className={'checkout-page__content-body--right'}>
@@ -54,26 +65,23 @@ function CheckoutSummary() {
             className={'checkout-page__ship-and-payment--icon-group'}
             onClick={() => navigate('/checkout/form/shipping-address')}
           >
-            <div
-              className={'checkout-page__ship-and-payment--address-truncate'}
-              style={{ color: '#252525' }}
-            >
-              98/139 icondo salaya building c..
-            </div>
             <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M6.65737 2.91634C6.54834 3.02797 6.4873 3.17781 6.4873 3.33384C6.4873 3.48988 6.54834 3.63972 6.65737 3.75134L12.7486 10.0001L6.65737 16.2476C6.54834 16.3592 6.4873 16.5091 6.4873 16.6651C6.4873 16.8211 6.54834 16.971 6.65737 17.0826C6.71037 17.137 6.77373 17.1803 6.84372 17.2098C6.91371 17.2394 6.9889 17.2546 7.06487 17.2546C7.14084 17.2546 7.21604 17.2394 7.28602 17.2098C7.35601 17.1803 7.41938 17.137 7.47237 17.0826L13.9499 10.4363C14.0636 10.3196 14.1273 10.1631 14.1273 10.0001C14.1273 9.8371 14.0636 9.68056 13.9499 9.56384L7.47237 2.91759C7.41938 2.86316 7.35601 2.8199 7.28602 2.79036C7.21604 2.76082 7.14084 2.74561 7.06487 2.74561C6.9889 2.74561 6.91371 2.76082 6.84372 2.79036C6.77373 2.8199 6.71037 2.86316 6.65737 2.91759V2.91634Z"
-                  fill="#9D9D9D"
-                />
-              </svg>
+              {selectedAddress
+                ? shortenAddressName(selectedAddress.name)
+                : 'Select'}
             </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M6.65737 2.91634C6.54834 3.02797 6.4873 3.17781 6.4873 3.33384C6.4873 3.48988 6.54834 3.63972 6.65737 3.75134L12.7486 10.0001L6.65737 16.2476C6.54834 16.3592 6.4873 16.5091 6.4873 16.6651C6.4873 16.8211 6.54834 16.971 6.65737 17.0826C6.71037 17.137 6.77373 17.1803 6.84372 17.2098C6.91371 17.2394 6.9889 17.2546 7.06487 17.2546C7.14084 17.2546 7.21604 17.2394 7.28602 17.2098C7.35601 17.1803 7.41938 17.137 7.47237 17.0826L13.9499 10.4363C14.0636 10.3196 14.1273 10.1631 14.1273 10.0001C14.1273 9.8371 14.0636 9.68056 13.9499 9.56384L7.47237 2.91759C7.41938 2.86316 7.35601 2.8199 7.28602 2.79036C7.21604 2.76082 7.14084 2.74561 7.06487 2.74561C6.9889 2.74561 6.91371 2.76082 6.84372 2.79036C6.77373 2.8199 6.71037 2.86316 6.65737 2.91759V2.91634Z"
+                fill="#9D9D9D"
+              />
+            </svg>
           </div>
         </div>
         <div className={'checkout-page__ship-and-payment--info-list'}>
@@ -99,21 +107,19 @@ function CheckoutSummary() {
             className={'checkout-page__ship-and-payment--icon-group'}
             onClick={() => navigate('/checkout/form/payment-method')}
           >
-            <div>Payment method</div>
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M6.65737 2.91634C6.54834 3.02797 6.4873 3.17781 6.4873 3.33384C6.4873 3.48988 6.54834 3.63972 6.65737 3.75134L12.7486 10.0001L6.65737 16.2476C6.54834 16.3592 6.4873 16.5091 6.4873 16.6651C6.4873 16.8211 6.54834 16.971 6.65737 17.0826C6.71037 17.137 6.77373 17.1803 6.84372 17.2098C6.91371 17.2394 6.9889 17.2546 7.06487 17.2546C7.14084 17.2546 7.21604 17.2394 7.28602 17.2098C7.35601 17.1803 7.41938 17.137 7.47237 17.0826L13.9499 10.4363C14.0636 10.3196 14.1273 10.1631 14.1273 10.0001C14.1273 9.8371 14.0636 9.68056 13.9499 9.56384L7.47237 2.91759C7.41938 2.86316 7.35601 2.8199 7.28602 2.79036C7.21604 2.76082 7.14084 2.74561 7.06487 2.74561C6.9889 2.74561 6.91371 2.76082 6.84372 2.79036C6.77373 2.8199 6.71037 2.86316 6.65737 2.91759V2.91634Z"
-                  fill="#9D9D9D"
-                />
-              </svg>
-            </div>
+            <div>{selectedPayment ? selectedPayment.name : 'Select'}</div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M6.65737 2.91634C6.54834 3.02797 6.4873 3.17781 6.4873 3.33384C6.4873 3.48988 6.54834 3.63972 6.65737 3.75134L12.7486 10.0001L6.65737 16.2476C6.54834 16.3592 6.4873 16.5091 6.4873 16.6651C6.4873 16.8211 6.54834 16.971 6.65737 17.0826C6.71037 17.137 6.77373 17.1803 6.84372 17.2098C6.91371 17.2394 6.9889 17.2546 7.06487 17.2546C7.14084 17.2546 7.21604 17.2394 7.28602 17.2098C7.35601 17.1803 7.41938 17.137 7.47237 17.0826L13.9499 10.4363C14.0636 10.3196 14.1273 10.1631 14.1273 10.0001C14.1273 9.8371 14.0636 9.68056 13.9499 9.56384L7.47237 2.91759C7.41938 2.86316 7.35601 2.8199 7.28602 2.79036C7.21604 2.76082 7.14084 2.74561 7.06487 2.74561C6.9889 2.74561 6.91371 2.76082 6.84372 2.79036C6.77373 2.8199 6.71037 2.86316 6.65737 2.91759V2.91634Z"
+                fill="#9D9D9D"
+              />
+            </svg>
           </div>
         </div>
       </div>

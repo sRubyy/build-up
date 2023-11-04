@@ -1,12 +1,19 @@
 import '../scss/my_cart/my_cart.scss';
 import '../scss/checkout/checkout.scss';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartItem from './cart/CartItem';
 import { useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import {
+  PaymentSelectionContext,
+  ShippingAddressSelectionContext,
+} from '../data/context';
 
 function BuyerCheckout() {
   const myCart = useSelector((state) => state.shoppingCart);
+
+  const [selectedCreditCard, setSelectedCreditCard] = useState(null);
+  const [selectedShippingAddress, setSelectedShippingAddress] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -51,8 +58,9 @@ function BuyerCheckout() {
           <div>
             <div className={'cart-item-list'}>
               {myCart.items.length !== 0 ? (
-                myCart.items.map((item) => (
+                myCart.items.map((item, i) => (
                   <CartItem
+                    key={i}
                     productId={item.id}
                     productName={item.name}
                     productDescription={item.description}
@@ -69,7 +77,15 @@ function BuyerCheckout() {
             </div>
           </div>
         </div>
-        <Outlet />
+        <PaymentSelectionContext.Provider
+          value={[selectedCreditCard, setSelectedCreditCard]}
+        >
+          <ShippingAddressSelectionContext.Provider
+            value={[selectedShippingAddress, setSelectedShippingAddress]}
+          >
+            <Outlet />
+          </ShippingAddressSelectionContext.Provider>
+        </PaymentSelectionContext.Provider>
       </div>
     </div>
   );

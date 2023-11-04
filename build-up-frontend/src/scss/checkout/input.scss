@@ -32,6 +32,16 @@
   min-width: 100% !important;
 }
 
+.no-item {
+  font-style: italic;
+  color: #9d9d9d;
+}
+
+.entry:hover {
+  cursor: pointer;
+  background-color: #f8f8f8;
+}
+
 .horizontal-dropdown {
   display: flex;
   justify-content: space-between;

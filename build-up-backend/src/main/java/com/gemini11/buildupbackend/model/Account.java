@@ -36,6 +36,10 @@ public class Account {
         this.password = password;
     }
 
+    public Integer getAccountId() {
+        return accountId;
+    }
+
     public String getUsername() {
         return username;
     }
