@@ -1,12 +1,22 @@
 package com.gemini11.buildupbackend.controller;
 
+import com.gemini11.buildupbackend.entity.BuyerCheckoutDTO;
+import com.gemini11.buildupbackend.entity.ResponseObject;
+import com.gemini11.buildupbackend.model.CreditCard;
 import com.gemini11.buildupbackend.model.Order;
+import com.gemini11.buildupbackend.model.OrderItem;
+import com.gemini11.buildupbackend.repository.StatusRepository;
+import com.gemini11.buildupbackend.service.AccountService;
+import com.gemini11.buildupbackend.service.CreditCardService;
 import com.gemini11.buildupbackend.service.OrderService;
+import com.gemini11.buildupbackend.service.ProductService;
+import com.gemini11.buildupbackend.utility.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +26,18 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    AccountService accountService;
+
+    @Autowired
+    StatusRepository statusRepository;
+
+    @Autowired
+    CreditCardService creditCardService;
+
+    @Autowired
+    ProductService productService;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<Order>> getAllOrders() {
@@ -65,4 +87,52 @@ public class OrderController {
         }
     }
 
+    @CrossOrigin
+    @PostMapping("/checkout")
+    public ResponseEntity<ResponseObject> checkout(@RequestBody BuyerCheckoutDTO checkoutDTO) {
+        String username = new JwtHelper().extractUsernameFromToken(checkoutDTO.token());
+        if (username == null) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST,
+                    "Token is invalid.",
+                    null
+            ), HttpStatus.BAD_REQUEST);
+        }
+
+        CreditCard creditCard = creditCardService.getCreditCardById(checkoutDTO.creditCardId());
+        if (creditCard.getBalance() < checkoutDTO.totalPrice()) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST,
+                    "Insufficient balance.",
+                    null
+            ), HttpStatus.BAD_REQUEST);
+        }
+
+        Order newOrder = new Order();
+        newOrder.setOrderDate(LocalDateTime.now());
+        newOrder.setStatus(statusRepository.findByName("Ordered"));
+        newOrder.setAccount(accountService.getAccountByUsername(username).orElse(null));
+        newOrder.setCreditCard(creditCard);
+
+        List<OrderItem> items = new ArrayList<>();
+        checkoutDTO.items().forEach(item -> {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setProduct(productService.getProductById(item.itemId()));
+            orderItem.setItemQuantity(item.quantity());
+            items.add(orderItem);
+        });
+        newOrder.setOrderItems(items);
+
+        orderService.addOrder(newOrder);
+        creditCard.setBalance(creditCard.getBalance() - checkoutDTO.totalPrice());
+        creditCardService.editCreditCard(checkoutDTO.creditCardId(), creditCard);
+        return new ResponseEntity<>(new ResponseObject(
+                LocalDateTime.now(),
+                HttpStatus.OK,
+                "",
+                newOrder
+        ), HttpStatus.OK);
+    }
 }

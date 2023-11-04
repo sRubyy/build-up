@@ -52,9 +52,14 @@ export const shoppingCartSlice = createSlice({
 
       state.totalPrice = Number(state.totalPrice.toFixed(DECIMAL_POINT));
     },
+
+    clear: (state) => {
+      state.items = [];
+      state.totalPrice = 0;
+    },
   },
 });
 
-export const { addItem, removeItem } = shoppingCartSlice.actions;
+export const { addItem, removeItem, clear } = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
