@@ -2,16 +2,25 @@ import '../../scss/checkout/checkout.scss';
 import '../../scss/checkout/checkout_form.scss';
 import InputText from './InputText';
 import InputDropdown from './InputDropdown';
+import { useState } from 'react';
 
 function CheckoutAddressForm() {
-  return (
-    <>
-      <div className={'form-container'}>
-        <InputText
-          inputName={'Name'}
-          placeholder={'Enter surname and lastname'}
-        />
-        <div style={{ paddingBottom: '32px' }} className={'border-bottom'}>
+  const [isExpandMode, setIsExpandMode] = useState(false);
+
+  const toggleExpandMode = () => {
+    setIsExpandMode(!isExpandMode);
+  };
+
+  const AddressForm = () => {
+    return (
+      <>
+        <div className={'border-top'} style={{ paddingTop: '16px' }}>
+          <InputText
+            inputName={'Name'}
+            placeholder={'Enter surname and lastname'}
+          />
+        </div>
+        <div>
           <InputText inputName={'Phone number'} placeholder={'placeholder'} />
         </div>
         <InputDropdown
@@ -28,8 +37,35 @@ function CheckoutAddressForm() {
           placeholder={'Enter province, district, sub-district'}
         />
         <InputText inputName={'Postcode'} placeholder={'Enter postcode'} />
+      </>
+    );
+  };
+
+  return (
+    <>
+      <div className={'form-container'}>
+        <InputDropdown
+          inputName={'Your address'}
+          listItem={['My home', 'My office']}
+          selectedItem={'My home'}
+        />
+        <div className={'add-new'} onClick={toggleExpandMode}>
+          + Add your new address
+        </div>
+        {isExpandMode && AddressForm()}
       </div>
-      <div className={'form-button checkout-page__button--style-2'}>OK</div>
+      {isExpandMode ? (
+        <div className={'add-new__button'}>
+          <div className={'form-button checkout-page__button--style-2'}>
+            Cancel
+          </div>
+          <div className={'form-button checkout-page__button--style-2'}>
+            Add
+          </div>
+        </div>
+      ) : (
+        <div className={'form-button checkout-page__button--style-2'}>OK</div>
+      )}
     </>
   );
 }

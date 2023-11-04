@@ -10,6 +10,10 @@ import { MySelllProduct } from '../pages/MySellProduct/MySellProduct';
 import { EditProduct } from '../pages/EditProduct/EditProduct';
 import BuyerCheckout from '../pages/BuyerCheckout';
 import { SizeSelection } from '../pages/ProductDescription/components/SizeSelection';
+import CheckoutForm from '../pages/checkout/CheckoutForm';
+import CheckoutAddressForm from '../pages/checkout/CheckoutAddressForm';
+import PaymentMethodForm from '../pages/checkout/PaymentMethodForm';
+import CheckoutSummary from '../pages/checkout/CheckoutSummary';
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +35,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: 'my-cart',
+        path: '/my-cart',
         element: <ShoppingCart />,
       },
       {
@@ -47,8 +51,28 @@ export const router = createBrowserRouter([
         element: <EditProduct />,
       },
       {
-        path: 'checkout',
+        path: '/checkout',
         element: <BuyerCheckout />,
+        children: [
+          {
+            path: '/checkout/summary',
+            element: <CheckoutSummary />,
+          },
+          {
+            path: '/checkout/form',
+            element: <CheckoutForm />,
+            children: [
+              {
+                path: '/checkout/form/shipping-address',
+                element: <CheckoutAddressForm />,
+              },
+              {
+                path: '/checkout/form/payment-method',
+                element: <PaymentMethodForm />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },

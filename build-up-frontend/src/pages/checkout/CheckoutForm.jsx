@@ -2,14 +2,29 @@ import '../../scss/my_cart/my_cart.scss';
 import '../../scss/checkout/checkout.scss';
 import '../../scss/checkout/checkout_form.scss';
 
-import React from 'react';
-import CheckoutAddressForm from './CheckoutAddressForm';
-import PaymentMethodForm from './PaymentMethodForm';
+import React, { useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 function CheckoutForm() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      location.pathname === '/checkout/form' ||
+      location.pathname === '/checkout/form/'
+    ) {
+      navigate('/checkout/summary');
+    }
+  }, [location.pathname]);
+
   return (
     <div className={'checkout-page__content-body--right'}>
-      <div className={'text-header back-text-group'} style={{ border: '0' }}>
+      <div
+        className={'text-header back-text-group'}
+        style={{ border: '0' }}
+        onClick={() => navigate('/checkout/summary')}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -29,8 +44,7 @@ function CheckoutForm() {
           Back
         </div>
       </div>
-      {/*<CheckoutAddressForm />*/}
-      <PaymentMethodForm />
+      <Outlet />
     </div>
   );
 }
