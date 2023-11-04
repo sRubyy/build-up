@@ -24,6 +24,10 @@ public class Order {
     @JoinColumn(name = "owner_account_id")
     private Account account; // Many orders belong to one user
 
+    @ManyToOne
+    @JoinColumn(name = "credit_card_id")
+    private CreditCard creditCard;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;
 
@@ -57,5 +61,13 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 }

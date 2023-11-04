@@ -1,34 +1,78 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import '../../scss/my_cart/my_cart.scss';
 import '../../scss/checkout/checkout.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   PaymentSelectionContext,
   ShippingAddressSelectionContext,
 } from '../../data/context';
-
+import Cookies from 'universal-cookie';
+import { clear } from '../../store/state-slices/shopping-cart-slice';
 function CheckoutSummary() {
   const myCart = useSelector((state) => state.shoppingCart);
   const navigate = useNavigate();
+  const baseUrl = 'http://localhost:8080';
 
+  const dispatch = useDispatch();
   const [selectedPayment] = useContext(PaymentSelectionContext);
   const [selectedAddress] = useContext(ShippingAddressSelectionContext);
 
   const TAX_FEE = 7;
   const PROCESS_FEE = 3;
 
-  const subTotal = myCart.totalPrice;
-  const transactionFee = Number(
-    (myCart.totalPrice * (TAX_FEE / 100)).toFixed(2)
-  );
-  const paymentProcessingFee = Number(
-    (myCart.totalPrice * (PROCESS_FEE / 100)).toFixed(2)
-  );
-  const totalPrice = subTotal + transactionFee + paymentProcessingFee;
+  const transactionFee = useMemo(() => {
+    return Number((myCart.totalPrice * (TAX_FEE / 100)).toFixed(2));
+  }, [myCart.totalPrice]);
+
+  const paymentProcessingFee = useMemo(() => {
+    return Number((myCart.totalPrice * (PROCESS_FEE / 100)).toFixed(2));
+  }, [myCart.totalPrice]);
+
+  const totalPrice = useMemo(() => {
+    return myCart.totalPrice + transactionFee + paymentProcessingFee;
+  });
 
   const shortenAddressName = (name) => {
     return name.length > 40 ? `${name.substring(0, 40)}...` : name;
+  };
+
+  const isAllowCheckout = () => {
+    if (!selectedPayment || !selectedAddress) {
+      return false;
+    }
+
+    return myCart.items.length >= 1;
+  };
+
+  const checkout = async () => {
+    if (!isAllowCheckout()) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`${baseUrl}/api/order/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          creditCardId: selectedPayment.cardId,
+          items: myCart.items.map((item) => ({
+            itemId: item.id,
+            quantity: item.quantity,
+          })),
+          token: new Cookies().get('loginToken'),
+          totalPrice,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.status === 200) {
+        dispatch(clear());
+      }
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -127,7 +171,7 @@ function CheckoutSummary() {
         <div className={'checkout-page__ship-and-payment--info-list'}>
           <div>Sub total</div>
           <div className={'checkout-page__ship-and-payment--text-1'}>
-            {subTotal}.-
+            {myCart.totalPrice}.-
           </div>
         </div>
         <div className={'checkout-page__ship-and-payment--info-list'}>
@@ -151,7 +195,16 @@ function CheckoutSummary() {
       </div>
       <div className={'checkout-page__button'}>
         <div className={'checkout-page__button--style-1'}>Cancel</div>
-        <div className={'checkout-page__button--style-2'}>Submit</div>
+        <div
+          className={
+            isAllowCheckout()
+              ? 'checkout-page__button--style-3'
+              : 'checkout-page__button--style-2'
+          }
+          onClick={() => checkout()}
+        >
+          Submit
+        </div>
       </div>
     </div>
   );
