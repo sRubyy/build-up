@@ -1,6 +1,7 @@
 import InputText from './InputText';
 import '../../scss/checkout/checkout.scss';
 import '../../scss/checkout/checkout_form.scss';
+import { useState } from 'react';
 function CreditCardForm() {
   return (
     <>

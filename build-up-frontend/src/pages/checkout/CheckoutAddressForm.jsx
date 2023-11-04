@@ -11,6 +11,10 @@ function CheckoutAddressForm() {
     setIsExpandMode(!isExpandMode);
   };
 
+  const clickCancelButton = () => {
+    setIsExpandMode(!isExpandMode);
+  };
+
   const AddressForm = () => {
     return (
       <>
@@ -56,7 +60,10 @@ function CheckoutAddressForm() {
       </div>
       {isExpandMode ? (
         <div className={'add-new__button'}>
-          <div className={'form-button checkout-page__button--style-2'}>
+          <div
+            className={'form-button checkout-page__button--style-1'}
+            onClick={clickCancelButton}
+          >
             Cancel
           </div>
           <div className={'form-button checkout-page__button--style-2'}>
