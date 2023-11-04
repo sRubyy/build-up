@@ -1,11 +1,13 @@
 package com.gemini11.buildupbackend.controller;
 
 import com.gemini11.buildupbackend.entity.CreditCartCreateDTO;
+import com.gemini11.buildupbackend.entity.LoginTokenDTO;
 import com.gemini11.buildupbackend.entity.ResponseObject;
 import com.gemini11.buildupbackend.model.Account;
 import com.gemini11.buildupbackend.model.CreditCard;
 import com.gemini11.buildupbackend.service.AccountService;
 import com.gemini11.buildupbackend.service.CreditCardService;
+import com.gemini11.buildupbackend.utility.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,6 +68,37 @@ public class CreditCardController {
         } else {
             return new ResponseEntity<>(creditCard, HttpStatus.OK);
         }
+    }
+
+    @CrossOrigin
+    @PostMapping("/findCreditCardByToken")
+    public ResponseEntity<ResponseObject> getCreditCardByToken(@RequestBody LoginTokenDTO tokenDTO) {
+        String username = new JwtHelper().extractUsernameFromToken(tokenDTO.token());
+        if (username == null) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST,
+                    "",
+                    null
+            ), HttpStatus.BAD_REQUEST);
+        }
+        Optional<Account> account = accountService.getAccountByUsername(username);
+        if (account.isEmpty()) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST,
+                    "",
+                    null
+            ), HttpStatus.BAD_REQUEST);
+        }
+        Iterable<CreditCard> creditCard = creditCardService.getCreditCardsByAccountId(account.get().getAccountId());
+        creditCard.forEach(card -> card.setAccount(null));
+        return new ResponseEntity<>(new ResponseObject(
+                LocalDateTime.now(),
+                HttpStatus.OK,
+                "",
+                creditCard
+        ), HttpStatus.OK);
     }
 
     @PostMapping("/addCreditCard")

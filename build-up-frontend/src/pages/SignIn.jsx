@@ -21,6 +21,7 @@ const SignIn = () => {
       if (response.status === 200) {
         const cookies = new Cookies();
         cookies.set('loginToken', data.data);
+        navigate('/');
       }
     } catch (error) {
       console.error('Error:', error);
