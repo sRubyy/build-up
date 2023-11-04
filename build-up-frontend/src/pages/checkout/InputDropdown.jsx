@@ -1,5 +1,10 @@
 import '../../scss/checkout/input.scss';
-function InputDropdown({ inputName, listItem, selectedItem }) {
+function InputDropdown({
+  inputName,
+  listItem,
+  selectedItem,
+  onSelect = () => {},
+}) {
   return (
     <div className={'input-container'}>
       <div className={'input-label'}>{inputName}</div>
@@ -19,11 +24,17 @@ function InputDropdown({ inputName, listItem, selectedItem }) {
           className="country-dropdown-menu dropdown-menu"
           style={{ width: '0px' }}
         >
-          {listItem.map((item, i) => (
-            <li key={i}>
-              <div className="">{item}</div>
+          {listItem.length > 0 ? (
+            listItem.map((item, i) => (
+              <li key={i} onClick={() => onSelect(item)}>
+                <div className={'entry'}>{item.name}</div>
+              </li>
+            ))
+          ) : (
+            <li>
+              <div className={'no-item'}>No item...</div>
             </li>
-          ))}
+          )}
         </ul>
       </div>
     </div>

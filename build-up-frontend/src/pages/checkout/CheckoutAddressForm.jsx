@@ -2,10 +2,52 @@ import '../../scss/checkout/checkout.scss';
 import '../../scss/checkout/checkout_form.scss';
 import InputText from './InputText';
 import InputDropdown from './InputDropdown';
-import { useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { ShippingAddressSelectionContext } from '../../data/context';
+import Cookies from 'universal-cookie';
 
 function CheckoutAddressForm() {
   const [isExpandMode, setIsExpandMode] = useState(false);
+  const baseUrl = 'http://localhost:8080';
+
+  const [selectedAddress, setSelectedAddress] = useContext(
+    ShippingAddressSelectionContext
+  );
+
+  const [addresses, setAddresses] = useState([]);
+
+  useEffect(() => {
+    const fetchCreditCards = async () => {
+      try {
+        const token = { token: new Cookies().get('loginToken') };
+        const res = await fetch(
+          `${baseUrl}/api/shippingAddress/findShippingAddressByToken`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(token),
+          }
+        );
+        const data = await res.json();
+        setAddresses(data.data ?? []);
+      } catch (e) {
+        setAddresses([]);
+      }
+    };
+
+    fetchCreditCards();
+  }, []);
+
+  const decorateAddressText = (address) => {
+    return `${address.detail}, ${address.subDistrict}, ${address.district}, ${address.province}, ${address.postcode}, ${address.country}`;
+  };
+
+  const allAddresses = useMemo(() => {
+    return addresses.map((address) => ({
+      ...address,
+      name: decorateAddressText(address),
+    }));
+  }, [addresses]);
 
   const toggleExpandMode = () => {
     setIsExpandMode(!isExpandMode);
@@ -50,15 +92,16 @@ function CheckoutAddressForm() {
       <div className={'form-container'}>
         <InputDropdown
           inputName={'Your address'}
-          listItem={['My home', 'My office']}
-          selectedItem={'My home'}
+          listItem={allAddresses}
+          selectedItem={selectedAddress ? selectedAddress.name : 'Select'}
+          onSelect={setSelectedAddress}
         />
         <div className={'add-new'} onClick={toggleExpandMode}>
           + Add your new address
         </div>
         {isExpandMode && AddressForm()}
       </div>
-      {isExpandMode ? (
+      {isExpandMode && (
         <div className={'add-new__button'}>
           <div
             className={'form-button checkout-page__button--style-1'}
@@ -70,8 +113,6 @@ function CheckoutAddressForm() {
             Add
           </div>
         </div>
-      ) : (
-        <div className={'form-button checkout-page__button--style-2'}>OK</div>
       )}
     </>
   );

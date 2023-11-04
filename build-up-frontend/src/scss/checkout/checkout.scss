@@ -23,12 +23,14 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: right;
     }
 
     &--icon-group {
       align-items: center;
       display: flex;
       gap: 16px;
+      color: #252525;
 
       &:hover {
         cursor: pointer;

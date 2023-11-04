@@ -3,11 +3,22 @@ import '../../scss/checkout/checkout_form.scss';
 import HorizontalDropdown from './HorizontalDropdown';
 import CreditCardForm from './CreditCardForm';
 import OnlineBankingForm from './OnlineBankingForm';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import InputDropdown from './InputDropdown';
+import Cookies from 'universal-cookie';
+import { useMemo } from 'react';
+import { PaymentSelectionContext } from '../../data/context';
 
 function PaymentMethodForm() {
   const [paymentMethod, setPaymentMethod] = useState('Credit card');
+  const baseUrl = 'http://localhost:8080';
+
+  const [selectedPayment, setSelectedPayment] = useContext(
+    PaymentSelectionContext
+  );
+
+  const [creditCards, setCreditCards] = useState([]);
+  const [onlineBanks, setOnlineBanks] = useState([]);
 
   const [isExpandMode, setIsExpandMode] = useState(false);
 
@@ -21,6 +32,54 @@ function PaymentMethodForm() {
 
   const changePaymentMethod = (method) => {
     setPaymentMethod(method);
+  };
+
+  useEffect(() => {
+    const fetchCreditCards = async () => {
+      try {
+        const token = { token: new Cookies().get('loginToken') };
+        const res = await fetch(
+          `${baseUrl}/api/creditCard/findCreditCardByToken`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(token),
+          }
+        );
+        const data = await res.json();
+        setCreditCards(data.data ?? []);
+      } catch (e) {
+        setCreditCards([]);
+      }
+    };
+
+    fetchCreditCards();
+  }, []);
+
+  const decorateCardDisplayText = (cardNumber) => {
+    const startIndex = cardNumber.length - 4;
+    const slicedString = cardNumber.substring(startIndex);
+
+    return `Credit card (xxxx-${slicedString})`;
+  };
+
+  const creditCardMethod = () => {
+    return creditCards.map((card) => ({
+      ...card,
+      name: decorateCardDisplayText(card.cardNumber),
+    }));
+  };
+
+  const onlineBankingMethod = () => {
+    return [];
+  };
+
+  const allPaymentMethod = useMemo(() => {
+    return creditCardMethod().concat(onlineBankingMethod());
+  }, [creditCards, onlineBanks]);
+
+  const selectMethod = (method) => {
+    setSelectedPayment(method);
   };
 
   const PaymentForm = () => {
@@ -51,18 +110,16 @@ function PaymentMethodForm() {
       <div className={'form-container'}>
         <InputDropdown
           inputName={'Your payment method'}
-          listItem={[
-            'Credit card - (xxxx-xxx)',
-            'Online banking - (SCB xxxx-xxx)',
-          ]}
-          selectedItem={'Credit card - (xxxx-xxx)'}
+          listItem={allPaymentMethod}
+          selectedItem={selectedPayment ? selectedPayment.name : 'Select'}
+          onSelect={selectMethod}
         />
         <div className={'add-new'} onClick={toggleExpandMode}>
           + Add a new payment method
         </div>
         {isExpandMode && PaymentForm()}
       </div>
-      {isExpandMode ? (
+      {isExpandMode && (
         <div className={'add-new__button'}>
           <div
             className={'form-button checkout-page__button--style-1'}
@@ -74,8 +131,6 @@ function PaymentMethodForm() {
             Add
           </div>
         </div>
-      ) : (
-        <div className={'form-button checkout-page__button--style-2'}>OK</div>
       )}
     </>
   );
