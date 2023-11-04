@@ -33,6 +33,10 @@ public class AccountServiceImpl implements AccountService {
         return Optional.ofNullable(accountRepository.findByUsername(username));
     }
 
+    public Optional<Account> getAccountById(Integer id) {
+        return accountRepository.findByAccountId(id);
+    }
+
     public void deleteAccountByUsername(String username) {
         accountRepository.deleteByUsername(username);
     }
