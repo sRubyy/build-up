@@ -11,7 +11,7 @@ import java.util.Objects;
 public class JwtHelper {
 
     private static final String SECRET_KEY = "your-secret-key";
-    private static final long EXPIRATION_TIME = 60 * 1_000;
+    private static final long EXPIRATION_TIME = 3600 * 1_000;
 
     public String generateToken(String username) {
         return Jwts.builder()

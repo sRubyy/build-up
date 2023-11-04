@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/register-and-sign-in/register-and-sign-in.scss';
+import Cookies from 'universal-cookie';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -16,12 +17,10 @@ const SignIn = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(account),
       });
+      const data = await response.json();
       if (response.status === 200) {
-        navigate('/');
-        console.log('Sign-in successful');
-      } else {
-        // Handle sign-in errors here
-        console.error('Sign-in failed');
+        const cookies = new Cookies();
+        cookies.set('loginToken', data.data);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -34,7 +33,6 @@ const SignIn = () => {
         <h2 className="form-title">Sign In</h2>
         <form method="POST" className="register-form">
           <div className="form-group">
-            <label>Username:</label>
             <input
               type="text"
               name="username"
@@ -44,7 +42,6 @@ const SignIn = () => {
             />
           </div>
           <div className="form-group">
-            <label>Password:</label>
             <input
               type="password"
               name="password"
