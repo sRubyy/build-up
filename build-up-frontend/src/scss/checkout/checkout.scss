@@ -95,6 +95,10 @@
     &--style-1 {
       border: 1px solid #9d9d9d;
       color: #9d9d9d;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &--style-2 {
@@ -105,6 +109,10 @@
     &--style-3 {
       background: #00b227;
       color: #fff;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

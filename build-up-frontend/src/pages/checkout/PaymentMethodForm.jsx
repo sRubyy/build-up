@@ -15,6 +15,10 @@ function PaymentMethodForm() {
     setIsExpandMode(!isExpandMode);
   };
 
+  const clickCancelButton = () => {
+    setIsExpandMode(!isExpandMode);
+  };
+
   const changePaymentMethod = (method) => {
     setPaymentMethod(method);
   };
@@ -33,7 +37,10 @@ function PaymentMethodForm() {
         {paymentMethod === 'Credit card' ? (
           <CreditCardForm />
         ) : (
-          <OnlineBankingForm />
+          // <OnlineBankingForm />
+          <div className={'form-not-available'}>
+            Online banking is not available now...
+          </div>
         )}
       </>
     );
@@ -55,7 +62,21 @@ function PaymentMethodForm() {
         </div>
         {isExpandMode && PaymentForm()}
       </div>
-      <div className={'form-button checkout-page__button--style-2'}>OK</div>
+      {isExpandMode ? (
+        <div className={'add-new__button'}>
+          <div
+            className={'form-button checkout-page__button--style-1'}
+            onClick={clickCancelButton}
+          >
+            Cancel
+          </div>
+          <div className={'form-button checkout-page__button--style-2'}>
+            Add
+          </div>
+        </div>
+      ) : (
+        <div className={'form-button checkout-page__button--style-2'}>OK</div>
+      )}
     </>
   );
 }

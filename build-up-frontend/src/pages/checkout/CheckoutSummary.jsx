@@ -8,9 +8,6 @@ function CheckoutSummary() {
   const myCart = useSelector((state) => state.shoppingCart);
   const navigate = useNavigate();
 
-  const [shippingAddress, setShippingAddress] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState(null);
-
   const TAX_FEE = 7;
   const PROCESS_FEE = 3;
 
