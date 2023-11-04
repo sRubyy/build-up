@@ -29,6 +29,10 @@
       align-items: center;
       display: flex;
       gap: 16px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &--info-list {

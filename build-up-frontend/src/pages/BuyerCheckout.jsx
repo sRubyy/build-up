@@ -1,13 +1,24 @@
 import '../scss/my_cart/my_cart.scss';
 import '../scss/checkout/checkout.scss';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CartItem from './cart/CartItem';
-import CheckoutSummary from './checkout/CheckoutSummary';
-import CheckoutForm from './checkout/CheckoutForm';
 import { useSelector } from 'react-redux';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 function BuyerCheckout() {
   const myCart = useSelector((state) => state.shoppingCart);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      location.pathname === '/checkout' ||
+      location.pathname === '/checkout/'
+    ) {
+      navigate('/checkout/summary');
+    }
+  }, [location.pathname]);
 
   return (
     <div className={'checkout-page'}>
@@ -27,7 +38,7 @@ function BuyerCheckout() {
             />
           </svg>
         </div>
-        <div>My cart</div>
+        <div>Checkout</div>
       </div>
       <div className={'checkout-page__content-body'}>
         <div className={'checkout-page__content-body--left'}>
@@ -58,8 +69,7 @@ function BuyerCheckout() {
             </div>
           </div>
         </div>
-        <CheckoutSummary />
-        {/*<CheckoutForm />*/}
+        <Outlet />
       </div>
     </div>
   );
