@@ -42,7 +42,6 @@ const Register = () => {
         <h2 className="form-title">Register</h2>
         <form method="POST" className="register-form">
           <div className="form-group">
-            <label>Username:</label>
             <input
               type="text"
               name="username"
@@ -52,7 +51,6 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
-            <label>Password:</label>
             <input
               type="password"
               name="password"
@@ -62,7 +60,6 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
-            <label>Confirm Password:</label>
             <input
               type="password"
               name="c_password"
