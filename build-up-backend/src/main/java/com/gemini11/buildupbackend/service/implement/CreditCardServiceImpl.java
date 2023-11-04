@@ -73,7 +73,7 @@ public class CreditCardServiceImpl implements CreditCardService {
     public CreditCard editCreditCard(int id, CreditCard creditCard) {
         Optional<CreditCard> creditCard1 = creditCardRepository.findById(id);
 
-        if (creditCard1.isPresent()){
+        if (creditCard1.isPresent()) {
             CreditCard creditCard2 = creditCard1.get();
             creditCard2.setAccount(creditCard.getAccount());
             creditCard2.setCardNumber(creditCard.getCardNumber());
@@ -83,7 +83,7 @@ public class CreditCardServiceImpl implements CreditCardService {
             creditCard2.setBalance(creditCard.getBalance());
             return creditCardRepository.save(creditCard2);
         } else {
-            return  null;
+            return null;
         }
     }
 }

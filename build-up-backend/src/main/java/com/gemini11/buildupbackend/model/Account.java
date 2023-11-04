@@ -28,7 +28,8 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CreditCard> creditCards;
 
-    public Account() {}
+    public Account() {
+    }
 
     public Account(String username, String password) {
         this.username = username;
