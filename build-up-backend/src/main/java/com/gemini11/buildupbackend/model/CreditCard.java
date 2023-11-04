@@ -2,8 +2,6 @@ package com.gemini11.buildupbackend.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "credit_card")
 public class CreditCard {
@@ -24,35 +22,61 @@ public class CreditCard {
     private String holderName;
 
     @Column(name = "expiration_date")
-    private LocalDateTime expirationDate;
+    private String expirationDate;
 
     private String cvv;
 
     private Double balance;
 
-    public Account getAccount() {return account;}
+    public Account getAccount() {
+        return account;
+    }
 
-    public void setAccount(Account account) {this.account = account;}
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
-    public String getHolderName() {return holderName;}
+    public String getHolderName() {
+        return holderName;
+    }
 
-    public void setHolderName(String holderName) {this.holderName = holderName;}
+    public void setHolderName(String holderName) {
+        this.holderName = holderName;
+    }
 
-    public LocalDateTime getExpirationDate() {return expirationDate;}
+    public String getExpirationDate() {
+        return expirationDate;
+    }
 
-    public void setExpirationDate(LocalDateTime expirationDate) {this.expirationDate = expirationDate;}
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
 
-    public String getCvv() {return cvv;}
+    public String getCvv() {
+        return cvv;
+    }
 
-    public void setCvv(String cvv) {this.cvv = cvv;}
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
+    }
 
-    public Double getBalance() {return balance;}
+    public Double getBalance() {
+        return balance;
+    }
 
-    public void setBalance(Double balance) {this.balance = balance;}
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
 
-    public Integer getCardId() {return cardId;}
+    public Integer getCardId() {
+        return cardId;
+    }
 
-    public String getCardNumber() {return cardNumber;}
+    public String getCardNumber() {
+        return cardNumber;
+    }
 
-    public void setCardNumber(String cardNumber) {this.cardNumber = cardNumber;}
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
 }

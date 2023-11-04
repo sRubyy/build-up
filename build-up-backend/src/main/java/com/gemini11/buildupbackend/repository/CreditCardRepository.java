@@ -2,7 +2,6 @@ package com.gemini11.buildupbackend.repository;
 
 import com.gemini11.buildupbackend.model.Account;
 import com.gemini11.buildupbackend.model.CreditCard;
-import com.gemini11.buildupbackend.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

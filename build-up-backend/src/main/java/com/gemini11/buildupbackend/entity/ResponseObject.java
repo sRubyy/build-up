@@ -9,4 +9,5 @@ public record ResponseObject(
         HttpStatus statusCode,
         String errorMessage,
         Object data
-) { }
+) {
+}
