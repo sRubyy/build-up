@@ -17,11 +17,22 @@ const SignIn = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(account),
       });
-      const data = await response.json();
       if (response.status === 200) {
+        const responseJson = await response.json();
+
         const cookies = new Cookies();
-        cookies.set('loginToken', data.data);
-        navigate('/');
+        cookies.set('loginToken', responseJson.data);
+
+        const data = {
+          username: username,
+          token: responseJson.data
+        };
+
+        navigate('/', { state: { data } });
+        console.log('Sign-in successful');
+      } else {
+        // Handle sign-in errors here
+        console.error('Sign-in failed');
       }
     } catch (error) {
       console.error('Error:', error);
