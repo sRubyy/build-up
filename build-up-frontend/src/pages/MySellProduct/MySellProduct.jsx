@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import '../../scss/my_sell_product/my_sell_product.scss';
-import { async } from 'q';
 import ProductModel from '../../models/ProductModel';
 import ItemShowcase from './components/ItemShowcase';
 export const MySelllProduct = () => {
@@ -76,8 +75,8 @@ export const MySelllProduct = () => {
         <div style={{ height: '30px' }}>My Sell Products</div>
       </div>
       <div className="showcaselist">
-        {products.map((item) => (
-          <div>
+        {products.map((item, i) => (
+          <div key={i}>
             <ItemShowcase item={item} />
           </div>
         ))}
