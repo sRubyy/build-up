@@ -5,6 +5,8 @@ import com.gemini11.buildupbackend.entity.ResponseObject;
 import com.gemini11.buildupbackend.model.Account;
 import com.gemini11.buildupbackend.service.AccountService;
 import com.gemini11.buildupbackend.utility.JwtHelper;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -24,6 +24,7 @@ public class AuthenticationController {
     private final AccountService accountService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private Set<String> tokenBlacklist = new HashSet<>();
     @Autowired
     public AuthenticationController(
             AccountService accountService,
@@ -58,12 +59,24 @@ public class AuthenticationController {
         ));
     }
 
+    @PostMapping("/auth/logout")
+    public ResponseEntity<ResponseObject> logout(@RequestParam("token") String token) {
+        tokenBlacklist.add(token);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(
+                LocalDateTime.now(),
+                HttpStatus.OK,
+                "Logged out successfully",
+                null
+        ));
+    }
+
     @GetMapping("/auth/verify")
     public ResponseEntity<ResponseObject> verify(
             @RequestParam(name = "subject") String subject,
             @RequestParam(name = "token") String token
     ) {
-        boolean isValidToken = new JwtHelper().verifyToken(subject, token);
+        boolean isValidToken = new JwtHelper().verifyToken(subject, token) && !tokenBlacklist.contains(token);
         HttpStatus httpStatus = isValidToken ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
 
         Map<String, Object> data = new HashMap<>();

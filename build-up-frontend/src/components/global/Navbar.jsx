@@ -1,7 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../scss/global/navbar.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { CgProfile } from 'react-icons/cg'
+import { useLocation } from 'react-router-dom';
+
 function Navbar() {
+
+  const location = useLocation();
+  // const navigate= useNavigate();
+  const [isLoggedIn, setLoggedIn] = useState('');
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+
+
+
+    const fetchLoggedInStatus = async () => {
+      if(data.username && data.token){
+        const url = `http://localhost:8080/api/auth/verify?subject=${data.username}&token=${data.token}`;
+
+        const request = {
+          method: 'GET',
+        };
+
+        const response = await fetch(url, request);
+
+        if (response.ok) {
+          console.log(data.token)
+          setLoggedIn(true);
+        }else{
+          setLoggedIn(false);
+        }
+      }
+
+    };
+    if (location.state && location.state.data) {
+      setData(location.state.data);
+      fetchLoggedInStatus();
+    } else {
+      console.error('Data is not available in location state.');
+    }
+
+  });
+
+  const handleLogout = async () => {
+    const url = `http://localhost:8080/api/auth/logout?token=${data.token}`;
+
+    const response = await fetch(url, {
+      method: 'POST'
+    });
+
+    if(!response.ok){
+      throw new Error('Error found');
+    }
+
+    console.log(data.token)
+    window.localStorage.removeItem('jwtToken');
+    setLoggedIn(false);
+  };
+
   return (
     <div className="global-nav">
       <div className="global-nav__left">
@@ -33,39 +90,52 @@ function Navbar() {
           </svg>
         </div>
       </div>
-      <div className="global-nav__right">
-        <Link to={'/my-cart'}>
-          <div className="global-nav__cart-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 22 22"
-              fill="none"
-            >
-              <g clip-path="url(#clip0_507_103)">
-                <path
-                  d="M0 0.916656H4.367L4.86658 2.74999H21.4381L18.0776 12.8333H7.13167L6.67333 14.6667H20.1667V16.5H4.32667L5.46883 11.9267L2.96633 2.74999H0V0.916656ZM7.117 11H16.7557L18.8953 4.58332H5.36708L7.117 11ZM3.66667 19.25C3.66667 18.7638 3.85982 18.2974 4.20364 17.9536C4.54745 17.6098 5.01377 17.4167 5.5 17.4167C5.98623 17.4167 6.45255 17.6098 6.79636 17.9536C7.14018 18.2974 7.33333 18.7638 7.33333 19.25C7.33333 19.7362 7.14018 20.2025 6.79636 20.5464C6.45255 20.8902 5.98623 21.0833 5.5 21.0833C5.01377 21.0833 4.54745 20.8902 4.20364 20.5464C3.85982 20.2025 3.66667 19.7362 3.66667 19.25ZM16.5 19.25C16.5 18.7638 16.6932 18.2974 17.037 17.9536C17.3808 17.6098 17.8471 17.4167 18.3333 17.4167C18.8196 17.4167 19.2859 17.6098 19.6297 17.9536C19.9735 18.2974 20.1667 18.7638 20.1667 19.25C20.1667 19.7362 19.9735 20.2025 19.6297 20.5464C19.2859 20.8902 18.8196 21.0833 18.3333 21.0833C17.8471 21.0833 17.3808 20.8902 17.037 20.5464C16.6932 20.2025 16.5 19.7362 16.5 19.25Z"
-                  fill="#252525"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_507_103">
-                  <rect width="22" height="22" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-          </div>
-        </Link>
-        <Link to={'/register'} className={'global-nav__link'}>
-          <div>Sign up</div>
-        </Link>
-        <Link to={'/sign-in'} className={'global-nav__link'}>
-          <div>Log in</div>
-        </Link>
+        <div className="global-nav__right">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+          >
+            <g clip-path="url(#clip0_507_103)">
+              <path
+                d="M0 0.916656H4.367L4.86658 2.74999H21.4381L18.0776 12.8333H7.13167L6.67333 14.6667H20.1667V16.5H4.32667L5.46883 11.9267L2.96633 2.74999H0V0.916656ZM7.117 11H16.7557L18.8953 4.58332H5.36708L7.117 11ZM3.66667 19.25C3.66667 18.7638 3.85982 18.2974 4.20364 17.9536C4.54745 17.6098 5.01377 17.4167 5.5 17.4167C5.98623 17.4167 6.45255 17.6098 6.79636 17.9536C7.14018 18.2974 7.33333 18.7638 7.33333 19.25C7.33333 19.7362 7.14018 20.2025 6.79636 20.5464C6.45255 20.8902 5.98623 21.0833 5.5 21.0833C5.01377 21.0833 4.54745 20.8902 4.20364 20.5464C3.85982 20.2025 3.66667 19.7362 3.66667 19.25ZM16.5 19.25C16.5 18.7638 16.6932 18.2974 17.037 17.9536C17.3808 17.6098 17.8471 17.4167 18.3333 17.4167C18.8196 17.4167 19.2859 17.6098 19.6297 17.9536C19.9735 18.2974 20.1667 18.7638 20.1667 19.25C20.1667 19.7362 19.9735 20.2025 19.6297 20.5464C19.2859 20.8902 18.8196 21.0833 18.3333 21.0833C17.8471 21.0833 17.3808 20.8902 17.037 20.5464C16.6932 20.2025 16.5 19.7362 16.5 19.25Z"
+                fill="#252525"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_507_103">
+                <rect width="22" height="22" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        {isLoggedIn ?
+          (
+
+            <div class="dropdown">
+            <button class="btn  dropdown-toggle" style={{marginTop: '-1%'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <CgProfile size={24} />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" onClick={handleLogout}>Log out</a></li>
+            </ul>
+          </div>) :
+          (
+              <div className='d-flex' style={{gap: '28px'}}>
+                  <div>
+                    <Link to={"/register"} style={{textDecoration: 'none', color: '#1f1f1f'}}>Sign up</Link>
+                  </div>
+                  <div>
+                    <Link to={"/sign-in"} style={{textDecoration: 'none', color: '#1f1f1f'}}>Log in</Link>
+                  </div>
+              </div>
+          )
+        }
       </div>
     </div>
   );
-}
+};
 
 export default Navbar;
