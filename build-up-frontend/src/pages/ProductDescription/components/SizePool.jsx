@@ -98,7 +98,12 @@ export const SizePool = (props) => {
     <>
       <div className={'select-type__second-desc'}>
         <div className={'select-type__size-desc'}>Size (US Unisex)</div>
-        <div className={'select-type__size-chart'}>Size Chart</div>
+        <div
+          className={'select-type__size-chart'}
+          onClick={() => setSelectedItem(null)}
+        >
+          Deselect
+        </div>
       </div>
       <div className={'select-type__size-pool'}>
         {sizePool.length !== 0 ? (
