@@ -20,4 +20,6 @@ public interface ProductService {
     List<Product> getProductsByName(String name);
 
     List<List<Object>> getSizeWithMinPriceAndIsBrandNew(String name);
+
+    List<List<Object>> getSizeWithMinPrice(String name, Boolean is_brand_new);
 }
