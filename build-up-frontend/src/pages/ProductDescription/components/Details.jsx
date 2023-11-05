@@ -42,10 +42,10 @@ export const Details = (props) => {
   };
 
   return (
-    <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
+    <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '8%', width: '85%' }}>
       <div className="row">
         <div className="col">
-          <p className="fs-4 fw-semibold d-flex justify-content-center">
+          <p className="fs-5 fw-semibold d-flex justify-content-center">
             Listing Information
           </p>
         </div>
@@ -193,13 +193,13 @@ export const Details = (props) => {
         </div>
       </div>
       <div className="d-flex justify-content-between mt-4">
-        <div className="d-flex justify-content-around" style={{ width: '49%' }}>
+        <div className="d-flex justify-content-around" style={{ width: '48.85%' }}>
           <button
             className="btn text-light"
             type="button"
             style={{
               width: '100%',
-              height: '50px',
+              height: '45px',
               borderRadius: '8px',
               backgroundColor: 'black',
               fontSize: '18px',
@@ -209,13 +209,13 @@ export const Details = (props) => {
             Back
           </button>
         </div>
-        <div className="d-flex justify-content-around" style={{ width: '49%' }}>
+        <div className="d-flex justify-content-around" style={{ width: '48.85%' }}>
           <button
             className=" btn text-light"
             type="button"
             style={{
               width: '100%',
-              height: '50px',
+              height: '45px',
               borderRadius: '8px',
               backgroundColor: '#00B227',
               fontSize: '18px',

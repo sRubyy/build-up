@@ -17,8 +17,7 @@ export const Description = (props) => {
 
   return (
     <div
-      className="col"
-      style={{ fontFamily: 'Montserrat', marginTop: '3rem' }}
+      style={{ fontFamily: 'Montserrat', marginTop: '8%', width: '85%' }}
     >
       <div className="row">
         <div className="col">
@@ -30,7 +29,7 @@ export const Description = (props) => {
           <p className="fs-6 fw-lighter text-secondary">{props.description}</p>
         </div>
       </div>
-      <div className="row mt-2">
+      <div className="row mt-1">
         <hr class="hr hr-blurry opacity-10" />
       </div>
       <div className="row">
@@ -166,9 +165,10 @@ export const Description = (props) => {
                   backgroundColor: '#E3E3E3',
                   paddingLeft: '6px',
                   paddingRight: '5px',
-                  paddingTop: '4px',
-                  paddingBottom: '6px',
+                  paddingTop: '5px',
+                  paddingBottom: '0px',
                   width: '40px',
+                  height: '40px'
                 }}
               >
                 <IoIosFlash size={27} color="#00B227" />
@@ -196,11 +196,12 @@ export const Description = (props) => {
                 style={{
                   borderRadius: '50%',
                   backgroundColor: '#E3E3E3',
-                  paddingLeft: '9px',
-                  paddingRight: '4px',
-                  paddingTop: '2px',
-                  paddingBottom: '2px',
+                  paddingLeft: '8px',
+                  paddingRight: '5px',
+                  paddingTop: '7px',
+                  paddingBottom: '0px',
                   width: '40px',
+                  height: '40px'
                 }}
               >
                 <GoPackage size={24} color="#00B227" />
@@ -223,7 +224,7 @@ export const Description = (props) => {
         <hr className="hr hr-blurry opacity-10" />
       </div>
       <div
-        className="d-flex justify-content-center mt-3"
+        className="d-flex justify-content-center mt-1"
         style={{ gap: '22px' }}
       >
         <div
@@ -253,14 +254,14 @@ export const Description = (props) => {
           <div>Anti Fraudulent transaction</div>
         </div>
       </div>
-      <div className="d-flex justify-content-between mt-4">
-        <div className="d-flex justify-content-around" style={{ width: '49%' }}>
+      <div className="d-flex justify-content-between mt-3">
+        <div className="d-flex justify-content-around" style={{ width: '48.85%' }}>
           <button
             className="btn text-light"
             type="button"
             style={{
               width: '100%',
-              height: '50px',
+              height: '45px',
               borderRadius: '8px',
               backgroundColor: 'black',
               fontSize: '18px',
@@ -270,13 +271,13 @@ export const Description = (props) => {
             Sell
           </button>
         </div>
-        <div className="d-flex justify-content-around" style={{ width: '49%' }}>
+        <div className="d-flex justify-content-around" style={{ width: '48.85%' }}>
           <button
             className=" btn text-light"
             type="button"
             style={{
               width: '100%',
-              height: '50px',
+              height: '45px',
               borderRadius: '8px',
               backgroundColor: '#00B227',
               fontSize: '18px',

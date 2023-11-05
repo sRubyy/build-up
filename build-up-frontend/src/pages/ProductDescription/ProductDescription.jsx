@@ -96,27 +96,31 @@ export const ProductDescription = () => {
           <img
             className="img_shoes"
             src={require('./../../images/Rectangle 17.png')}
+            style={{marginRight: '4%'}}
           />
         </div>
-        {component === '/des' && (
-          <Description
-            handleComponent={handleComponent}
-            name={name}
-            description={description}
-          />
-        )}
-        {component === '/det' && (
-          <Details
-            handleComponent={handleComponent}
-            name={name}
-            description={description}
-          />
-        )}
-        {component === '/bridge' && (
-          <ComponentContext.Provider value={handleComponent}>
-            <Outlet />
-          </ComponentContext.Provider>
-        )}
+        <div className='col' >
+          {component === '/des' && (
+            <Description
+              handleComponent={handleComponent}
+              name={name}
+              description={description}
+            />
+          )}
+          {component === '/det' && (
+            <Details
+              handleComponent={handleComponent}
+              name={name}
+              description={description}
+            />
+          )}
+          {component === '/bridge' && (
+            <ComponentContext.Provider value={handleComponent}>
+              <Outlet />
+            </ComponentContext.Provider>
+          )}
+        </div>
+        
       </div>
     </div>
   );

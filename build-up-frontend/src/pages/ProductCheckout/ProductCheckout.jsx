@@ -162,8 +162,8 @@ export const ProductCheckout = () => {
         <div>New Balance 530 White Silver Navy</div>
       </div>
 
-      <div className="row">
-        <div className="col" style={{ marginRight: '8%', marginTop: '7.524%' }}>
+      <div className="row mt-4" >
+        <div className="col" style={{ marginRight: '8%', marginTop: '7.524%', marginLeft: '2%' }}>
           <div className="row" style={{ marginLeft: '3%' }}>
             <div className="d-flex justify-content-start">
               <div style={{ marginRight: '5%' }}>
@@ -244,14 +244,14 @@ export const ProductCheckout = () => {
         </div>
         <div
           className="col"
-          style={{ fontFamily: 'Montserrat', marginTop: '3%' }}
+          style={{ fontFamily: 'Montserrat', marginTop: '3%', marginRight: '2%' }}
         >
           <div className="row">
             <div className="d-flex justify-content-center">
               <p className="fs-4 fw-semibold">Confirmation</p>
             </div>
           </div>
-          <div className="d-flex justify-content-between mt-5 mb-1">
+          <div className="d-flex justify-content-between mt-4 mb-1">
             <div className="d-flex justify-content-start ">
               <div>
                 <FiMapPin
@@ -398,14 +398,14 @@ export const ProductCheckout = () => {
           <div className="d-flex justify-content-between mt-4">
             <div
               className="d-flex justify-content-around"
-              style={{ width: '49%' }}
+              style={{ width: '48.85%' }}
             >
               <button
                 className="btn text-secondary"
                 type="button"
                 style={{
                   width: '100%',
-                  height: '50px',
+                  height: '45px',
                   borderRadius: '8px',
                   backgroundColor: 'white',
                   border: '1px solid #9D9D9D',
@@ -418,14 +418,14 @@ export const ProductCheckout = () => {
             </div>
             <div
               className="d-flex justify-content-around"
-              style={{ width: '49%' }}
+              style={{ width: '48.85%' }}
             >
               <button
                 className=" btn text-light"
                 type="button"
                 style={{
                   width: '100%',
-                  height: '50px',
+                  height: '45px',
                   borderRadius: '8px',
                   backgroundColor: '#9D9D9D',
                   fontSize: '18px',
