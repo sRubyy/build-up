@@ -28,6 +28,10 @@ public class Order {
     @JoinColumn(name = "credit_card_id")
     private CreditCard creditCard;
 
+    @ManyToOne
+    @JoinColumn(name = "shipping_address_id")
+    private ShippingAddress shippingAddress;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;
 
@@ -69,5 +73,13 @@ public class Order {
 
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public ShippingAddress getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 }

@@ -7,10 +7,7 @@ import com.gemini11.buildupbackend.model.Order;
 import com.gemini11.buildupbackend.model.OrderItem;
 import com.gemini11.buildupbackend.model.Product;
 import com.gemini11.buildupbackend.repository.StatusRepository;
-import com.gemini11.buildupbackend.service.AccountService;
-import com.gemini11.buildupbackend.service.CreditCardService;
-import com.gemini11.buildupbackend.service.OrderService;
-import com.gemini11.buildupbackend.service.ProductService;
+import com.gemini11.buildupbackend.service.*;
 import com.gemini11.buildupbackend.utility.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +30,9 @@ public class OrderController {
 
     @Autowired
     StatusRepository statusRepository;
+
+    @Autowired
+    ShippingAddressService shippingAddressService;
 
     @Autowired
     CreditCardService creditCardService;
@@ -114,12 +114,14 @@ public class OrderController {
         Order newOrder = new Order();
         newOrder.setOrderDate(LocalDateTime.now());
         newOrder.setStatus(statusRepository.findByName("Ordered"));
+
         newOrder.setAccount(accountService.getAccountByUsername(username).orElse(null));
         newOrder.setCreditCard(creditCard);
-
+        newOrder.setShippingAddress(shippingAddressService.getShippingAddressesById(checkoutDTO.shippingAddressId()));
         List<OrderItem> items = new ArrayList<>();
         checkoutDTO.items().forEach(item -> {
             OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(newOrder);
             orderItem.setProduct(productService.getProductById(item.itemId()));
             orderItem.setItemQuantity(item.quantity());
             items.add(orderItem);

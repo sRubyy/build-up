@@ -26,6 +26,14 @@ public class ShippingAddress {
     @JoinColumn(name = "account_id")
     private Account account; // Many shipping addresses belong to one user
 
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+
     public String getName() {
         return name;
     }
