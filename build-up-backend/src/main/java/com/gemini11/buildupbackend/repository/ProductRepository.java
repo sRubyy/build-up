@@ -20,7 +20,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = """
             SELECT p1.size, p1.is_brand_new, MIN(p1.product_id) AS product_id, p1.name, p1.description, p1.price
             FROM product p1
-            JOIN (
+            LEFT JOIN (
                 SELECT size, is_brand_new, MIN(price) AS min_price, MIN(created_at) as created_at
                 FROM (SELECT * FROM product WHERE purchase_date IS NULL) p0
                 GROUP BY size, is_brand_new
@@ -33,4 +33,21 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             nativeQuery = true
     )
     List<List<Object>> findSizeWithMinPriceAndIsBrandNew(@Param("name") String name);
+
+    @Query(value = """
+            SELECT p1.size, p1.is_brand_new, MIN(p1.product_id) AS product_id, p1.name, p1.description, p1.price
+            FROM product p1
+            LEFT JOIN (
+                SELECT size, is_brand_new, MIN(price) AS min_price, MIN(created_at) as created_at
+                FROM (SELECT * FROM product WHERE purchase_date IS NULL) p0
+                GROUP BY size, is_brand_new
+            ) p2
+            ON p1.size = p2.size AND p1.is_brand_new = p2.is_brand_new AND p1.price = p2.min_price
+            WHERE name = :name, is_brand_new = :is_brand_new
+            GROUP BY p1.size, p1.is_brand_new
+            ORDER BY p1.size, p1.is_brand_new;
+            """,
+            nativeQuery = true
+    )
+    List<List<Object>> findSizeWithMinPrice(@Param("name") String name, @Param("is_brand_new") Boolean is_brand_new);
 }
