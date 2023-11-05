@@ -23,6 +23,9 @@ public class Product {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "purchase_date")
+    private LocalDateTime purchaseDate;
+
     @ManyToOne
     @JoinColumn(name = "seller_account_id")
     private Account account;
@@ -93,5 +96,13 @@ public class Product {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public LocalDateTime getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 }

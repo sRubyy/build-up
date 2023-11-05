@@ -1,12 +1,13 @@
 import '../../../scss/product_description/size_selection.scss';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../../store/state-slices/shopping-cart-slice';
 
 export const SizePool = (props) => {
   const [sizePool, setSizePool] = useState([]);
   const dispatch = useDispatch();
+  const myCart = useSelector((state) => state.shoppingCart);
 
   const { productName } = useParams();
   const baseUrl = 'http://localhost:8080';
@@ -14,7 +15,9 @@ export const SizePool = (props) => {
   const navigate = useNavigate();
 
   const selectItem = (item) => {
-    setSelectedItem(item);
+    if (!isInCart(item.id)) {
+      setSelectedItem(item);
+    }
   };
 
   const addToCartButtonStyle = () => {
@@ -24,7 +27,7 @@ export const SizePool = (props) => {
   };
 
   const checkoutButtonStyle = () => {
-    return selectedItem
+    return selectedItem || myCart.items.length > 0
       ? 'button-container__button--green'
       : 'button-container__button--disable';
   };
@@ -40,8 +43,15 @@ export const SizePool = (props) => {
     if (selectedItem) {
       dispatch(addItem({ item: selectedItem, quantity: 1 }));
       setSelectedItem(null);
-      navigate('/checkout');
+      navigate('/checkout/summary');
+    } else if (myCart.items.length > 0) {
+      setSelectedItem(null);
+      navigate('/checkout/summary');
     }
+  };
+
+  const isInCart = (id) => {
+    return myCart.items.find((item) => item.id === id);
   };
 
   useEffect(() => {
@@ -74,6 +84,16 @@ export const SizePool = (props) => {
     return 'select-type__box';
   };
 
+  const checkoutText = () => {
+    const itemNumber = myCart.items.length;
+    const itemNumberString = itemNumber > 100 ? '99+' : `${itemNumber}`;
+
+    if (itemNumber > 0 && selectedItem) {
+      return `+ 1 and Checkout (${itemNumberString})`;
+    }
+    return itemNumber > 0 ? `Checkout (${itemNumberString})` : 'Checkout';
+  };
+
   return (
     <>
       <div className={'select-type__second-desc'}>
@@ -86,12 +106,30 @@ export const SizePool = (props) => {
             return (
               <div
                 key={each.id}
-                className={selectedStyle(each.id)}
-                onClick={() => setSelectedItem(each)}
+                className={
+                  isInCart(each.id)
+                    ? 'select-type__not-available'
+                    : selectedStyle(each.id)
+                }
+                onClick={() => selectItem(each)}
               >
                 <div>
-                  <div className={'select-type__box--size'}>US {each.size}</div>
-                  <div className={'select-type__box--price'}>
+                  <div
+                    className={
+                      isInCart(each.id)
+                        ? 'select-type__box--in-cart-size'
+                        : 'select-type__box--size'
+                    }
+                  >
+                    US {each.size}
+                  </div>
+                  <div
+                    className={
+                      isInCart(each.id)
+                        ? 'select-type__box--in-cart-price'
+                        : 'select-type__box--price'
+                    }
+                  >
                     {each.price}.-
                   </div>
                 </div>
@@ -109,7 +147,7 @@ export const SizePool = (props) => {
           Add to cart
         </div>
         <div className={checkoutButtonStyle()} onClick={checkout}>
-          Checkout
+          {checkoutText()}
         </div>
       </div>
     </>

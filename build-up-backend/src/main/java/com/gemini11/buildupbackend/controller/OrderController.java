@@ -5,6 +5,7 @@ import com.gemini11.buildupbackend.entity.ResponseObject;
 import com.gemini11.buildupbackend.model.CreditCard;
 import com.gemini11.buildupbackend.model.Order;
 import com.gemini11.buildupbackend.model.OrderItem;
+import com.gemini11.buildupbackend.model.Product;
 import com.gemini11.buildupbackend.repository.StatusRepository;
 import com.gemini11.buildupbackend.service.AccountService;
 import com.gemini11.buildupbackend.service.CreditCardService;
@@ -128,6 +129,13 @@ public class OrderController {
         orderService.addOrder(newOrder);
         creditCard.setBalance(creditCard.getBalance() - checkoutDTO.totalPrice());
         creditCardService.editCreditCard(checkoutDTO.creditCardId(), creditCard);
+
+        items.forEach(item -> {
+            Integer productId = item.getProduct().getProductId();
+            Product purchasedProduct = productService.getProductById(productId);
+            purchasedProduct.setPurchaseDate(LocalDateTime.now());
+            productService.editProduct(productId, purchasedProduct);
+        });
         return new ResponseEntity<>(new ResponseObject(
                 LocalDateTime.now(),
                 HttpStatus.OK,

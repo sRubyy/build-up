@@ -194,7 +194,12 @@ function CheckoutSummary() {
         </div>
       </div>
       <div className={'checkout-page__button'}>
-        <div className={'checkout-page__button--style-1'}>Cancel</div>
+        <div
+          className={'checkout-page__button--style-1'}
+          onClick={() => navigate('/my-cart')}
+        >
+          Cancel
+        </div>
         <div
           className={
             isAllowCheckout()
