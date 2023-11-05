@@ -46,10 +46,13 @@ public class ProductController {
     @GetMapping("/findBySizeWithMinPriceAndIsBrandNew/{name}")
     public ResponseEntity<List<SizePoolObject>> getGroupSizeWithMinPriceByIsBrandNew(@PathVariable("name") String name) {
         List<List<Object>> data = productService.getSizeWithMinPriceAndIsBrandNew(name);
+
         List<SizePoolObject> pool = new ArrayList<>();
-        data.forEach(record -> pool.add(new SizePoolObject((String) record.get(0), (Boolean) record.get(1),
-                (Integer) record.get(2), (String) record.get(3), (String) record.get(4), (Double) record.get(5)
-        )));
+        if (data != null) {
+            data.forEach(record -> pool.add(new SizePoolObject(
+                    (String) record.get(0), (Boolean) record.get(1), (Integer) record.get(2), (String) record.get(3),
+                    (String) record.get(4), (Double) record.get(5))));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(pool);
     }
 
