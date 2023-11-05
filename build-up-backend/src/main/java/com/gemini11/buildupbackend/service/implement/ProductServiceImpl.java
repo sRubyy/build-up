@@ -51,6 +51,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<List<Object>> getSizeWithMinPrice(String name, Boolean is_brand_new) {
+        try {
+            return productRepository.findSizeWithMinPrice(name, is_brand_new);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public Iterable<Product> getProductsBySellerId(int sellerId) {
 
         try {
