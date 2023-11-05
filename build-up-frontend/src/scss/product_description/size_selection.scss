@@ -114,6 +114,27 @@
       font-weight: 700;
       line-height: normal;
     }
+
+    &--in-cart-size {
+      @extend .select-type__box--size;
+      color: #9d9d9d;
+    }
+
+    &--in-cart-price {
+      @extend .select-type__box--price;
+      color: #9d9d9d;
+    }
+  }
+
+  &__not-available {
+    @extend .select-type__box;
+    background-color: #e7e7e7;
+    border: 0;
+
+    &:hover {
+      cursor: default;
+      border: 0;
+    }
   }
 
   &__selected-box {

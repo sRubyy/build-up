@@ -25,8 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                 FROM product
                 GROUP BY size, is_brand_new
             ) p2
-            ON p1.size = p2.size AND p1.is_brand_new = p2.is_brand_new AND p1.price = p2.min_price\s
-            WHERE name = :name
+            ON p1.size = p2.size AND p1.is_brand_new = p2.is_brand_new AND p1.price = p2.min_price
+            WHERE name = :name AND p1.purchase_date IS NULL
             GROUP BY p1.size, p1.is_brand_new
             ORDER BY p1.size, p1.is_brand_new;
             """,

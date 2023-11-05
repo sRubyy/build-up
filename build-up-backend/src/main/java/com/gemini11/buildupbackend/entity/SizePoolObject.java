@@ -7,6 +7,5 @@ public record SizePoolObject(
         String name,
         String description,
         Double price
-
 ) {
 }
