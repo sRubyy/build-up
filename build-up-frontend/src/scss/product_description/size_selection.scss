@@ -74,6 +74,10 @@
     font-weight: 500;
     line-height: normal;
     text-decoration-line: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__size-pool {
