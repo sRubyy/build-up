@@ -57,8 +57,9 @@ function ShoppingCart() {
         </div>
         <div className={'cart-item-list'}>
           {myCart.items.length !== 0 ? (
-            myCart.items.map((item) => (
+            myCart.items.map((item, i) => (
               <CartItem
+                key={i}
                 productId={item.id}
                 productName={item.name}
                 productDescription={item.description}
