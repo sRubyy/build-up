@@ -1,5 +1,6 @@
 package com.gemini11.buildupbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -32,6 +33,7 @@ public class Order {
     @JoinColumn(name = "shipping_address_id")
     private ShippingAddress shippingAddress;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> orderItems;
 

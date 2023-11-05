@@ -22,11 +22,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             FROM product p1
             JOIN (
                 SELECT size, is_brand_new, MIN(price) AS min_price, MIN(created_at) as created_at
-                FROM product
+                FROM (SELECT * FROM product WHERE purchase_date IS NULL) p0
                 GROUP BY size, is_brand_new
             ) p2
             ON p1.size = p2.size AND p1.is_brand_new = p2.is_brand_new AND p1.price = p2.min_price
-            WHERE name = :name AND p1.purchase_date IS NULL
+            WHERE name = :name
             GROUP BY p1.size, p1.is_brand_new
             ORDER BY p1.size, p1.is_brand_new;
             """,

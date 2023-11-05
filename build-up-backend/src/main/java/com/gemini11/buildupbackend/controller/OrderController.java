@@ -127,8 +127,8 @@ public class OrderController {
             items.add(orderItem);
         });
         newOrder.setOrderItems(items);
-
         orderService.addOrder(newOrder);
+
         creditCard.setBalance(creditCard.getBalance() - checkoutDTO.totalPrice());
         creditCardService.editCreditCard(checkoutDTO.creditCardId(), creditCard);
 
