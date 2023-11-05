@@ -107,6 +107,7 @@ export const Description = (props) => {
                   paddingTop: '6px',
                   paddingBottom: '6px',
                   width: '40px',
+                  height: '40px',
                 }}
               >
                 <IoIosFlash size={27} color="#00B227" />
@@ -132,6 +133,7 @@ export const Description = (props) => {
                   paddingTop: '6px',
                   paddingBottom: '6px',
                   width: '40px',
+                  height: '40px',
                 }}
               >
                 <BiSolidPlaneAlt size={27} color="#CCCCCC" />
