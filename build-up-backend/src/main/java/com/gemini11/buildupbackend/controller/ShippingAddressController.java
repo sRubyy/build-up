@@ -116,7 +116,9 @@ public class ShippingAddressController {
                     null
             ), HttpStatus.BAD_REQUEST);
         }
-        Iterable<ShippingAddress> addresses = shippingAddressService.getShippingAddressesByAccountId(account.get().getAccountId());
+        Iterable<ShippingAddress> addresses = shippingAddressService.getShippingAddressesByAccountId(
+                account.get().getAccountId()
+        );
         addresses.forEach(address -> address.setAccount(null));
         return new ResponseEntity<>(new ResponseObject(
                 LocalDateTime.now(),
