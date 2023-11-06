@@ -59,6 +59,7 @@ public class AuthenticationController {
         ));
     }
 
+    @CrossOrigin
     @PostMapping("/auth/logout")
     public ResponseEntity<ResponseObject> logout(@RequestParam("token") String token) {
         tokenBlacklist.add(token);
