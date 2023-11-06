@@ -1,21 +1,40 @@
-import React, { useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { Description } from './components/Description';
 import '../../scss/product_description/product_description.scss';
 import { Details } from './components/Details';
-// import '../../scss/product_description/product_description.scss'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+
+export const ComponentContext = createContext(null);
 
 export const ProductDescription = () => {
+  const [component, setComponent] = useState('/des');
+  const name = 'New Balance 530 White Silver Navy';
+  const description = 'NEW BALANCE | MR530SG';
 
-    const [component, setComponent] = useState("/des")
-    const name = "New Balance 530 White Silver Navy";
-    const description = "NEW BALANCE | MR530SG";
-    
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const handleComponent = (value) => {
-        setComponent(value)
+  useEffect(() => {
+    if (
+      location.pathname !== '/productDescription' &&
+      (component === '/des' || component === '/det')
+    ) {
+      navigate('/productDescription');
     }
-    
-    return (
+
+    if (
+      location.pathname === '/productDescription' &&
+      component === '/bridge'
+    ) {
+      setComponent('/des');
+    }
+  }, [location.pathname]);
+
+  const handleComponent = (value) => {
+    setComponent(value);
+  };
+
+  return (
     <div className="product-detail">
       <div className="path">
         <div>Home</div>
@@ -67,13 +86,41 @@ export const ProductDescription = () => {
       </div>
 
       <div className="row">
-        <div className="col mt-5">
+        <div
+          className="col mt-5"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
           <img
             className="img_shoes"
             src={require('./../../images/Rectangle 17.png')}
+            style={{marginRight: '4%'}}
           />
         </div>
-        {component === "/des" ? (<Description handleComponent={handleComponent} name={name} description={description} />): (<Details handleComponent={handleComponent} name={name} description={description} />)}
+        <div className='col' >
+          {component === '/des' && (
+            <Description
+              handleComponent={handleComponent}
+              name={name}
+              description={description}
+            />
+          )}
+          {component === '/det' && (
+            <Details
+              handleComponent={handleComponent}
+              name={name}
+              description={description}
+            />
+          )}
+          {component === '/bridge' && (
+            <ComponentContext.Provider value={handleComponent}>
+              <Outlet />
+            </ComponentContext.Provider>
+          )}
+        </div>
+        
       </div>
     </div>
   );

@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @Entity
 @Table(name = "bank_account")
@@ -29,5 +27,37 @@ public class BankAccount {
 
     public BankAccount() {
 
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public Integer getBankAccountNumber() {
+        return bankAccountNumber;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public String getHolderName() {
+        return holderName;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
+
+    public void setBankAccountNumber(Integer bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
+    }
+
+    public void setHolderName(String holderName) {
+        this.holderName = holderName;
     }
 }

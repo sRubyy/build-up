@@ -2,7 +2,7 @@ import React from 'react';
 
 
 export const ReturnCondition = (props) => {
-    const conditions = ["NEW", "USED", "PRE-ORDER"];
+    const conditions = ["NEW", "USED"];
     return(
         <ul className="dropdown-menu">
             {conditions.map((condition, index) => (
