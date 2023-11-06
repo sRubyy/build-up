@@ -3,6 +3,7 @@ import '../../scss/global/navbar.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg'
 import { useLocation } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 function Navbar() {
 
@@ -54,8 +55,8 @@ function Navbar() {
       throw new Error('Error found');
     }
 
-    console.log(data.token)
-    window.localStorage.removeItem('jwtToken');
+    const cookies = new Cookies();
+    cookies.remove('loginToken')
     setLoggedIn(false);
   };
 
