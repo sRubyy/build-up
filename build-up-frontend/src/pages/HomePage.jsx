@@ -1,12 +1,68 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import '../scss/homepage/homepage.scss';
 import BrandSwiper from '../components/homepage/BrandSwiper';
 import { ItemShowcaseList } from '../components/homepage/ItemShowcaseList';
-import newArrivalItem from '../data/new-arrival-item.json';
-import justDropItem from '../data/just-drop-item.json';
 import HalloweenBanner from '../images/banner_halloween.png';
+import { itemImageMapping } from '../config/item-image-mapping';
 
 function HomePage() {
+  const baseUrl = 'http://localhost:8080';
+  const [products, setProducts] = useState([]);
+
+  const NUMBER_JUST_DROPPED_ITEMS = 3;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch(`${baseUrl}/api/product/groupByName`);
+      const data = await res.json();
+
+      setProducts(data.data);
+    };
+
+    fetchProducts();
+  }, []);
+
+  const newArrivalItems = useMemo(() => {
+    return products.map((product) => ({
+      name: product.name,
+      price: Number(product.averagePrice.toFixed(2)),
+      imageUrl: itemImageMapping[product.name].snippetImage,
+    }));
+  }, [products]);
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  function getRandomElementsFromArray(array, numElements) {
+    if (numElements >= array.length) {
+      // If the number of elements requested is greater than or equal to the array length,
+      // return a shuffled copy of the entire array.
+      const shuffledArray = [...array];
+      shuffleArray(shuffledArray);
+      return shuffledArray;
+    }
+
+    const shuffledArray = [...array];
+    shuffleArray(shuffledArray);
+    return shuffledArray.slice(0, numElements);
+  }
+
+  const justDroppedItems = useMemo(() => {
+    const items = getRandomElementsFromArray(
+      products,
+      NUMBER_JUST_DROPPED_ITEMS
+    );
+    return items.map((item) => ({
+      name: item.name,
+      price: Number(item.averagePrice.toFixed(2)),
+      imageUrl: itemImageMapping[item.name].snippetImage,
+    }));
+  }, [products]);
+
   return (
     <div>
       <div className={'banner'}>
@@ -21,7 +77,7 @@ function HomePage() {
               All Shoes already ready to ship! Don’t hesitate to buy it
             </p>
           </div>
-          <ItemShowcaseList items={newArrivalItem} />
+          <ItemShowcaseList items={newArrivalItems} />
           <div className={'just-drop'}>
             <div className={'just-drop__text'}>JUST DROPPED</div>
             <svg
@@ -40,7 +96,7 @@ function HomePage() {
               />
             </svg>
           </div>
-          <ItemShowcaseList items={justDropItem} />
+          <ItemShowcaseList items={justDroppedItems} />
         </div>
       </div>
     </div>
