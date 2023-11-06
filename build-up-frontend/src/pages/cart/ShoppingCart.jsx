@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../scss/product_description/product_description.scss';
 import '../../scss/my_cart/my_cart.scss';
-import CartItem from './CartItem';
+import CartItem from './components/CartItem';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 

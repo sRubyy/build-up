@@ -1,21 +1,21 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import HomePage from '../pages/HomePage';
+import HomePage from '../pages/homepage/HomePage';
 import Register from '../pages/Register';
 import SignIn from '../pages/SignIn';
-import { ProductDescription } from '../pages/ProductDescription/ProductDescription';
+import { ProductDescription } from '../pages/product_description/ProductDescription';
 import ShoppingCart from '../pages/cart/ShoppingCart';
-import { ProductCheckout } from '../pages/ProductCheckout/ProductCheckout';
-import { MySelllProduct } from '../pages/MySellProduct/MySellProduct';
-import { EditProduct } from '../pages/EditProduct/EditProduct';
-import BuyerCheckout from '../pages/BuyerCheckout';
-import { SizeSelection } from '../pages/ProductDescription/components/SizeSelection';
-import CheckoutForm from '../pages/checkout/CheckoutForm';
-import CheckoutAddressForm from '../pages/checkout/CheckoutAddressForm';
-import PaymentMethodForm from '../pages/checkout/PaymentMethodForm';
-import CheckoutSummary from '../pages/checkout/CheckoutSummary';
-import { Description } from '../pages/ProductDescription/components/Description';
-import { Details } from '../pages/ProductDescription/components/Details';
+import { ProductCheckout } from '../pages/product_checkout/ProductCheckout';
+import { MySelllProduct } from '../pages/my_sell_product/MySellProduct';
+import { EditProduct } from '../pages/edit_product/EditProduct';
+import BuyerCheckout from '../pages/checkout/BuyerCheckout';
+import { SizeSelection } from '../pages/product_description/components/SizeSelection';
+import CheckoutForm from '../pages/checkout/components/CheckoutForm';
+import CheckoutAddressForm from '../pages/checkout/components/CheckoutAddressForm';
+import PaymentMethodForm from '../pages/checkout/components/PaymentMethodForm';
+import CheckoutSummary from '../pages/checkout/components/CheckoutSummary';
+import { Description } from '../pages/product_description/components/Description';
+import { Details } from '../pages/product_description/components/Details';
 
 export const router = createBrowserRouter([
   {

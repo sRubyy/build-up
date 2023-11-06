@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../scss/register-and-sign-in/register-and-sign-in.scss';
+import '../scss/register_and_sign_in/register-and-sign-in.scss';
 import Cookies from 'universal-cookie';
 
 const SignIn = () => {
