@@ -117,4 +117,13 @@ public class ProductServiceImpl implements ProductService {
             return null;
         }
     }
+
+    @Override
+    public List<List<Object>> groupByName() {
+        try {
+            return productRepository.groupByName();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

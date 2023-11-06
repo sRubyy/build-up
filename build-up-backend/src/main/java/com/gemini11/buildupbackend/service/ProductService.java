@@ -21,5 +21,7 @@ public interface ProductService {
 
     List<List<Object>> getSizeWithMinPriceAndIsBrandNew(String name);
 
+    List<List<Object>> groupByName();
+
     List<List<Object>> getSizeWithMinPrice(String name, Boolean is_brand_new);
 }
