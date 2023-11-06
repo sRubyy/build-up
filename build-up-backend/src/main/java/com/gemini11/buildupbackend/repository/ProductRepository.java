@@ -51,6 +51,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     )
     List<List<Object>> findSizeWithMinPrice(@Param("name") String name, @Param("is_brand_new") Boolean is_brand_new);
 
-    @Query(value = "SELECT name, AVG(price) AS average_price FROM product GROUP BY name", nativeQuery = true)
+    @Query(value = "SELECT name, description, AVG(price) AS average_price FROM product GROUP BY name", nativeQuery = true)
     List<List<Object>> groupByName();
+
+    @Query(value = "SELECT name, description FROM product WHERE name = :name GROUP BY name", nativeQuery = true)
+    List<List<Object>> findByNameInNameGroup(@Param("name") String name);
 }

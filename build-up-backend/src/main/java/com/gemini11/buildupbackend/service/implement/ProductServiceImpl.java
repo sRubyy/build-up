@@ -126,4 +126,13 @@ public class ProductServiceImpl implements ProductService {
             return null;
         }
     }
+
+    @Override
+    public List<List<Object>> getByNameInGroupName(String name) {
+        try {
+            return productRepository.findByNameInNameGroup(name);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

@@ -2,22 +2,27 @@ import React, { useContext } from 'react';
 import '../../../scss/product_description/size_selection.scss';
 import { useState } from 'react';
 import { SizePool } from './SizePool';
-import { ComponentContext } from '../ProductDescription';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ErrorFetchProductDetail } from './ErrorFetchProductDetail';
+import { ProductContext } from '../../../data/context';
 
 export const SizeSelection = () => {
   const [isNewType, setIsNewType] = useState(true);
+  const productDetail = useContext(ProductContext);
 
-  const handleContext = useContext(ComponentContext);
   const navigate = useNavigate();
+  const { productName } = useParams();
+
+  if (!productDetail) {
+    return <ErrorFetchProductDetail />;
+  }
 
   const toggleSelectMode = () => {
     setIsNewType(!isNewType);
   };
 
   const navigateBack = () => {
-    handleContext('/des');
-    navigate('/productDescription');
+    navigate(`/product/${productName}/description`);
   };
 
   return (
