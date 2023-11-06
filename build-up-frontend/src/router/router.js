@@ -14,6 +14,8 @@ import CheckoutForm from '../pages/checkout/CheckoutForm';
 import CheckoutAddressForm from '../pages/checkout/CheckoutAddressForm';
 import PaymentMethodForm from '../pages/checkout/PaymentMethodForm';
 import CheckoutSummary from '../pages/checkout/CheckoutSummary';
+import { Description } from '../pages/ProductDescription/components/Description';
+import { Details } from '../pages/ProductDescription/components/Details';
 
 export const router = createBrowserRouter([
   {
@@ -25,11 +27,19 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/productDescription',
+        path: '/product/:productName',
         element: <ProductDescription />,
         children: [
           {
-            path: '/productDescription/:productName',
+            path: '/product/:productName/description',
+            element: <Description />,
+          },
+          {
+            path: '/product/:productName/sell',
+            element: <Details />,
+          },
+          {
+            path: '/product/:productName/buy',
             element: <SizeSelection />,
           },
         ],

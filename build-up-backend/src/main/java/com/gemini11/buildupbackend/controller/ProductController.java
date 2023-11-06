@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 @CrossOrigin
@@ -78,12 +80,32 @@ public class ProductController {
     @GetMapping("/groupByName")
     public ResponseEntity<ResponseObject> groupByName() {
         List<List<Object>> res = productService.groupByName();
-        Stream<ProductSnippet> data = res.stream().map(record -> new ProductSnippet((String) record.get(0), (Double) record.get(1)));
+        Stream<ProductSnippet> data = res.stream().map(
+                record -> new ProductSnippet((String) record.get(0), (String) record.get(1), (Double) record.get(2))
+        );
         return new ResponseEntity<>(new ResponseObject(
                 LocalDateTime.now(),
                 HttpStatus.OK,
                 "",
                 data
+        ), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping("/groupByName/{name}")
+    public ResponseEntity<ResponseObject> findByNameInGroupName(@PathVariable("name") String name) {
+        List<List<Object>> raw = productService.getByNameInGroupName(name);
+        List<Object> data = raw.get(0);
+
+        Map<String, String> product = new HashMap<>();
+        product.put("name", (String) data.get(0));
+        product.put("description", (String) data.get(1));
+
+        return new ResponseEntity<>(new ResponseObject(
+                LocalDateTime.now(),
+                HttpStatus.OK,
+                "",
+                product
         ), HttpStatus.OK);
     }
 
