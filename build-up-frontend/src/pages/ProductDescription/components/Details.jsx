@@ -1,20 +1,24 @@
-import React, { useState, useHistory } from 'react';
-import { IoIosFlash } from 'react-icons/io';
-import { BiSolidPlaneAlt } from 'react-icons/bi';
-import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
+import React, { useState, useContext } from 'react';
+import { GoShieldCheck, GoShieldLock } from 'react-icons/go';
 import { ReturnSize } from './ReturnSize';
 import { ReturnCondition } from './ReturnCondition';
 import { HiOutlinePencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import { ProductContext } from '../../../data/context';
+import { ErrorFetchProductDetail } from './ErrorFetchProductDetail';
 
-export const Details = (props) => {
-  // const history = useHistory();
+export const Details = () => {
   const navigate = useNavigate();
-  const [size, setSize] = useState('Select size​ (US)');
+  const productDetail = useContext(ProductContext);
+
+  const [size, setSize] = useState('Select size (US)');
   const [condition, setCondition] = useState('Select condition');
   const [conditionBoolean, setConditionBoolean] = useState(true);
-  const [component, setComponent] = useState('/des');
   const [price, setPrice] = useState('');
+
+  if (!productDetail) {
+    return <ErrorFetchProductDetail />;
+  }
 
   const handleSize = (value) => {
     setSize(value);
@@ -22,7 +26,7 @@ export const Details = (props) => {
 
   const handleCondition = (value) => {
     setCondition(value);
-    if (value == 'USED') {
+    if (value === 'USED') {
       setConditionBoolean(false);
     }
   };
@@ -34,8 +38,8 @@ export const Details = (props) => {
       conditionBoolean: conditionBoolean,
       price: price,
       method: 'post',
-      name: props.name,
-      description: props.description,
+      name: productDetail.name,
+      description: productDetail.description,
     };
 
     navigate('/productCheckout', { state: { data } });
@@ -113,7 +117,7 @@ export const Details = (props) => {
         </div>
       </div>
       <div className="row mt-2">
-        <hr class="hr hr-blurry opacity-10" />
+        <hr className="hr hr-blurry opacity-10" />
       </div>
       <div
         className="d-flex justify-content-between"
@@ -204,7 +208,9 @@ export const Details = (props) => {
               backgroundColor: 'black',
               fontSize: '18px',
             }}
-            onClick={() => props.handleComponent('/des')}
+            onClick={() =>
+              navigate(`/product/${productDetail.name}/description`)
+            }
           >
             Back
           </button>

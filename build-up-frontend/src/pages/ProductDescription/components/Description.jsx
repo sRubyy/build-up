@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { IoIosFlash } from 'react-icons/io';
 import { BiSolidPlaneAlt } from 'react-icons/bi';
 import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
+import { ProductContext } from '../../../data/context';
+import { ErrorFetchProductDetail } from './ErrorFetchProductDetail';
 
-export const Description = (props) => {
+export const Description = () => {
   const navigate = useNavigate();
 
+  const productDetail = useContext(ProductContext);
+
   const navigateToBuyerPath = () => {
-    props.handleComponent('/bridge');
-    navigate(`/productDescription/${props.name}`);
+    navigate(`/product/${productDetail.name}/buy`);
   };
+
+  if (!productDetail) {
+    return <ErrorFetchProductDetail />;
+  }
 
   return (
     <div
@@ -19,12 +26,14 @@ export const Description = (props) => {
     >
       <div className="row">
         <div className="col">
-          <p className="fs-5 fw-semibold">{props.name}</p>
+          <p className="fs-5 fw-semibold">{productDetail.name}</p>
         </div>
       </div>
       <div className="row">
         <div className="col">
-          <p className="fs-6 fw-lighter text-secondary">{props.description}</p>
+          <p className="fs-6 fw-lighter text-secondary">
+            {productDetail.description}
+          </p>
         </div>
       </div>
       <div className="row mt-2">
@@ -87,7 +96,7 @@ export const Description = (props) => {
           </div>
           <div className="row mt-3">
             <div className="d-flex justify-content-center">
-              <p className="fs-6"> Pre-owned</p>
+              <p className="fs-6">Pre-owned</p>
             </div>
           </div>
         </div>
@@ -262,7 +271,7 @@ export const Description = (props) => {
               backgroundColor: 'black',
               fontSize: '18px',
             }}
-            onClick={() => props.handleComponent('/det')}
+            onClick={() => navigate(`/product/${productDetail.name}/sell`)}
           >
             Sell
           </button>

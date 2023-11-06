@@ -39,8 +39,6 @@ function HomePage() {
 
   function getRandomElementsFromArray(array, numElements) {
     if (numElements >= array.length) {
-      // If the number of elements requested is greater than or equal to the array length,
-      // return a shuffled copy of the entire array.
       const shuffledArray = [...array];
       shuffleArray(shuffledArray);
       return shuffledArray;
