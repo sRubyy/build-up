@@ -25,7 +25,7 @@ const SignIn = () => {
 
         const data = {
           username: username,
-          token: responseJson.data
+          token: responseJson.data,
         };
 
         navigate('/', { state: { data } });

@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import '../../scss/global/navbar.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import { CgProfile } from 'react-icons/cg'
+import { CgProfile } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
 function Navbar() {
-
   const location = useLocation();
-  // const navigate= useNavigate();
+  const navigate = useNavigate();
+
   const [isLoggedIn, setLoggedIn] = useState('');
   const [data, setData] = useState({});
 
   useEffect(() => {
-
-
-
     const fetchLoggedInStatus = async () => {
-      if(data.username && data.token){
+      if (data.username && data.token) {
         const url = `http://localhost:8080/api/auth/verify?subject=${data.username}&token=${data.token}`;
 
         const request = {
@@ -27,13 +24,12 @@ function Navbar() {
         const response = await fetch(url, request);
 
         if (response.ok) {
-          console.log(data.token)
+          console.log(data.token);
           setLoggedIn(true);
-        }else{
+        } else {
           setLoggedIn(false);
         }
       }
-
     };
     if (location.state && location.state.data) {
       setData(location.state.data);
@@ -41,22 +37,21 @@ function Navbar() {
     } else {
       console.error('Data is not available in location state.');
     }
-
   });
 
   const handleLogout = async () => {
     const url = `http://localhost:8080/api/auth/logout?token=${data.token}`;
 
     const response = await fetch(url, {
-      method: 'POST'
+      method: 'POST',
     });
 
-    if(!response.ok){
+    if (!response.ok) {
       throw new Error('Error found');
     }
 
     const cookies = new Cookies();
-    cookies.remove('loginToken')
+    cookies.remove('loginToken');
     setLoggedIn(false);
   };
 
@@ -91,7 +86,11 @@ function Navbar() {
           </svg>
         </div>
       </div>
-        <div className="global-nav__right">
+      <div className="global-nav__right">
+        <div
+          className={'global-nav__cart-icon'}
+          onClick={() => navigate('/my-cart')}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"
@@ -112,31 +111,54 @@ function Navbar() {
             </defs>
           </svg>
         </div>
-        {isLoggedIn ?
-          (
-
-            <div class="dropdown">
-            <button class="btn  dropdown-toggle" style={{marginTop: '-1%'}} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {isLoggedIn ? (
+          <div class="dropdown">
+            <button
+              class="btn dropdown-toggle"
+              style={{
+                marginTop: '-1%',
+                display: 'flex',
+                alignItems: 'center',
+                paddingTop: '0',
+                paddingBottom: '0',
+              }}
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <CgProfile size={24} />
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" onClick={handleLogout}>Log out</a></li>
+              <li>
+                <div class="dropdown-item" onClick={handleLogout}>
+                  Log out
+                </div>
+              </li>
             </ul>
-          </div>) :
-          (
-              <div className='d-flex' style={{gap: '28px'}}>
-                  <div>
-                    <Link to={"/register"} style={{textDecoration: 'none', color: '#1f1f1f'}}>Sign up</Link>
-                  </div>
-                  <div>
-                    <Link to={"/sign-in"} style={{textDecoration: 'none', color: '#1f1f1f'}}>Log in</Link>
-                  </div>
-              </div>
-          )
-        }
+          </div>
+        ) : (
+          <div className="d-flex" style={{ gap: '32px' }}>
+            <div>
+              <Link
+                to={'/register'}
+                style={{ textDecoration: 'none', color: '#1f1f1f' }}
+              >
+                Sign up
+              </Link>
+            </div>
+            <div>
+              <Link
+                to={'/sign-in'}
+                style={{ textDecoration: 'none', color: '#1f1f1f' }}
+              >
+                Log in
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
-};
+}
 
 export default Navbar;
