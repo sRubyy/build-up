@@ -6,9 +6,7 @@ export const ReturnCondition = (props) => {
     <ul className="dropdown-menu">
       {conditions.map((condition, index) => (
         <li key={index} onClick={() => props.handleCondition(condition)}>
-          <a className="dropdown-item col" href="#">
-            {condition}
-          </a>
+          <div className="dropdown-item col">{condition}</div>
         </li>
       ))}
     </ul>

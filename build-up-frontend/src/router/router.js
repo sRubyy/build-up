@@ -49,15 +49,15 @@ export const router = createBrowserRouter([
         element: <ShoppingCart />,
       },
       {
-        path: '/productCheckout',
+        path: '/sell-confirmation',
         element: <ProductCheckout />,
       },
       {
-        path: '/mySellProduct',
+        path: '/my-sell-product',
         element: <MySelllProduct />,
       },
       {
-        path: '/editProduct',
+        path: '/edit-product',
         element: <EditProduct />,
       },
       {

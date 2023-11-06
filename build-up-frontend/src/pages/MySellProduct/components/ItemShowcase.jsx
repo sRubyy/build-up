@@ -10,7 +10,7 @@ function ItemShowcase({ item }) {
       item: item,
     };
 
-    navigate('/editProduct', { state: { data } });
+    navigate('/edit-product', { state: { data } });
   };
   return (
     <div className="item-slot" onClick={handleClick}>

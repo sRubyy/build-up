@@ -1,10 +1,9 @@
-import React, { useState, useHistory } from 'react';
-import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
+import React, { useState } from 'react';
+import { GoShieldCheck, GoShieldLock } from 'react-icons/go';
 import { HiOutlinePencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { ReturnSize } from '../../ProductDescription/components/ReturnSize';
 import { ReturnCondition } from '../../ProductDescription/components/ReturnCondition';
-import ProductModel from '../../../models/ProductModel';
 
 export const EditInfo = (props) => {
   // const history = useHistory();
@@ -23,7 +22,7 @@ export const EditInfo = (props) => {
 
   const handleCondition = (value) => {
     setCondition(value);
-    if (value == 'USED') {
+    if (value === 'USED') {
       setConditionBoolean(false);
     }
   };
@@ -36,7 +35,7 @@ export const EditInfo = (props) => {
       method: 'put',
     };
 
-    navigate('/productCheckout', { state: { data } });
+    navigate('/sell-confirmation', { state: { data } });
   };
 
   return (
@@ -49,7 +48,7 @@ export const EditInfo = (props) => {
         </div>
       </div>
       <div className="row mt-2">
-        <hr class="hr hr-blurry opacity-10" />
+        <hr className="hr hr-blurry opacity-10" />
       </div>
       <div className="row">
         <div className="col">
