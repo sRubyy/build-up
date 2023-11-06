@@ -1,5 +1,7 @@
 package com.gemini11.buildupbackend.controller;
 
+import com.gemini11.buildupbackend.entity.ProductSnippet;
+import com.gemini11.buildupbackend.entity.ResponseObject;
 import com.gemini11.buildupbackend.entity.SizePoolObject;
 import com.gemini11.buildupbackend.model.Product;
 import com.gemini11.buildupbackend.service.ProductService;
@@ -8,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @CrossOrigin
 @RestController
@@ -68,6 +72,19 @@ public class ProductController {
                     (String) record.get(4), (Double) record.get(5))));
         }
         return ResponseEntity.status(HttpStatus.OK).body(pool);
+    }
+
+    @CrossOrigin
+    @GetMapping("/groupByName")
+    public ResponseEntity<ResponseObject> groupByName() {
+        List<List<Object>> res = productService.groupByName();
+        Stream<ProductSnippet> data = res.stream().map(record -> new ProductSnippet((String) record.get(0), (Double) record.get(1)));
+        return new ResponseEntity<>(new ResponseObject(
+                LocalDateTime.now(),
+                HttpStatus.OK,
+                "",
+                data
+        ), HttpStatus.OK);
     }
 
     @CrossOrigin
