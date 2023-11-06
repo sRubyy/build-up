@@ -24,9 +24,7 @@ export const ReturnSize = (props) => {
     <ul className="dropdown-menu">
       {sizes.map((size, index) => (
         <li key={index} onClick={() => props.handleSize(size)}>
-          <a className="dropdown-item col" href="#">
-            {size}
-          </a>
+          <div className="dropdown-item col">{size}</div>
         </li>
       ))}
     </ul>

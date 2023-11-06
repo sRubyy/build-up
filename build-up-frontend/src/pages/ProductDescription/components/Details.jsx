@@ -37,12 +37,12 @@ export const Details = () => {
       condition: condition,
       conditionBoolean: conditionBoolean,
       price: price,
-      method: 'post',
+      method: 'POST',
       name: productDetail.name,
       description: productDetail.description,
     };
 
-    navigate('/productCheckout', { state: { data } });
+    navigate('/sell-confirmation', { state: { data } });
   };
 
   return (
@@ -55,7 +55,7 @@ export const Details = () => {
         </div>
       </div>
       <div className="row mt-2">
-        <hr class="hr hr-blurry opacity-10" />
+        <hr className="hr hr-blurry opacity-10" />
       </div>
       <div className="row">
         <div className="col">
