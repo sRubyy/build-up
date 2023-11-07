@@ -16,6 +16,7 @@ import PaymentMethodForm from '../pages/checkout/components/PaymentMethodForm';
 import CheckoutSummary from '../pages/checkout/components/CheckoutSummary';
 import { Description } from '../pages/product_description/components/Description';
 import { Details } from '../pages/product_description/components/Details';
+import { SearchResult } from '../pages/search_result/SearchResult';
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
             element: <SizeSelection />,
           },
         ],
+      },
+      {
+        path: '/search-result',
+        element: <SearchResult />,
       },
       {
         path: '/my-cart',
