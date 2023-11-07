@@ -49,9 +49,12 @@ public class ProductController {
     }
 
     @CrossOrigin
-    @GetMapping("/findBySizeWithMinPriceAndIsBrandNew/{name}")
-    public ResponseEntity<List<SizePoolObject>> getGroupSizeWithMinPriceByIsBrandNew(@PathVariable("name") String name) {
-        List<List<Object>> data = productService.getSizeWithMinPriceAndIsBrandNew(name);
+    @GetMapping("/findMinPriceProductByNameAndIsBrandNew")
+    public ResponseEntity<List<SizePoolObject>> findMinPriceProductByNameAndIsBrandNew(
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "is-brand-new") String isBrandNew
+    ) {
+        List<List<Object>> data = productService.getMinPriceProductByNameAndIsBrandNew(name, isBrandNew);
 
         List<SizePoolObject> pool = new ArrayList<>();
         if (data != null) {

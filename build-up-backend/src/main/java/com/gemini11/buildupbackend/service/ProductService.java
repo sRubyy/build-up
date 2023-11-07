@@ -19,7 +19,7 @@ public interface ProductService {
 
     List<Product> getProductsByName(String name);
 
-    List<List<Object>> getSizeWithMinPriceAndIsBrandNew(String name);
+    List<List<Object>> getMinPriceProductByNameAndIsBrandNew(String name, String isBrandNew);
 
     List<List<Object>> groupByName();
 
