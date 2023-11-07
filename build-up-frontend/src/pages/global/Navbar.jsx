@@ -11,6 +11,7 @@ function Navbar() {
 
   const [isLoggedIn, setLoggedIn] = useState('');
   const [data, setData] = useState({});
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const fetchLoggedInStatus = async () => {
@@ -55,6 +56,13 @@ function Navbar() {
     setLoggedIn(false);
   };
 
+  const handleQuery = () => {
+    const data = {
+      query: query,
+    };
+    navigate('/search-result', { state: { data } })
+  }
+
   return (
     <div className="global-nav">
       <div className="global-nav__left">
@@ -67,8 +75,9 @@ function Navbar() {
           className="global-nav__input"
           type="text"
           placeholder="search your style here"
+          onChange={e => setQuery(e.target.value)}
         />
-        <div className="global-nav__search-icon">
+        <div className="global-nav__search-icon" onClick={() => handleQuery()}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
