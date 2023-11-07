@@ -9,9 +9,8 @@ export const ItemShowcaseList = ({ items }) => {
   return (
     <div className={'item-showcase-list'}>
       {items.map((item, i) => (
-        <div onClick={() => navigateToProductDescription(item.name)}>
+        <div key={i} onClick={() => navigateToProductDescription(item.name)}>
           <ItemShowcase
-            key={i}
             name={item.name}
             price={item.price}
             imageUrl={item.imageUrl}

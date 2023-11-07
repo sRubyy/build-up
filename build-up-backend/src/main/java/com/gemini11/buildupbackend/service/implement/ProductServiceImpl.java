@@ -42,9 +42,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<List<Object>> getSizeWithMinPriceAndIsBrandNew(String name) {
+    public List<List<Object>> getMinPriceProductByNameAndIsBrandNew(String name, String isBrandNew) {
         try {
-            return productRepository.findSizeWithMinPriceAndIsBrandNew(name);
+            return productRepository.findMinPriceProductByNameAndIsBrandNew(name, isBrandNew);
         } catch (Exception e) {
             return null;
         }
