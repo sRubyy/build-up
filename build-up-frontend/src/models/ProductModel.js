@@ -17,6 +17,10 @@ class ProductModel {
   setId(Id) {
     this.id = Id;
   }
+
+  setPurchaseDate(date){
+    this.purchaseDate = date;
+  }
 }
 
 export default ProductModel;

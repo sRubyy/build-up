@@ -26,7 +26,7 @@ public class ProductController {
     ProductService productService;
 
     @CrossOrigin
-    @GetMapping("/findAll")
+    @GetMapping("/")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = new ArrayList<>();
         if (productService.getProducts() == null) {
@@ -41,8 +41,8 @@ public class ProductController {
     }
 
     @CrossOrigin
-    @GetMapping("/findByName/{name}")
-    public ResponseEntity<List<Product>> getAllProductsByName(@PathVariable("name") String name) {
+    @GetMapping("/findByName")
+    public ResponseEntity<List<Product>> getAllProductsByName(@RequestParam("name") String name) {
         List<Product> products = productService.getProductsByName(name);
         products.forEach(product -> product.setAccount(null));
         return ResponseEntity.status(HttpStatus.OK).body(products);
