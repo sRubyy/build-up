@@ -18,21 +18,23 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByName(String name);
 
     @Query(value = """
-            SELECT p1.size, p1.is_brand_new, MIN(p1.product_id) AS product_id, p1.name, p1.description, p1.price
-            FROM product p1
-            LEFT JOIN (
-                SELECT size, is_brand_new, MIN(price) AS min_price, MIN(created_at) as created_at
-                FROM (SELECT * FROM product WHERE purchase_date IS NULL) p0
-                GROUP BY size, is_brand_new
-            ) p2
-            ON p1.size = p2.size AND p1.is_brand_new = p2.is_brand_new AND p1.price = p2.min_price
-            WHERE name = :name
-            GROUP BY p1.size, p1.is_brand_new
-            ORDER BY p1.size, p1.is_brand_new;
+            SELECT
+                size,
+                is_brand_new,
+                product_id,
+                name,
+                description,
+                MIN(price) as price
+            FROM product
+            WHERE
+                name = :name AND
+                is_brand_new = :isBrandNew AND
+                purchase_date IS NULL
+            GROUP BY size
             """,
             nativeQuery = true
     )
-    List<List<Object>> findSizeWithMinPriceAndIsBrandNew(@Param("name") String name);
+    List<List<Object>> findMinPriceProductByNameAndIsBrandNew(@Param("name") String name, @Param("isBrandNew") String isBrandNew);
 
     @Query(value = """
             SELECT p1.size, p1.is_brand_new, MIN(p1.product_id) AS product_id, p1.name, p1.description, p1.price

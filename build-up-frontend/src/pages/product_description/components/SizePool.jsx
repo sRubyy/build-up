@@ -58,15 +58,13 @@ export const SizePool = (props) => {
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-          `${baseUrl}/api/product/findBySizeWithMinPriceAndIsBrandNew/${productName}`
+          `${baseUrl}/api/product/findMinPriceProductByNameAndIsBrandNew?name=${productName}&is-brand-new=${
+            props.isBrandNew ? 1 : 0
+          }`
         );
 
         const data = await res.json();
-        setSizePool(
-          data
-            .sort((a, b) => Number(a.size) - Number(b.size))
-            .filter((item) => item.isBrandNew === props.isBrandNew)
-        );
+        setSizePool(data.sort((a, b) => Number(a.size) - Number(b.size)));
       } catch (e) {
         setSizePool([]);
       }
