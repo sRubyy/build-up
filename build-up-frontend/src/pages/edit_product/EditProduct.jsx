@@ -93,7 +93,7 @@ export const EditProduct = () => {
           >
             <div className="row">
               <div className="d-flex justify-content-start">
-                <p className="fs-4 fw-semibold">Information</p>
+                <p className="info-header">Information</p>
               </div>
             </div>
             <div className="row mt-2">
@@ -102,14 +102,14 @@ export const EditProduct = () => {
             <div className="d-flex justify-content-between mt-4 mb-1">
               <div className="d-flex justify-content-start ">
                 <div>
-                  <p className="fs-5 fw-bold">{data?.item && data.item.name}</p>
+                  <p className={'title'}>{data?.item && data.item.name}</p>
                 </div>
               </div>
             </div>
             <div className="d-flex justify-content-between mb-4">
               <div className="d-flex justify-content-start ">
                 <div>
-                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                  <p className="sub-title" style={{ color: '#9D9D9D' }}>
                     {data?.item && data.item.description}
                   </p>
                 </div>
@@ -118,14 +118,12 @@ export const EditProduct = () => {
             <div className="d-flex justify-content-between mt-4">
               <div className="d-flex justify-content-start ">
                 <div>
-                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
-                    Ask Price
-                  </p>
+                  <p className="info-list">Ask Price</p>
                 </div>
               </div>
               <div className="d-flex justify-content-end">
                 <div>
-                  <p className="fs-5 fw-bold">
+                  <p className="info-list--bold">
                     {data?.item && data.item.price}.-
                   </p>
                 </div>
@@ -134,14 +132,12 @@ export const EditProduct = () => {
             <div className="d-flex justify-content-between ">
               <div className="d-flex justify-content-start ">
                 <div>
-                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
-                    Size
-                  </p>
+                  <p className="info-list">Size</p>
                 </div>
               </div>
               <div className="d-flex justify-content-end">
                 <div>
-                  <p className="fs-5 fw-bold">
+                  <p className="info-list--bold">
                     US {data?.item && data.item.size}
                   </p>
                 </div>
@@ -153,14 +149,12 @@ export const EditProduct = () => {
             >
               <div className="d-flex justify-content-start ">
                 <div>
-                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
-                    Condition
-                  </p>
+                  <p className="info-list">Condition</p>
                 </div>
               </div>
               <div className="d-flex justify-content-end">
                 <div>
-                  <p className="fs-5 fw-bold">
+                  <p className="info-list--bold">
                     {data?.item && data.item.condition ? 'Brand new' : 'Used'}
                   </p>
                 </div>
