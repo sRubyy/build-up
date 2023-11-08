@@ -90,7 +90,7 @@ function CheckoutSummary() {
         <div className={'checkout-page__ship-and-payment--info-list'}>
           <div
             className={'checkout-page__ship-and-payment--icon-group'}
-            style={{ cursor: 'text' }}
+            style={{ cursor: 'text', color: '#9d9d9d' }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@ function CheckoutSummary() {
         <div className={'checkout-page__ship-and-payment--info-list'}>
           <div
             className={'checkout-page__ship-and-payment--icon-group'}
-            style={{ cursor: 'text' }}
+            style={{ cursor: 'text', color: '#9d9d9d' }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

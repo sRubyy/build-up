@@ -68,8 +68,9 @@ export const Details = () => {
         style={{ marginBottom: '16px' }}
       >
         <div className="d-flex justify-content-start">
-          <div className="info-entry__sub-entry">Size </div>
-          <span className="info-entry__sub-entry--danger">*</span>
+          <div className="info-entry__sub-entry">
+            Size <span className="info-entry__sub-entry--danger">*</span>
+          </div>
         </div>
         <div>
           <div className="dropdown">
@@ -90,8 +91,9 @@ export const Details = () => {
         style={{ marginBottom: '32px' }}
       >
         <div className="d-flex justify-content-start">
-          <div className="info-entry__sub-entry">Condition </div>
-          <span className="info-entry__sub-entry--danger">*</span>
+          <div className="info-entry__sub-entry">
+            Condition <span className="info-entry__sub-entry--danger">*</span>
+          </div>
         </div>
         <div>
           <div className="dropdown">
@@ -137,7 +139,7 @@ export const Details = () => {
             }}
             name="objectives"
           ></input>
-          <HiOutlinePencil size={22} color="#CCCCCC" />
+          <HiOutlinePencil size={20} color="#CCCCCC" />
         </div>
       </div>
 
