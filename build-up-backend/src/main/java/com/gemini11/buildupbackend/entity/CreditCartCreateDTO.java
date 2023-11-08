@@ -6,6 +6,7 @@ public record CreditCartCreateDTO(
         String expirationDate,
         String cvc,
         Double balance,
-        Integer accountId
+        Integer accountId,
+        String token
 ) {
 }
