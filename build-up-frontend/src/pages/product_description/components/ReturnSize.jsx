@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../../../scss/product_description/product_detail.scss';
 export const ReturnSize = (props) => {
   const sizes = [
     '5',

@@ -231,37 +231,33 @@ export const Description = () => {
         <hr className="hr hr-blurry opacity-10" />
       </div>
       <div
-        className="d-flex justify-content-center mt-1"
+        className="d-flex justify-content-center mt-3"
         style={{ gap: '22px' }}
       >
         <div
           className="d-flex justify-content-around"
           style={{ alignItems: 'center' }}
         >
-          <div>
-            <GoShieldCheck
-              size={32}
-              color="#9D9D9D"
-              style={{ marginRight: '17px' }}
-            />
-          </div>
+          <GoShieldCheck
+            size={32}
+            color="#9D9D9D"
+            style={{ marginRight: '12px' }}
+          />
           <div>100% Authentic Guarantee</div>
         </div>
         <div
           className="d-flex justify-content-around"
           style={{ alignItems: 'center' }}
         >
-          <div>
-            <GoShieldLock
-              size={32}
-              color="#9D9D9D"
-              style={{ marginRight: '17px' }}
-            />
-          </div>
+          <GoShieldLock
+            size={32}
+            color="#9D9D9D"
+            style={{ marginRight: '12px' }}
+          />
           <div>Anti Fraudulent transaction</div>
         </div>
       </div>
-      <div className="d-flex justify-content-between mt-3">
+      <div className="d-flex justify-content-between mt-4">
         <div
           className="d-flex justify-content-around"
           style={{ width: '48.85%' }}
