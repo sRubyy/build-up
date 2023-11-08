@@ -4,7 +4,7 @@ import { HiOutlinePencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { ReturnSize } from '../../product_description/components/ReturnSize';
 import { ReturnCondition } from '../../product_description/components/ReturnCondition';
-
+import '../../../scss/product_description/product_detail.scss';
 export const EditInfo = (props) => {
   // const history = useHistory();
   const navigate = useNavigate();
@@ -13,7 +13,6 @@ export const EditInfo = (props) => {
     props.data.item.brandNew ? 'NEW' : 'USED'
   );
   const [conditionBoolean, setConditionBoolean] = useState(true);
-  const [component, setComponent] = useState('/des');
   const [price, setPrice] = useState(props.data.item.price);
 
   const handleSize = (value) => {
@@ -42,7 +41,7 @@ export const EditInfo = (props) => {
     <div className="col" style={{ fontFamily: 'Montserrat', marginTop: '3%' }}>
       <div className="row">
         <div className="col">
-          <p className="fs-4 fw-semibold d-flex justify-content-center">
+          <p className="info-header d-flex justify-content-center">
             Editing Information
           </p>
         </div>
@@ -52,7 +51,7 @@ export const EditInfo = (props) => {
       </div>
       <div className="row">
         <div className="col">
-          <p className="fs-5 fw-medium">Product details</p>
+          <p className="info-entry">Product details</p>
         </div>
       </div>
       <div className="d-flex justify-content-between ">
@@ -61,17 +60,16 @@ export const EditInfo = (props) => {
           style={{ paddingTop: '1%' }}
         >
           <div style={{ marginRight: '8.7%' }}>
-            <p className="fs-5">Size</p>
+            <p className="info-entry__sub-entry">Size</p>
           </div>
           <div>
-            <p className="fs-5 text-danger">*</p>
+            <p className="info-entry__sub-entry--danger">*</p>
           </div>
         </div>
         <div>
           <div className="dropdown">
             <button
-              className="btn fst-italic dropdown-toggle"
-              style={{ fontSize: '19px' }}
+              className="btn fst-italic dropdown-toggle info-entry__sub-entry--placeholder"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -88,17 +86,16 @@ export const EditInfo = (props) => {
           style={{ paddingTop: '1%' }}
         >
           <div style={{ marginRight: '4.7%' }}>
-            <p className="fs-5">Condition</p>
+            <p className="info-entry__sub-entry">Condition</p>
           </div>
           <div>
-            <p className="fs-5 text-danger">*</p>
+            <p className="info-entry__sub-entry--danger">*</p>
           </div>
         </div>
         <div>
           <div className="dropdown">
             <button
-              className="btn fst-italic dropdown-toggle"
-              style={{ fontSize: '19px' }}
+              className="btn fst-italic dropdown-toggle info-entry__sub-entry--placeholder"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -117,19 +114,13 @@ export const EditInfo = (props) => {
         style={{ marginBottom: '27%' }}
       >
         <div className="d-flex justify-content-start">
-          <div style={{ marginRight: '4.7%' }}>
-            <p className="fs-5 fw-medium">Ask</p>
-          </div>
-          <div style={{ marginRight: '4.7%' }}>
-            <p className="fs-5 fw-medium">Price</p>
-          </div>
-          <div>
-            <p className="fs-5 text-danger">*</p>
+          <div className={'info-entry__sub-entry'}>
+            Ask Price <span className="info-entry__sub-entry--danger">*</span>
           </div>
         </div>
-        <div className="d-flex justify-content-end">
-          <textarea
-            className="fs-5"
+        <div className="d-flex justify-content-end align-items-center">
+          <input
+            className="info-entry__sub-entry--placeholder"
             required
             onChange={(e) => setPrice(e.target.value)}
             value={price}
@@ -138,20 +129,14 @@ export const EditInfo = (props) => {
               border: 'none',
               outline: 'none',
               width: '42%',
-              textAlign: 'center',
+              textAlign: 'right',
               height: '73%',
               resize: 'none',
+              marginRight: '8px',
             }}
             name="objectives"
-            rows={1}
-          ></textarea>
-          <div className="mt-1">
-            <HiOutlinePencil
-              size={22}
-              color="#CCCCCC"
-              style={{ marginRight: '17px' }}
-            />
-          </div>
+          ></input>
+          <HiOutlinePencil size={22} color="#CCCCCC" />
         </div>
       </div>
 
@@ -166,26 +151,22 @@ export const EditInfo = (props) => {
           className="d-flex justify-content-around"
           style={{ alignItems: 'center' }}
         >
-          <div>
-            <GoShieldCheck
-              size={32}
-              color="#9D9D9D"
-              style={{ marginRight: '17px' }}
-            />
-          </div>
+          <GoShieldCheck
+            size={32}
+            color="#9D9D9D"
+            style={{ marginRight: '12px' }}
+          />
           <div>100% Authentic Guarantee</div>
         </div>
         <div
           className="d-flex justify-content-around"
           style={{ alignItems: 'center' }}
         >
-          <div>
-            <GoShieldLock
-              size={32}
-              color="#9D9D9D"
-              style={{ marginRight: '17px' }}
-            />
-          </div>
+          <GoShieldLock
+            size={32}
+            color="#9D9D9D"
+            style={{ marginRight: '12px' }}
+          />
           <div>Anti Fraudulent transaction</div>
         </div>
       </div>
