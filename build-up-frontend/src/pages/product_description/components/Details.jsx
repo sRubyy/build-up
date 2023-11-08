@@ -6,6 +6,7 @@ import { HiOutlinePencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { ProductContext } from '../../../data/context';
 import { ErrorFetchProductDetail } from './ErrorFetchProductDetail';
+import '../../../scss/product_description/product_detail.scss';
 
 export const Details = () => {
   const navigate = useNavigate();
@@ -52,36 +53,28 @@ export const Details = () => {
     >
       <div className="row">
         <div className="col">
-          <p className="fs-4 fw-semibold d-flex justify-content-center">
+          <p className="info-header d-flex justify-content-center">
             Listing Information
           </p>
         </div>
       </div>
-      <div className="row mt-2">
-        <hr className="hr hr-blurry opacity-10" />
-      </div>
-      <div className="row">
-        <div className="col">
-          <p className="fs-5 fw-medium">Product details</p>
+      <div className="row border-top" style={{ paddingTop: '16px' }}>
+        <div className="col" style={{ marginBottom: '16px' }}>
+          <div className="info-entry">Product details</div>
         </div>
       </div>
-      <div className="d-flex justify-content-between ">
-        <div
-          className="d-flex justify-content-start "
-          style={{ paddingTop: '1%' }}
-        >
-          <div style={{ marginRight: '8.7%' }}>
-            <p className="fs-5">Size</p>
-          </div>
-          <div>
-            <p className="fs-5 text-danger">*</p>
-          </div>
+      <div
+        className="d-flex justify-content-between align-items-center"
+        style={{ marginBottom: '16px' }}
+      >
+        <div className="d-flex justify-content-start">
+          <div className="info-entry__sub-entry">Size </div>
+          <span className="info-entry__sub-entry--danger">*</span>
         </div>
         <div>
           <div className="dropdown">
             <button
-              className="btn fst-italic dropdown-toggle"
-              style={{ fontSize: '19px' }}
+              className="btn fst-italic dropdown-toggle info-entry__sub-entry--placeholder"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -92,23 +85,18 @@ export const Details = () => {
           </div>
         </div>
       </div>
-      <div className="d-flex justify-content-between">
-        <div
-          className="d-flex justify-content-start"
-          style={{ paddingTop: '1%' }}
-        >
-          <div style={{ marginRight: '4.7%' }}>
-            <p className="fs-5">Condition</p>
-          </div>
-          <div>
-            <p className="fs-5 text-danger">*</p>
-          </div>
+      <div
+        className="d-flex justify-content-between align-items-center"
+        style={{ marginBottom: '32px' }}
+      >
+        <div className="d-flex justify-content-start">
+          <div className="info-entry__sub-entry">Condition </div>
+          <span className="info-entry__sub-entry--danger">*</span>
         </div>
         <div>
           <div className="dropdown">
             <button
-              className="btn fst-italic dropdown-toggle"
-              style={{ fontSize: '19px' }}
+              className="btn dropdown-toggle info-entry__sub-entry--placeholder"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -123,45 +111,33 @@ export const Details = () => {
         <hr className="hr hr-blurry opacity-10" />
       </div>
       <div
-        className="d-flex justify-content-between"
+        className="d-flex justify-content-between align-items-center"
         style={{ marginBottom: '27%' }}
       >
         <div className="d-flex justify-content-start">
-          <div style={{ marginRight: '4.7%' }}>
-            <p className="fs-5 fw-medium">Ask</p>
-          </div>
-          <div style={{ marginRight: '4.7%' }}>
-            <p className="fs-5 fw-medium">Price</p>
-          </div>
-          <div>
-            <p className="fs-5 text-danger">*</p>
+          <div className={'info-entry__sub-entry'}>
+            Ask Price <span className={'info-entry__sub-entry--danger'}>*</span>
           </div>
         </div>
-        <div className="d-flex justify-content-end">
-          <textarea
-            className="fs-5"
+        <div className="d-flex justify-content-end align-items-center">
+          <input
+            className="info-entry__sub-entry--placeholder"
             required
             onChange={(e) => setPrice(e.target.value)}
             value={price}
             placeholder="Add price"
             style={{
+              marginRight: '8px',
               border: 'none',
               outline: 'none',
               width: '42%',
-              textAlign: 'center',
+              textAlign: 'right',
               height: '73%',
               resize: 'none',
             }}
             name="objectives"
-            rows={1}
-          ></textarea>
-          <div className="mt-1">
-            <HiOutlinePencil
-              size={22}
-              color="#CCCCCC"
-              style={{ marginRight: '17px' }}
-            />
-          </div>
+          ></input>
+          <HiOutlinePencil size={22} color="#CCCCCC" />
         </div>
       </div>
 
@@ -176,26 +152,22 @@ export const Details = () => {
           className="d-flex justify-content-around"
           style={{ alignItems: 'center' }}
         >
-          <div>
-            <GoShieldCheck
-              size={32}
-              color="#9D9D9D"
-              style={{ marginRight: '17px' }}
-            />
-          </div>
+          <GoShieldCheck
+            size={32}
+            color="#9D9D9D"
+            style={{ marginRight: '12px' }}
+          />
           <div>100% Authentic Guarantee</div>
         </div>
         <div
           className="d-flex justify-content-around"
           style={{ alignItems: 'center' }}
         >
-          <div>
-            <GoShieldLock
-              size={32}
-              color="#9D9D9D"
-              style={{ marginRight: '17px' }}
-            />
-          </div>
+          <GoShieldLock
+            size={32}
+            color="#9D9D9D"
+            style={{ marginRight: '12px' }}
+          />
           <div>Anti Fraudulent transaction</div>
         </div>
       </div>
