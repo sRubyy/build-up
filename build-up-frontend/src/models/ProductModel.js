@@ -18,7 +18,7 @@ class ProductModel {
     this.id = Id;
   }
 
-  setPurchaseDate(date){
+  setPurchaseDate(date) {
     this.purchaseDate = date;
   }
 }

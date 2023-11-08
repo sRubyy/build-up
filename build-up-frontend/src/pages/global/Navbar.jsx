@@ -60,8 +60,8 @@ function Navbar() {
     const data = {
       query: query,
     };
-    navigate('/search-result', { state: { data } })
-  }
+    navigate('/search-result', { state: { data } });
+  };
 
   return (
     <div className="global-nav">
@@ -75,7 +75,7 @@ function Navbar() {
           className="global-nav__input"
           type="text"
           placeholder="search your style here"
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
         />
         <div className="global-nav__search-icon" onClick={() => handleQuery()}>
           <svg
