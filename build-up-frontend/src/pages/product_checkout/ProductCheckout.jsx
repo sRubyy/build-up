@@ -5,7 +5,7 @@ import { FiMapPin } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ProductModel from '../../models/ProductModel';
-
+import '../../scss/my_sell_product/sell_checkout.scss';
 export const ProductCheckout = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -147,8 +147,8 @@ export const ProductCheckout = () => {
         <div>New Balance 530 White Silver Navy</div>
       </div>
 
-      <div className="row">
-        <div className="col" style={{ marginRight: '8%', marginTop: '7.524%' }}>
+      <div className="row" style={{ gap: '64px' }}>
+        <div className="col" style={{ marginTop: '80px' }}>
           <div className="row" style={{ marginLeft: '3%' }}>
             <div className="d-flex justify-content-start">
               <div style={{ marginRight: '5%' }}>
@@ -159,11 +159,14 @@ export const ProductCheckout = () => {
                 />
               </div>
               <div>
-                <p className="fs-4 fw-semibold">Summary Product detail</p>
-                <p className="fs-5 fw-semibold">
+                <p className="sell-checkout__font">Summary Product detail</p>
+                <p className="sell-checkout__product-name-font">
                   {(data && data.name) || (data?.item && data.item.name)}
                 </p>
-                <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                <p
+                  className="sell-checkout__desc-font"
+                  style={{ color: '#9D9D9D' }}
+                >
                   {(data && data.description) ||
                     (data?.item && data.item.description)}
                 </p>
@@ -180,14 +183,17 @@ export const ProductCheckout = () => {
             <div className="d-flex justify-content-between mt-4">
               <div className="d-flex justify-content-start">
                 <div>
-                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                  <p
+                    className="sell-checkout__info-entry"
+                    style={{ color: '#9D9D9D' }}
+                  >
                     Ask Price
                   </p>
                 </div>
               </div>
               <div className="d-flex justify-content-end">
                 <div>
-                  <p className="fs-5 fw-bold">
+                  <p className="sell-checkout__info-entry--bold">
                     {(data && data.price) || (data?.item && data.item.price)}.-
                   </p>
                 </div>
@@ -198,14 +204,17 @@ export const ProductCheckout = () => {
             <div className="d-flex justify-content-between">
               <div className="d-flex justify-content-start">
                 <div>
-                  <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                  <p
+                    className="sell-checkout__info-entry"
+                    style={{ color: '#9D9D9D' }}
+                  >
                     Size
                   </p>
                 </div>
               </div>
               <div className="d-flex justify-content-end">
                 <div>
-                  <p className="fs-5 fw-bold">
+                  <p className="sell-checkout__info-entry--bold">
                     US {(data && data.size) || (data?.item && data.item.size)}
                   </p>
                 </div>
@@ -216,14 +225,17 @@ export const ProductCheckout = () => {
           <div className="d-flex justify-content-between ">
             <div className="d-flex justify-content-start ">
               <div>
-                <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                <p
+                  className="sell-checkout__info-entry"
+                  style={{ color: '#9D9D9D' }}
+                >
                   Condition
                 </p>
               </div>
             </div>
             <div className="d-flex justify-content-end">
               <div>
-                <p className="fs-5 fw-bold">
+                <p className="sell-checkout__info-entry--bold">
                   {data && data.conditionBoolean ? 'Brand new' : 'Used'}
                 </p>
               </div>
@@ -232,69 +244,64 @@ export const ProductCheckout = () => {
         </div>
         <div
           className="col"
-          style={{ fontFamily: 'Montserrat', marginTop: '3%' }}
+          style={{ fontFamily: 'Montserrat', marginTop: '80px' }}
         >
           <div className="row">
             <div className="d-flex justify-content-center">
-              <p className="fs-4 fw-semibold">Confirmation</p>
+              <p className="sell-checkout__font">Confirmation</p>
             </div>
           </div>
-          <div className="d-flex justify-content-between mt-5 mb-1">
-            <div className="d-flex justify-content-start ">
+          <div className="d-flex justify-content-between mt-5 mb-3">
+            <div className="d-flex justify-content-start align-items-center">
+              <FiMapPin
+                size={27}
+                color="#9D9D9D"
+                style={{ marginRight: '17px' }}
+              />
               <div>
-                <FiMapPin
-                  size={27}
-                  color="#9D9D9D"
-                  style={{ marginRight: '17px' }}
-                />
-              </div>
-              <div>
-                <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                <div
+                  className="sell-checkout__info-entry"
+                  style={{ color: '#9D9D9D' }}
+                >
                   Shipping address
-                </p>
+                </div>
               </div>
             </div>
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-end align-items-center">
               <div>
-                <p className="fs-5">98/139 icondo salaya building c..</p>
+                <div className="sell-checkout__info-entry--black">
+                  98/139 icondo salaya building c..
+                </div>
               </div>
-              <div>
-                <IoIosArrowForward
-                  size={27}
-                  color="#9D9D9D"
-                  style={{ marginRight: '17px' }}
-                />
-              </div>
+              <IoIosArrowForward size={24} color="#9D9D9D" />
             </div>
           </div>
           <div className="d-flex justify-content-between mb-4">
-            <div className="d-flex justify-content-start ">
+            <div className="d-flex justify-content-start align-items-center">
+              <GoCreditCard
+                size={27}
+                color="#9D9D9D"
+                style={{ marginRight: '17px' }}
+              />
               <div>
-                <GoCreditCard
-                  size={27}
-                  color="#9D9D9D"
-                  style={{ marginRight: '17px' }}
-                />
-              </div>
-              <div>
-                <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                <div
+                  className="sell-checkout__info-entry"
+                  style={{ color: '#9D9D9D' }}
+                >
                   Payment method
-                </p>
+                </div>
               </div>
             </div>
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-end align-items-center">
               <div>
-                <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                <div
+                  className="sell-checkout__info-entry"
+                  style={{ color: '#9D9D9D' }}
+                >
                   Payment Method
-                </p>
+                </div>
               </div>
-              <div>
-                <IoIosArrowForward
-                  size={27}
-                  color="#9D9D9D"
-                  style={{ marginRight: '17px' }}
-                />
-              </div>
+              <IoIosArrowForward size={24} color="#9D9D9D" />
             </div>
           </div>
           <div className="row mt-2">
@@ -303,7 +310,10 @@ export const ProductCheckout = () => {
           <div className="d-flex justify-content-between mt-5">
             <div className="d-flex justify-content-start ">
               <div>
-                <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                <p
+                  className="sell-checkout__info-entry"
+                  style={{ color: '#9D9D9D' }}
+                >
                   Sub Total
                 </p>
               </div>
@@ -311,7 +321,7 @@ export const ProductCheckout = () => {
             {data && (
               <div className="d-flex justify-content-end">
                 <div>
-                  <p className="fs-5">
+                  <p className="sell-checkout__info-entry--bold">
                     {(data && data.price) || (data?.item && data.item.price)}.-
                   </p>
                 </div>
@@ -321,7 +331,10 @@ export const ProductCheckout = () => {
           <div className="d-flex justify-content-between ">
             <div className="d-flex justify-content-start ">
               <div>
-                <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                <p
+                  className="sell-checkout__info-entry"
+                  style={{ color: '#9D9D9D' }}
+                >
                   Transcation fee 7%
                 </p>
               </div>
@@ -329,7 +342,7 @@ export const ProductCheckout = () => {
             {data && (
               <div className="d-flex justify-content-end">
                 <div>
-                  <p className="fs-5">
+                  <p className="sell-checkout__info-entry--bold">
                     {(((data && data.price) ||
                       (data?.item && data.item.price)) *
                       7) /
@@ -343,14 +356,17 @@ export const ProductCheckout = () => {
           <div className="d-flex justify-content-between ">
             <div className="d-flex justify-content-start ">
               <div>
-                <p className="fs-5" style={{ color: '#9D9D9D' }}>
+                <p
+                  className="sell-checkout__info-entry"
+                  style={{ color: '#9D9D9D' }}
+                >
                   Payment Processing fee 30%
                 </p>
               </div>
             </div>
             <div className="d-flex justify-content-end">
               <div>
-                <p className="fs-5">
+                <p className="sell-checkout__info-entry--bold">
                   {(((data && data.price) || (data?.item && data.item.price)) *
                     3) /
                     100}
@@ -362,14 +378,20 @@ export const ProductCheckout = () => {
           <div className="d-flex justify-content-between mb-5">
             <div className="d-flex justify-content-start ">
               <div>
-                <p className="fs-5 fw-semibold" style={{ color: '#00B227' }}>
+                <p
+                  className="sell-checkout__info-entry--green"
+                  style={{ color: '#00B227' }}
+                >
                   Total
                 </p>
               </div>
             </div>
             <div className="d-flex justify-content-end">
               <div>
-                <p className="fs-5 fw-semibold" style={{ color: '#00B227' }}>
+                <p
+                  className="sell-checkout__info-entry--green"
+                  style={{ color: '#00B227' }}
+                >
                   {((data && data.price) || (data?.item && data.item.price)) -
                     (((data && data.price) || (data?.item && data.item.price)) *
                       7) /
