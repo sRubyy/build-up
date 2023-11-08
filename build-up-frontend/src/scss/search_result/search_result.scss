@@ -1,56 +1,62 @@
 .path_element {
-    margin-right: 20px;
-    margin-left: 20px;
-  }
-  
-  .showcaselist {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.showcase-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem;
+  gap: 16px 32px;
+}
+
+.search-title {
+  color: #252525;
+  font-family: MontserratBold;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.product-detail {
+  margin-left: 8%;
+  justify-content: center;
+}
+
+.item-slot {
+  &:hover {
+    cursor: pointer;
+    background-color: #f6f6f6;
   }
 
-  .product-detail{
-    margin-left: 8%;
-    justify-content: center;
+  &__pic {
+    width: 256px;
+    height: 256px;
   }
 
+  &__text {
+    max-width: 256px;
 
-  .item-slot {
-    
-    &:hover {
-      cursor: pointer;
-      background-color: #f6f6f6;
+    &--name {
+      text-align: left;
+      margin: 12px 0;
+      color: #252525;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
     }
-  
-    &__pic {
-      width: 256px;
-      height: 256px;
-    }
-  
-    &__text {
-      max-width: 256px;
-  
-      &--name {
-        text-align: left;
-        margin: 12px 0;
-        color: #252525;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-      }
-  
-      &--price {
-        text-align: left;
-        color: #252525;
-        font-family: MontserratBold;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-      }
+
+    &--price {
+      text-align: left;
+      color: #252525;
+      font-family: MontserratBold;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
     }
   }
-  
-  
+}
