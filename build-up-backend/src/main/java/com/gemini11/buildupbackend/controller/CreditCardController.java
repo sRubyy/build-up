@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/creditCard")
 public class CreditCardController {
 
@@ -104,7 +105,9 @@ public class CreditCardController {
     @PostMapping("/addCreditCard")
     public ResponseEntity<ResponseObject> addCreditCard(@RequestBody CreditCartCreateDTO creditCardDTO) {
         CreditCard newCreditCard = new CreditCard();
-        Optional<Account> account = accountService.getAccountById(creditCardDTO.accountId());
+        Optional<Account> account = accountService.getAccountByUsername(
+                new JwtHelper().extractUsernameFromToken(creditCardDTO.token())
+        );
 
         if (account.isEmpty()) {
             return new ResponseEntity<>(new ResponseObject(
@@ -119,7 +122,9 @@ public class CreditCardController {
         newCreditCard.setHolderName(creditCardDTO.holderName());
         newCreditCard.setExpirationDate(creditCardDTO.expirationDate());
         newCreditCard.setCvv(creditCardDTO.cvc());
-        newCreditCard.setBalance(creditCardDTO.balance());
+        newCreditCard.setBalance(creditCardDTO.balance() == null ?
+                100_000 : creditCardDTO.balance()
+        );
         newCreditCard.setAccount(account.get());
 
         CreditCard creditCard = creditCardService.addCreditCard(newCreditCard);
