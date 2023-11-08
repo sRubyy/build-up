@@ -1,5 +1,5 @@
 import '../../../scss/checkout/input.scss';
-function InputText({ inputName, placeholder }) {
+function InputText({ inputName, placeholder, value, setValue = () => {} }) {
   return (
     <div className={'input-container'}>
       <div className={'input-label'}>{inputName}</div>
@@ -8,6 +8,8 @@ function InputText({ inputName, placeholder }) {
           style={{ all: 'unset', width: '100%' }}
           type={'text'}
           placeholder={placeholder}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
       </div>
     </div>
