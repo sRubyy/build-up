@@ -26,7 +26,7 @@ public class ProductController {
     ProductService productService;
 
     @CrossOrigin
-    @GetMapping("/")
+    @GetMapping("/findAll")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = new ArrayList<>();
         if (productService.getProducts() == null) {

@@ -80,7 +80,7 @@ export const EditProduct = () => {
       </div>
 
       <div className="row">
-        <div className="col mt-5">
+        <div className="col mt-5 d-flex justify-content-center">
           <img
             className="img_shoes"
             src={require('../../images/default_shoe.png')}
