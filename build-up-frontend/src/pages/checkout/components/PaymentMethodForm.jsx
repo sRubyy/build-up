@@ -34,25 +34,25 @@ function PaymentMethodForm() {
     setPaymentMethod(method);
   };
 
-  useEffect(() => {
-    const fetchCreditCards = async () => {
-      try {
-        const token = { token: new Cookies().get('loginToken') };
-        const res = await fetch(
-          `${baseUrl}/api/creditCard/findCreditCardByToken`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(token),
-          }
-        );
-        const data = await res.json();
-        setCreditCards(data.data ?? []);
-      } catch (e) {
-        setCreditCards([]);
-      }
-    };
+  const fetchCreditCards = async () => {
+    try {
+      const token = { token: new Cookies().get('loginToken') };
+      const res = await fetch(
+        `${baseUrl}/api/creditCard/findCreditCardByToken`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(token),
+        }
+      );
+      const data = await res.json();
+      setCreditCards(data.data ?? []);
+    } catch (e) {
+      setCreditCards([]);
+    }
+  };
 
+  useEffect(() => {
     fetchCreditCards();
   }, []);
 
@@ -94,7 +94,10 @@ function PaymentMethodForm() {
           />
         </div>
         {paymentMethod === 'Credit card' ? (
-          <CreditCardForm />
+          <CreditCardForm
+            onCollapse={clickCancelButton}
+            onAdd={fetchCreditCards}
+          />
         ) : (
           // <OnlineBankingForm />
           <div className={'form-not-available'}>
@@ -119,19 +122,6 @@ function PaymentMethodForm() {
         </div>
         {isExpandMode && PaymentForm()}
       </div>
-      {isExpandMode && (
-        <div className={'add-new__button'}>
-          <div
-            className={'form-button checkout-page__button--style-1'}
-            onClick={clickCancelButton}
-          >
-            Cancel
-          </div>
-          <div className={'form-button checkout-page__button--style-2'}>
-            Add
-          </div>
-        </div>
-      )}
     </>
   );
 }

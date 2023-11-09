@@ -2,25 +2,40 @@ import InputText from './InputText';
 import '../../../scss/checkout/checkout.scss';
 import '../../../scss/checkout/checkout_form.scss';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
-function CreditCardForm() {
-  const navigate = useNavigate();
+function CreditCardForm({ onCollapse, onAdd }) {
+  const cookies = new Cookies();
+
   const [cardNumber, setCardNumber] = useState('');
   const [holderName, setHolderName] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [error, setError] = useState(null);
 
+  const isAllowAdd = () => {
+    return (
+      cardNumber &&
+      holderName &&
+      expirationDate &&
+      cvv &&
+      cookies.get('loginToken')
+    );
+  };
+
   const handleAddCreditCard = async (e) => {
     e.preventDefault();
+
+    if (!isAllowAdd()) {
+      return;
+    }
+
     const creditCard = {
       cardNumber,
       holderName,
       expirationDate,
       cvv,
-      token: new Cookies().get('loginToken'),
+      token: cookies.get('loginToken'),
     };
     try {
       const response = await fetch(
@@ -31,10 +46,9 @@ function CreditCardForm() {
           body: JSON.stringify(creditCard),
         }
       );
-      if (response.status < 400) {
-        navigate('/');
-        console.log('Add Credit Card successful!');
-        console.log(setHolderName);
+      if (response.status === 201) {
+        onAdd();
+        onCollapse();
       } else {
         const data = await response.json();
         setError(data.message);
@@ -76,14 +90,24 @@ function CreditCardForm() {
           />
         </div>
       </div>
-      <button
-        className={'form-button checkout-page__button--style-2'}
-        type="submit"
-        onClick={handleAddCreditCard}
-        style={{ border: 'none' }}
-      >
-        Add Credit Card
-      </button>
+      <div className={'add-new__button'}>
+        <div
+          className={'form-button checkout-page__button--style-1'}
+          onClick={onCollapse}
+        >
+          Cancel
+        </div>
+        <div
+          className={
+            isAllowAdd()
+              ? 'form-button checkout-page__button--style-3'
+              : 'form-button checkout-page__button--style-2'
+          }
+          onClick={handleAddCreditCard}
+        >
+          Add
+        </div>
+      </div>
     </>
   );
 }
