@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react';
 import '../../scss/my_sell_product/my_sell_product.scss';
 import ProductModel from '../../models/ProductModel';
-import ItemShowcase from './components/ItemShowcase';
+import ItemShowcase from '../homepage/components/ItemShowcase';
+import { itemImageMapping } from '../../config/item_image_mapping';
+import { useNavigate } from 'react-router-dom';
 export const MySelllProduct = () => {
   const [products, setProducts] = useState([]);
   const [httpError, setHttpError] = useState(null);
+
+  const navigate = useNavigate();
+  const handleClick = (item) => {
+    const data = { item };
+
+    navigate('/edit-product', { state: { data } });
+  };
 
   useEffect(() => {
     const fetchSellerProducts = async () => {
@@ -74,37 +83,18 @@ export const MySelllProduct = () => {
         </div>
         <div style={{ height: '30px' }}>My Sell Products</div>
       </div>
-      <div className="showcaselist">
+      <div className="showcase-list">
         {products.map((item, i) => (
-          <div key={i}>
-            <ItemShowcase item={item} />
+          <div key={i} onClick={() => handleClick(item)}>
+            <ItemShowcase
+              isSellerMode={true}
+              name={item.name}
+              price={item.price}
+              imageUrl={itemImageMapping[item.name].snippetImage}
+            />
           </div>
         ))}
       </div>
-      {/* <div style={{marginLeft: '6%'}}>
-            <div className="row" style={{width:'360px'}}>
-                <div className="col mt-5">
-                    <img
-                        className="img_shoe"
-                        src={require('./../../images/default_shoe.png')}
-                    />
-                </div>
-                <div className="row" style={{marginLeft: '0.2%'}}>
-                <div className="col mt-3">
-                    <p className='fs-5 fw-semibold'>New Balance 530 White Silver Navy</p>
-                </div>
-            </div>
-            <div>
-                
-            </div>
-            <div className="row" style={{marginLeft: '0.2%'}}>
-                <div className="col" style={{marginTop: '0.1%'}}>
-                    <p className='fs-5 fw-bold'>5,000.-</p>
-                </div>
-            </div>
-            </div>
-            
-        </div> */}
     </div>
   );
 };
