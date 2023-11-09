@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../scss/homepage/homepage.scss';
 
-function ItemShowcase({ name, price, imageUrl }) {
+function ItemShowcase({ name, price, imageUrl, isSellerMode = false }) {
   return (
     <div className="item-slot">
       <div>
@@ -10,7 +10,9 @@ function ItemShowcase({ name, price, imageUrl }) {
       <div>
         <div className="item-slot__text">
           <p className="item-slot__text--name">{name}</p>
-          <div className="item-slot__text--price">~ {price}.-</div>
+          <div className="item-slot__text--price">
+            {isSellerMode ? '' : '~'} {price}.-
+          </div>
         </div>
       </div>
     </div>
