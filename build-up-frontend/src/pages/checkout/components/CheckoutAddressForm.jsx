@@ -100,20 +100,20 @@ function CheckoutAddressForm() {
           + Add your new address
         </div>
         {isExpandMode && AddressForm()}
+        {isExpandMode && (
+          <div className={'add-new__button'}>
+            <div
+              className={'form-button checkout-page__button--style-1'}
+              onClick={clickCancelButton}
+            >
+              Cancel
+            </div>
+            <div className={'form-button checkout-page__button--style-2'}>
+              Add
+            </div>
+          </div>
+        )}
       </div>
-      {isExpandMode && (
-        <div className={'add-new__button'}>
-          <div
-            className={'form-button checkout-page__button--style-1'}
-            onClick={clickCancelButton}
-          >
-            Cancel
-          </div>
-          <div className={'form-button checkout-page__button--style-2'}>
-            Add
-          </div>
-        </div>
-      )}
     </>
   );
 }

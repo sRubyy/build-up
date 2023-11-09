@@ -130,10 +130,10 @@ public class CreditCardController {
         CreditCard creditCard = creditCardService.addCreditCard(newCreditCard);
         return new ResponseEntity<>(new ResponseObject(
                 LocalDateTime.now(),
-                HttpStatus.OK,
+                HttpStatus.CREATED,
                 "",
                 creditCard
-        ), HttpStatus.OK);
+        ), HttpStatus.CREATED);
     }
 
     @PostMapping("/editCreditCard/{id}")
