@@ -49,6 +49,14 @@ public class ProductController {
     }
 
     @CrossOrigin
+    @GetMapping("/findByType")
+    public ResponseEntity<List<Product>> getAllProductsByType(@RequestParam("category") String category) {
+        List<Product> products = productService.getProductsByType(category);
+        products.forEach(product -> product.setAccount(null));
+        return ResponseEntity.status(HttpStatus.OK).body(products);
+    }
+
+    @CrossOrigin
     @GetMapping("/findMinPriceProductByNameAndIsBrandNew")
     public ResponseEntity<List<SizePoolObject>> findMinPriceProductByNameAndIsBrandNew(
             @RequestParam(name = "name") String name,

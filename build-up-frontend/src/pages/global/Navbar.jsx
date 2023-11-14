@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { ReturnCategory } from './components/ReturnCategory';
 
 function Navbar() {
   const location = useLocation();
@@ -12,6 +13,9 @@ function Navbar() {
   const [isLoggedIn, setLoggedIn] = useState('');
   const [data, setData] = useState({});
   const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('Category');
+
+
 
   useEffect(() => {
     const fetchLoggedInStatus = async () => {
@@ -59,9 +63,19 @@ function Navbar() {
   const handleQuery = () => {
     const data = {
       query: query,
+      method: "name"
     };
     navigate('/search-result', { state: { data } });
   };
+
+  const handleCategory = (value) => {
+    setCategory(value);
+    const data = {
+      query: value,
+      method: "category"
+    };
+    navigate('/search-result', { state: { data } });
+  }
 
   return (
     <div className="global-nav">
@@ -69,7 +83,22 @@ function Navbar() {
         <Link className={'global-nav__left--branding-text'} to={'/'}>
           Buildup
         </Link>
+        <div style={{paddingBottom:'4px'}}>
+        <div className="dropdown">
+            <button
+              className="btn dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {category}
+            </button>
+            <ReturnCategory handleCategory={handleCategory} />
+          </div>
+        </div>
+
       </div>
+      
       <div className="global-nav__center">
         <input
           className="global-nav__input"
