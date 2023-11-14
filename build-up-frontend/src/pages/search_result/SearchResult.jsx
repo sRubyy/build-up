@@ -8,12 +8,14 @@ import '../../scss/search_result/search_result.scss';
 export const SearchResult = () => {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState('');
+  const [method, setMethod] = useState('');
   const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
       if (location.state && location.state.data) {
         setQuery(location.state.data.query);
+        setMethod(location.state.data.method);
       } else {
         console.error('Data is not available in location state.');
       }
@@ -27,10 +29,14 @@ export const SearchResult = () => {
       const baseUrl = 'http://localhost:8080/api/product/';
       let url = '';
 
-      if (query === '') {
-        url = baseUrl;
-      } else {
-        url = baseUrl + `findByName?name=${query}`;
+      if(method === "name"){
+        if (query === '') {
+          url = baseUrl;
+        } else {
+          url = baseUrl + `findByName?name=${query}`;
+        }
+      }else if(method === "category"){
+        url = baseUrl + `findByType?category=${query}`;
       }
 
       try {

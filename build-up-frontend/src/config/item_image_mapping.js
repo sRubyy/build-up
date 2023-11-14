@@ -33,4 +33,8 @@ export const itemImageMapping = {
     snippetImage: require('../images/products/snippet_images/adidas_samba_og_white_green.png'),
     detailImage: require('../images/products/snippet_images/adidas_samba_og_white_green.png'),
   },
+  'Supreme NBA Youngboy Tee': {
+    snippetImage: require('../images/products/snippet_images/Supreme_NBA_Youngboy_Tee.jpg'),
+    detailImage: '',
+  },
 };
