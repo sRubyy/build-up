@@ -19,6 +19,8 @@ public interface ProductService {
 
     List<Product> getProductsByName(String name);
 
+    List<Product> getProductsByType(String name);
+
     List<List<Object>> getMinPriceProductByNameAndIsBrandNew(String name, String isBrandNew);
 
     List<List<Object>> groupByName();

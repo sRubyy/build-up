@@ -42,6 +42,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductsByType(String name) {
+        try {
+            return productRepository.findByType(name);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public List<List<Object>> getMinPriceProductByNameAndIsBrandNew(String name, String isBrandNew) {
         try {
             return productRepository.findMinPriceProductByNameAndIsBrandNew(name, isBrandNew);
