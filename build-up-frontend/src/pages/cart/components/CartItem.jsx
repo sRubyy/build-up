@@ -2,6 +2,7 @@ import '../../../scss/my_cart/my_cart.scss';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeItem } from '../../../store/state_slices/shopping-cart-slice';
+import { itemImageMapping } from '../../../config/item_image_mapping';
 
 function CartItem({
   productId,
@@ -53,9 +54,8 @@ function CartItem({
       )}
       <img
         className={'cart-item__img'}
-        src={
-          'https://s3-alpha-sig.figma.com/img/a1ca/bce3/f9d8a54b80294640b0520b3bad10b3e5?Expires=1699833600&Signature=SlP0qMF53hAF5V4Oq8snEFxKYOfjDwn~wRv8A6pL-BTOEETN7alc9p-CpS2KAFCDpfjEQzXEDODpLGVb4R1tjTU4cgByXo-YN081uFl930aGE3o2cdmPa6xLqukS3J71HEj1H-EFfLl1D3TgOpFyp9PswjXF9LvylhTp0zGEgfkSwQco6FDseVpskuqK1WbvtE7UPb-NKuemSQwTrn-sw87-1qXbHjMWkHQp5H82Jm6leRKUu~J7xWgBBnVAK-WHr6ObxudDKRnPBcskcZGZ5HN5Nm8PpVmtpou2O5rZBrA5zQ-dYYIi4X3R50vc8SGhAuJhxvOdSxS1d9cClRYTFQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-        }
+        src={itemImageMapping[productName].snippetImage}
+        alt={''}
       ></img>
       <div className={'cart-item__info'}>
         <div
