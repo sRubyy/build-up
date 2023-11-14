@@ -57,9 +57,22 @@ export const shoppingCartSlice = createSlice({
       state.items = [];
       state.totalPrice = 0;
     },
+
+    editItem: (state, action) => {
+      const { replaceId, item, quantity } = action.payload;
+      const replaceIndex = state.items.findIndex(
+        (item) => item.id === replaceId
+      );
+      const oldItemPrice =
+        state.items[replaceIndex].price * state.items[replaceIndex].quantity;
+      state.totalPrice -= oldItemPrice;
+      state.totalPrice += item.price * quantity;
+      state.items[replaceIndex] = { ...item, quantity };
+    },
   },
 });
 
-export const { addItem, removeItem, clear } = shoppingCartSlice.actions;
+export const { addItem, removeItem, clear, editItem } =
+  shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
