@@ -1,7 +1,10 @@
 import '../../../scss/my_cart/my_cart.scss';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { removeItem } from '../../../store/state_slices/shopping-cart-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  removeItem,
+  editItem,
+} from '../../../store/state_slices/shopping-cart-slice';
 import { itemImageMapping } from '../../../config/item_image_mapping';
 
 function CartItem({
@@ -14,8 +17,10 @@ function CartItem({
   isBrandNew,
   isDeletable = true,
 }) {
+  const baseUrl = 'http://localhost:8080';
   const [isRemoveMode, setIsRemoveMode] = useState(false);
   const dispatch = useDispatch();
+  const myCart = useSelector((state) => state.shoppingCart);
 
   const self = {
     id: productId,
@@ -29,6 +34,33 @@ function CartItem({
   const toggleRemoveMode = () => {
     setIsRemoveMode(!isRemoveMode);
   };
+
+  const [changeableSizes, setChangeableSize] = useState([]);
+
+  useEffect(() => {
+    const fetchSizes = async () => {
+      try {
+        const res = await fetch(
+          `${baseUrl}/api/product/findMinPriceProductByNameAndIsBrandNew?name=${productName}&is-brand-new=${
+            isBrandNew ? 1 : 0
+          }`
+        );
+
+        const data = await res.json();
+        setChangeableSize(
+          data
+            .sort((a, b) => Number(a.size) - Number(b.size))
+            .filter(
+              (item) => !myCart.items.map((each) => each.id).includes(item.id)
+            )
+        );
+      } catch (e) {
+        setChangeableSize([]);
+      }
+    };
+
+    fetchSizes();
+  }, [myCart.items]);
 
   useEffect(() => {
     setIsRemoveMode(false);
@@ -82,15 +114,29 @@ function CartItem({
               className="size-dropdown-menu dropdown-menu"
               style={{ width: '0px' }}
             >
-              <li>
-                <div className="cart-item__dropdown--item">5 US</div>
-              </li>
-              <li>
-                <div className="cart-item__dropdown--item">5.5 US</div>
-              </li>
-              <li>
-                <div className="cart-item__dropdown--item">6 US</div>
-              </li>
+              {changeableSizes.map((each, i) => {
+                return (
+                  <li
+                    key={i}
+                    onClick={() =>
+                      dispatch(
+                        editItem({
+                          replaceId: productId,
+                          item: each,
+                          quantity: 1,
+                        })
+                      )
+                    }
+                  >
+                    <div className="cart-item__dropdown--item">
+                      {each.size}{' '}
+                      <span style={{ color: '#9d9d9d' }}>
+                        Lowest {each.price}.-
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
