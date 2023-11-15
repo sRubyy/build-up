@@ -1,6 +1,6 @@
 package com.gemini11.buildupbackend.entity;
 
-public record CreditCartCreateDTO(
+public record CreditCardCreateDTO(
         String cardNumber,
         String holderName,
         String expirationDate,

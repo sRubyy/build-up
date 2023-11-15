@@ -1,9 +1,11 @@
 package com.gemini11.buildupbackend.entity;
 
 import java.util.List;
+import java.util.Optional;
 
 public record BuyerCheckoutDTO(
-        Integer creditCardId,
+        Optional<Integer> creditCardId,
+        Optional<Integer> bankAccountId,
         Integer shippingAddressId,
         List<ItemAndQuantity> items,
         String token,
