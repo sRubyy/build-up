@@ -2,10 +2,7 @@ package com.gemini11.buildupbackend.controller;
 
 import com.gemini11.buildupbackend.entity.BuyerCheckoutDTO;
 import com.gemini11.buildupbackend.entity.ResponseObject;
-import com.gemini11.buildupbackend.model.CreditCard;
-import com.gemini11.buildupbackend.model.Order;
-import com.gemini11.buildupbackend.model.OrderItem;
-import com.gemini11.buildupbackend.model.Product;
+import com.gemini11.buildupbackend.model.*;
 import com.gemini11.buildupbackend.repository.StatusRepository;
 import com.gemini11.buildupbackend.service.*;
 import com.gemini11.buildupbackend.utility.JwtHelper;
@@ -36,6 +33,9 @@ public class OrderController {
 
     @Autowired
     CreditCardService creditCardService;
+
+    @Autowired
+    BankAccountService bankAccountService;
 
     @Autowired
     ProductService productService;
@@ -91,6 +91,7 @@ public class OrderController {
     @CrossOrigin
     @PostMapping("/checkout")
     public ResponseEntity<ResponseObject> checkout(@RequestBody BuyerCheckoutDTO checkoutDTO) {
+        // validate the token first, is user authorized to the system?.
         String username = new JwtHelper().extractUsernameFromToken(checkoutDTO.token());
         if (username == null) {
             return new ResponseEntity<>(new ResponseObject(
@@ -101,8 +102,27 @@ public class OrderController {
             ), HttpStatus.BAD_REQUEST);
         }
 
-        CreditCard creditCard = creditCardService.getCreditCardById(checkoutDTO.creditCardId());
-        if (creditCard.getBalance() < checkoutDTO.totalPrice()) {
+        Order newOrder = new Order();
+        newOrder.setOrderDate(LocalDateTime.now());
+
+        // check balance in the credit card or bank account based on user's choice.
+        Double balance = 0.00;
+        CreditCard creditCard = null;
+        if (checkoutDTO.creditCardId().isPresent()) {
+            creditCard = creditCardService.getCreditCardById(checkoutDTO.creditCardId().get());
+            newOrder.setCreditCard(creditCard);
+            balance = creditCard.getBalance();
+        }
+
+        BankAccount bankAccount = null;
+        if (checkoutDTO.bankAccountId().isPresent()) {
+            bankAccount = bankAccountService.getBankAccountById(checkoutDTO.bankAccountId().get());
+            newOrder.setBankAccount(bankAccount);
+            balance = bankAccount.getBalance();
+        }
+
+        // if the balance is not enough then return bad request.
+        if (balance < checkoutDTO.totalPrice()) {
             return new ResponseEntity<>(new ResponseObject(
                     LocalDateTime.now(),
                     HttpStatus.BAD_REQUEST,
@@ -111,12 +131,9 @@ public class OrderController {
             ), HttpStatus.BAD_REQUEST);
         }
 
-        Order newOrder = new Order();
-        newOrder.setOrderDate(LocalDateTime.now());
+        // set order information.
         newOrder.setStatus(statusRepository.findByName("Ordered"));
-
         newOrder.setAccount(accountService.getAccountByUsername(username).orElse(null));
-        newOrder.setCreditCard(creditCard);
         newOrder.setShippingAddress(shippingAddressService.getShippingAddressesById(checkoutDTO.shippingAddressId()));
         List<OrderItem> items = new ArrayList<>();
         checkoutDTO.items().forEach(item -> {
@@ -129,9 +146,18 @@ public class OrderController {
         newOrder.setOrderItems(items);
         orderService.addOrder(newOrder);
 
-        creditCard.setBalance(creditCard.getBalance() - checkoutDTO.totalPrice());
-        creditCardService.editCreditCard(checkoutDTO.creditCardId(), creditCard);
+        // update the balance of user's credit card or bank account.
+        if (creditCard != null) {
+            creditCard.setBalance(creditCard.getBalance() - checkoutDTO.totalPrice());
+            creditCardService.editCreditCard(checkoutDTO.creditCardId().get(), creditCard);
+        }
 
+        if (bankAccount != null) {
+            bankAccount.setBalance(bankAccount.getBalance() - checkoutDTO.totalPrice());
+            bankAccountService.editBankAccount(checkoutDTO.bankAccountId().get(), bankAccount);
+        }
+
+        // update the purchase_date of the products user bought.
         items.forEach(item -> {
             Integer productId = item.getProduct().getProductId();
             Product purchasedProduct = productService.getProductById(productId);

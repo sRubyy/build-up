@@ -34,6 +34,24 @@ function PaymentMethodForm() {
     setPaymentMethod(method);
   };
 
+  const fetchOnlineBanks = async () => {
+    try {
+      const token = { token: new Cookies().get('loginToken') };
+      const res = await fetch(
+        `${baseUrl}/api/bankAccount/findBankAccountByToken`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(token),
+        }
+      );
+      const data = await res.json();
+      setOnlineBanks(data.data ?? []);
+    } catch (e) {
+      setOnlineBanks([]);
+    }
+  };
+
   const fetchCreditCards = async () => {
     try {
       const token = { token: new Cookies().get('loginToken') };
@@ -54,6 +72,7 @@ function PaymentMethodForm() {
 
   useEffect(() => {
     fetchCreditCards();
+    fetchOnlineBanks();
   }, []);
 
   const decorateCardDisplayText = (cardNumber) => {
@@ -61,6 +80,13 @@ function PaymentMethodForm() {
     const slicedString = cardNumber.substring(startIndex);
 
     return `Credit card (xxxx-${slicedString})`;
+  };
+
+  const decorateOnlineBankDisplayText = (bankNumber, bankName) => {
+    const startIndex = bankNumber.length - 4;
+    const slicedString = bankNumber.substring(startIndex);
+
+    return `${bankName} (xxxx-${slicedString})`;
   };
 
   const creditCardMethod = () => {
@@ -71,7 +97,13 @@ function PaymentMethodForm() {
   };
 
   const onlineBankingMethod = () => {
-    return [];
+    return onlineBanks.map((each) => ({
+      ...each,
+      name: decorateOnlineBankDisplayText(
+        each.bankAccountNumber,
+        each.bankName
+      ),
+    }));
   };
 
   const allPaymentMethod = useMemo(() => {
@@ -99,10 +131,10 @@ function PaymentMethodForm() {
             onAdd={fetchCreditCards}
           />
         ) : (
-          // <OnlineBankingForm />
-          <div className={'form-not-available'}>
-            Online banking is not available now...
-          </div>
+          <OnlineBankingForm
+            onCollapse={clickCancelButton}
+            onAdd={fetchOnlineBanks}
+          />
         )}
       </>
     );

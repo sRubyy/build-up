@@ -55,7 +55,8 @@ function CheckoutSummary() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          creditCardId: selectedPayment.cardId,
+          [selectedPayment.cardId ? 'creditCardId' : 'bankAccountId']:
+            selectedPayment.cardId || selectedPayment.bankAccountId,
           shippingAddressId: selectedAddress.addressId,
           items: myCart.items.map((item) => ({
             itemId: item.id,

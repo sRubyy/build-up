@@ -30,6 +30,10 @@ public class Order {
     private CreditCard creditCard;
 
     @ManyToOne
+    @JoinColumn(name = "bank_account_id")
+    private BankAccount bankAccount;
+
+    @ManyToOne
     @JoinColumn(name = "shipping_address_id")
     private ShippingAddress shippingAddress;
 
@@ -75,6 +79,14 @@ public class Order {
 
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     public ShippingAddress getShippingAddress() {
