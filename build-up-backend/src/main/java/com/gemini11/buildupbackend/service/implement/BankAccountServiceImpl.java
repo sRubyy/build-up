@@ -13,14 +13,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BankAccountServiceimpl implements BankAccountService {
+public class BankAccountServiceImpl implements BankAccountService {
 
     @Autowired
     BankAccountRepository bankAccountRepository;
 
     @Autowired
     AccountRepository accountRepository;
-
 
     @Override
     public List<BankAccount> getAllBankAccount() {
@@ -69,7 +68,7 @@ public class BankAccountServiceimpl implements BankAccountService {
                 bankAccount2.setAccount(bankAccount.getAccount());
                 bankAccount2.setBankAccountNumber(bankAccount.getBankAccountNumber());
                 bankAccount2.setHolderName(bankAccount2.getHolderName());
-                bankAccount2.setBank(bankAccount2.getBank());
+                bankAccount2.setBankName(bankAccount2.getBankName());
                 return bankAccountRepository.save(bankAccount2);
             } else {
                 return new BankAccount();

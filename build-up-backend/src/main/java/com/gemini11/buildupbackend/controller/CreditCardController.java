@@ -1,6 +1,6 @@
 package com.gemini11.buildupbackend.controller;
 
-import com.gemini11.buildupbackend.entity.CreditCartCreateDTO;
+import com.gemini11.buildupbackend.entity.CreditCardCreateDTO;
 import com.gemini11.buildupbackend.entity.LoginTokenDTO;
 import com.gemini11.buildupbackend.entity.ResponseObject;
 import com.gemini11.buildupbackend.model.Account;
@@ -103,7 +103,7 @@ public class CreditCardController {
     }
 
     @PostMapping("/addCreditCard")
-    public ResponseEntity<ResponseObject> addCreditCard(@RequestBody CreditCartCreateDTO creditCardDTO) {
+    public ResponseEntity<ResponseObject> addCreditCard(@RequestBody CreditCardCreateDTO creditCardDTO) {
         CreditCard newCreditCard = new CreditCard();
         Optional<Account> account = accountService.getAccountByUsername(
                 new JwtHelper().extractUsernameFromToken(creditCardDTO.token())
