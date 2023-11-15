@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../scss/product_description/product_description.scss';
 import { Outlet, useParams } from 'react-router-dom';
 import { ProductContext } from '../../data/context';
+import { itemImageMapping } from '../../config/item_image_mapping';
 
 export const ProductDescription = () => {
   const baseUrl = 'http://localhost:8080';
@@ -69,7 +70,8 @@ export const ProductDescription = () => {
         >
           <img
             className="img_shoes"
-            src={require('../../images/default_shoe.png')}
+            src={itemImageMapping[productDetail?.name]?.detailImage}
+            alt={''}
           />
         </div>
         <ProductContext.Provider value={productDetail}>
