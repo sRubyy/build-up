@@ -9,18 +9,17 @@ import { ReturnCategory } from './components/ReturnCategory';
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const cookies = new Cookies();
   const [isLoggedIn, setLoggedIn] = useState('');
   const [data, setData] = useState({});
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('Category');
-
-
+  const [username, setUsername] = useState(cookies.get('username'));
+  const [token, setToken] = useState(cookies.get('loginToken'))
 
   useEffect(() => {
     const fetchLoggedInStatus = async () => {
-      if (data.username && data.token) {
-        const url = `http://localhost:8080/api/auth/verify?subject=${data.username}&token=${data.token}`;
+        const url = `http://localhost:8080/api/auth/verify?subject=${username}&token=${token}`;
 
         const request = {
           method: 'GET',
@@ -29,23 +28,21 @@ function Navbar() {
         const response = await fetch(url, request);
 
         if (response.ok) {
-          console.log(data.token);
           setLoggedIn(true);
         } else {
           setLoggedIn(false);
         }
-      }
     };
-    if (location.state && location.state.data) {
-      setData(location.state.data);
+    try{
       fetchLoggedInStatus();
-    } else {
-      console.error('Data is not available in location state.');
+    }catch(e){
+      console.log("error found")
     }
+    
   });
 
   const handleLogout = async () => {
-    const url = `http://localhost:8080/api/auth/logout?token=${data.token}`;
+    const url = `http://localhost:8080/api/auth/logout?token=${token}`;
 
     const response = await fetch(url, {
       method: 'POST',
@@ -57,6 +54,7 @@ function Navbar() {
 
     const cookies = new Cookies();
     cookies.remove('loginToken');
+    cookies.remove('username')
     setLoggedIn(false);
   };
 
