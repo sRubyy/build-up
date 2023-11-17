@@ -15,30 +15,29 @@ function Navbar() {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('Category');
   const [username, setUsername] = useState(cookies.get('username'));
-  const [token, setToken] = useState(cookies.get('loginToken'))
+  const [token, setToken] = useState(cookies.get('loginToken'));
 
   useEffect(() => {
     const fetchLoggedInStatus = async () => {
-        const url = `http://localhost:8080/api/auth/verify?subject=${username}&token=${token}`;
+      const url = `http://localhost:8080/api/auth/verify?subject=${username}&token=${token}`;
 
-        const request = {
-          method: 'GET',
-        };
+      const request = {
+        method: 'GET',
+      };
 
-        const response = await fetch(url, request);
+      const response = await fetch(url, request);
 
-        if (response.ok) {
-          setLoggedIn(true);
-        } else {
-          setLoggedIn(false);
-        }
+      if (response.ok) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
     };
-    try{
+    try {
       fetchLoggedInStatus();
-    }catch(e){
-      console.log("error found")
+    } catch (e) {
+      console.log('error found');
     }
-    
   });
 
   const handleLogout = async () => {
@@ -54,14 +53,14 @@ function Navbar() {
 
     const cookies = new Cookies();
     cookies.remove('loginToken');
-    cookies.remove('username')
+    cookies.remove('username');
     setLoggedIn(false);
   };
 
   const handleQuery = () => {
     const data = {
       query: query,
-      method: "name"
+      method: 'name',
     };
     navigate('/search-result', { state: { data } });
   };
@@ -70,10 +69,10 @@ function Navbar() {
     setCategory(value);
     const data = {
       query: value,
-      method: "category"
+      method: 'category',
     };
     navigate('/search-result', { state: { data } });
-  }
+  };
 
   return (
     <div className="global-nav">
@@ -81,8 +80,8 @@ function Navbar() {
         <Link className={'global-nav__left--branding-text'} to={'/'}>
           Buildup
         </Link>
-        <div style={{paddingBottom:'4px'}}>
-        <div className="dropdown">
+        <div style={{ paddingBottom: '4px' }}>
+          <div className="dropdown">
             <button
               className="btn dropdown-toggle"
               type="button"
@@ -94,9 +93,8 @@ function Navbar() {
             <ReturnCategory handleCategory={handleCategory} />
           </div>
         </div>
-
       </div>
-      
+
       <div className="global-nav__center">
         <input
           className="global-nav__input"
