@@ -87,7 +87,7 @@ export const SearchResult = () => {
             <ItemShowcase
               name={item.name}
               price={item.price}
-              imageUrl={itemImageMapping[item.name].snippetImage}
+              imageUrl={itemImageMapping[item.name]?.snippetImage}
             />
           </div>
         ))}
