@@ -29,13 +29,13 @@ export const SearchResult = () => {
       const baseUrl = 'http://localhost:8080/api/product/';
       let url = '';
 
-      if(method === "name"){
+      if (method === 'name') {
         if (query === '') {
           url = baseUrl;
         } else {
           url = baseUrl + `findByName?name=${query}`;
         }
-      }else if(method === "category"){
+      } else if (method === 'category') {
         url = baseUrl + `findByType?category=${query}`;
       }
 

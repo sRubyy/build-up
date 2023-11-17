@@ -22,7 +22,7 @@ const SignIn = () => {
 
         const cookies = new Cookies();
         cookies.set('loginToken', responseJson.data);
-        cookies.set('username', username)
+        cookies.set('username', username);
 
         // const data = {
         //   username: username,
