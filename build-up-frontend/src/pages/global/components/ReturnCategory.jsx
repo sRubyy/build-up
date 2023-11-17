@@ -1,6 +1,6 @@
 import React from 'react';
 export const ReturnCategory = (props) => {
-  const categories = ['shoes', 'T-shirt'];
+  const categories = ['shoes', 't-shirt'];
   return (
     <ul className="dropdown-menu">
       {categories.map((category, index) => (
