@@ -80,13 +80,14 @@ function Navbar() {
         <Link className={'global-nav__left--branding-text'} to={'/'}>
           Buildup
         </Link>
-        <div style={{ paddingBottom: '4px' }}>
+        <div>
           <div className="dropdown">
             <button
               className="btn dropdown-toggle"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              style={{ padding: '0 12px' }}
             >
               {category}
             </button>
