@@ -35,6 +35,6 @@ export const itemImageMapping = {
   },
   'Supreme NBA Youngboy Tee': {
     snippetImage: require('../images/products/snippet_images/supreme_nba_youngboy_tee.jpg'),
-    detailImage: '',
+    detailImage: require('../images/products/snippet_images/supreme_nba_youngboy_tee.jpg'),
   },
 };
