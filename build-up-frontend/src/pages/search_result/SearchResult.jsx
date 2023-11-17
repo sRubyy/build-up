@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ProductModel from '../../models/ProductModel';
 import ItemShowcase from '../search_result/components/itemShowcase';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { itemImageMapping } from '../../config/item_image_mapping';
 import '../../scss/search_result/search_result.scss';
 
@@ -10,6 +10,7 @@ export const SearchResult = () => {
   const [query, setQuery] = useState('');
   const [method, setMethod] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +84,10 @@ export const SearchResult = () => {
       <div className={'search-title'}>Search results</div>
       <div className="showcase-list">
         {results.map((item, i) => (
-          <div key={i}>
+          <div
+            key={i}
+            onClick={() => navigate(`/product/${item.name}/description`)}
+          >
             <ItemShowcase
               name={item.name}
               price={item.price}
