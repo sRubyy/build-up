@@ -44,16 +44,28 @@ public class ProductController {
     @GetMapping("/findByName")
     public ResponseEntity<List<Product>> getAllProductsByName(@RequestParam("name") String name) {
         List<Product> products = productService.getProductsByName(name);
-        products.forEach(product -> product.setAccount(null));
-        return ResponseEntity.status(HttpStatus.OK).body(products);
+        List<Product> availableProducts = new ArrayList<>();
+        products.forEach(product -> {
+            if (product.getPurchaseDate() == null) {
+                product.setAccount(null);
+                availableProducts.add(product);
+            }
+        });
+        return ResponseEntity.status(HttpStatus.OK).body(availableProducts);
     }
 
     @CrossOrigin
     @GetMapping("/findByType")
     public ResponseEntity<List<Product>> getAllProductsByType(@RequestParam("category") String category) {
         List<Product> products = productService.getProductsByType(category);
-        products.forEach(product -> product.setAccount(null));
-        return ResponseEntity.status(HttpStatus.OK).body(products);
+        List<Product> availableProducts = new ArrayList<>();
+        products.forEach(product -> {
+            if (product.getPurchaseDate() == null) {
+                product.setAccount(null);
+                availableProducts.add(product);
+            }
+        });
+        return ResponseEntity.status(HttpStatus.OK).body(availableProducts);
     }
 
     @CrossOrigin
