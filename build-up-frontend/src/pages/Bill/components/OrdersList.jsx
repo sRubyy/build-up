@@ -1,50 +1,45 @@
-import {itemImageMapping} from "../../../config/item_image_mapping";
+import { itemImageMapping } from '../../../config/item_image_mapping';
 import React, { useEffect, useState } from 'react';
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie';
 
-function OrdersList(){
-    const [orderedData, setOrderedData] = useState(null);
-    const [error, setError] = useState(null);
+function OrdersList() {
+  const [orders, setOrders] = useState(null);
 
-    useEffect(() => {
-        const apiUrl = 'http://localhost:8080/api/order/findOrderByToken';
-        const token = {token: new Cookies().get('loginToken')};
+  useEffect(() => {
+    const apiUrl = 'http://localhost:8080/api/order/findOrderByToken';
+    const token = { token: new Cookies().get('loginToken') };
 
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json',},
-            body: JSON.stringify(token),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status} Need to login first`);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setOrderedData(data.data);
-            })
-            .catch((error) => {
-                setError(error.message);
-            });
-    }, []);
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(token),
+        });
 
-    return (
+        const data = await res.json();
+        setOrders(data.data.sort((a, b) => a.orderId - b.orderId));
+      } catch (e) {}
+    };
+
+    fetchOrders();
+  }, []);
+
+  return (
+    <div>
+      {orders && (
         <div>
-            {error && <p>Error: {error}</p>}
-            {orderedData && (
-                <div>
-                    <p>Ordered Data:</p>
-                    <ul>
-                        {orderedData.data.map((order) => (
-                            <li key={order.order_id}>
-                                Order ID: {order.order_id}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+          <p>Ordered Data:</p>
+          <ul>
+            {orders.map((order) => (
+              <li key={order.orderId}>Order ID: {order.orderId}</li>
+            ))}
+          </ul>
         </div>
-    );
+      )}
+    </div>
+  );
 }
 export default OrdersList;

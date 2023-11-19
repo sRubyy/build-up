@@ -13,7 +13,7 @@ function Navbar() {
   const [isLoggedIn, setLoggedIn] = useState('');
   const [data, setData] = useState({});
   const [query, setQuery] = useState('');
-  const [category, setCategory] = useState('Category');
+  const [category, setCategory] = useState('category');
   const [username, setUsername] = useState(cookies.get('username'));
   const [token, setToken] = useState(cookies.get('loginToken'));
 
@@ -168,8 +168,11 @@ function Navbar() {
                 <div class="dropdown-item" onClick={handleLogout}>
                   Log out
                 </div>
-                <div class="dropdown-item" onClick={() => navigate('/buying-history')}>
-                    History Bills
+                <div
+                  class="dropdown-item"
+                  onClick={() => navigate('/buying-history')}
+                >
+                  History Bills
                 </div>
               </li>
             </ul>

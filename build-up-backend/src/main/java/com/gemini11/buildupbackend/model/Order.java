@@ -97,5 +97,7 @@ public class Order {
         this.shippingAddress = shippingAddress;
     }
 
-    public int getOrderID() {return orderId; }
+    public int getOrderID() {
+        return orderId;
+    }
 }
