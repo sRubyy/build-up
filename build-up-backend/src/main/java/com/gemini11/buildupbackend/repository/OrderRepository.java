@@ -25,7 +25,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
                 p.description,
                 p.size,
                 p.price,
-                oi.item_quantity
+                oi.item_quantity,
+                p.is_brand_new,
+                p.purchase_date
             FROM orders o
             INNER JOIN order_item oi on o.order_id = oi.order_id
             INNER JOIN account acc on o.owner_account_id = acc.account_id
