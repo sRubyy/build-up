@@ -15,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -204,8 +206,11 @@ public class OrderController {
         List<List<Object>> data = orderRepository.findOrderByAccountId(account.get().getAccountId());
         List<OrderAndOrderItem> orders = new ArrayList<>();
         data.forEach(each -> orders.add(new OrderAndOrderItem(
-                (Integer) each.get(0), (Integer) each.get(1), (Integer) each.get(2), (Integer) each.get(3),
-                (String) each.get(4), (String) each.get(5), (String) each.get(6), (Double) each.get(7), (Integer) each.get(8)
+                (Integer) each.get(0), (Integer) each.get(1),
+                (Integer) each.get(2), (Integer) each.get(3),
+                (String) each.get(4), (String) each.get(5), (String) each.get(6),
+                (Double) each.get(7), (Integer) each.get(8),
+                (Boolean) each.get(9), LocalDateTime.ofInstant(((Date) each.get(10)).toInstant(), ZoneId.systemDefault())
         )));
         return new ResponseEntity<>(new ResponseObject(
                 LocalDateTime.now(),

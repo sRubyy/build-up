@@ -17,7 +17,7 @@ import CheckoutSummary from '../pages/checkout/components/CheckoutSummary';
 import { Description } from '../pages/product_description/components/Description';
 import { Details } from '../pages/product_description/components/Details';
 import { SearchResult } from '../pages/search_result/SearchResult';
-import BillHistory from '../pages/Bill/BillHistory';
+import BillHistory from '../pages/bill-history/BillHistory';
 
 export const router = createBrowserRouter([
   {

@@ -30,7 +30,9 @@ function CheckoutSummary() {
   }, [myCart.totalPrice]);
 
   const totalPrice = useMemo(() => {
-    return myCart.totalPrice + transactionFee + paymentProcessingFee;
+    return Number(
+      (myCart.totalPrice + transactionFee + paymentProcessingFee).toFixed(2)
+    );
   });
 
   const shortenAddressName = (name) => {

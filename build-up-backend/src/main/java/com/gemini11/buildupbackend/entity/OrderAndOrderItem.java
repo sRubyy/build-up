@@ -1,5 +1,7 @@
 package com.gemini11.buildupbackend.entity;
 
+import java.time.LocalDateTime;
+
 public record OrderAndOrderItem(
         Integer orderId,
         Integer statusId,
@@ -9,6 +11,8 @@ public record OrderAndOrderItem(
         String description,
         String size,
         Double price,
-        Integer itemQuantity
+        Integer itemQuantity,
+        Boolean isBrandNew,
+        LocalDateTime purchaseDate
 ) {
 }
