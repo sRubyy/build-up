@@ -168,6 +168,9 @@ function Navbar() {
                 <div class="dropdown-item" onClick={handleLogout}>
                   Log out
                 </div>
+                <div class="dropdown-item" onClick={() => navigate('/buying-history')}>
+                    History Bills
+                </div>
               </li>
             </ul>
           </div>

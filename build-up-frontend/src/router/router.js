@@ -17,6 +17,7 @@ import CheckoutSummary from '../pages/checkout/components/CheckoutSummary';
 import { Description } from '../pages/product_description/components/Description';
 import { Details } from '../pages/product_description/components/Details';
 import { SearchResult } from '../pages/search_result/SearchResult';
+import BillHistory from '../pages/Bill/BillHistory';
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+      },
+      {
+        path: '/buying-history',
+        element: <BillHistory />,
       },
       {
         path: '/product/:productName',
