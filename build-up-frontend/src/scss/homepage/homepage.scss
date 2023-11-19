@@ -2,7 +2,99 @@
   display: flex;
   margin-top: 32px;
   justify-content: center;
-  //background-color: #d9d9d9;
+  overflow: hidden;
+}
+
+.copyright {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 45px;
+  padding: 22px 0;
+  border-top: 1px solid #e3e3e3;
+
+  color: #adadad;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.footer {
+  background-color: #252525;
+  position: relative;
+  overflow: hidden;
+
+  &__smoke-1 {
+    opacity: 0.5;
+    position: absolute;
+    z-index: 100;
+    top: 35%;
+    left: 7.5%;
+    width: 618px;
+  }
+
+  &__smoke-2 {
+    opacity: 0.5;
+    position: absolute;
+    top: -85%;
+    left: 17.5%;
+    z-index: 100;
+    width: 703px;
+  }
+
+  &__smoke-3 {
+    opacity: 0.5;
+    position: absolute;
+    top: 30%;
+    left: 82.5%;
+    z-index: 100;
+    width: 600px;
+  }
+
+  &__inner {
+    padding: 48px 10% 62px;
+    position: relative;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+
+    &--text {
+      text-align: center;
+      align-self: center;
+
+      &--title {
+        margin-bottom: 8px;
+
+        color: #fff;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+
+      &--subtitle {
+        color: #fff;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+
+    &--banner {
+      height: 304px;
+      display: flex;
+      gap: 21px;
+      justify-content: center;
+
+      &--each {
+        width: 245px;
+        height: 304px;
+      }
+    }
+  }
 }
 
 .banner-homepage {
