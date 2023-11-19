@@ -12,17 +12,27 @@ import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+
     Iterable<Order> findByAccount(Optional<Account> user);
 
     @Query(value = """
-            select o.order_id, o.status_id, oi.order_item_id, oi.product_id, acc.account_id, acc.username, p.name, p.description,p.size,p.price
-            From build_up_db.orders o
-            inner join build_up_db.order_item oi on  o.order_id = oi.order_id
-            inner join build_up_db.account acc on o.owner_account_id = acc.account_id
-            inner join build_up_db.product p on oi.product_id = p.product_id;
-            where o.owner_account_id = :account_id;
+            SELECT
+                o.order_id,
+                o.status_id,
+                oi.order_item_id,
+                oi.product_id,
+                p.name,
+                p.description,
+                p.size,
+                p.price,
+                oi.item_quantity
+            FROM orders o
+            INNER JOIN order_item oi on o.order_id = oi.order_id
+            INNER JOIN account acc on o.owner_account_id = acc.account_id
+            INNER JOIN product p on oi.product_id = p.product_id
+            WHERE o.owner_account_id = :ownerAccountId
             """,
             nativeQuery = true
     )
-    List<Order> findOrderByToken(@Param("account_id") int account_id);
+    List<List<Object>> findOrderByAccountId(@Param("ownerAccountId") Integer ownerAccountId);
 }
