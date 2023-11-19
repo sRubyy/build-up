@@ -2,8 +2,10 @@ package com.gemini11.buildupbackend.controller;
 
 import com.gemini11.buildupbackend.entity.BuyerCheckoutDTO;
 import com.gemini11.buildupbackend.entity.LoginTokenDTO;
+import com.gemini11.buildupbackend.entity.OrderAndOrderItem;
 import com.gemini11.buildupbackend.entity.ResponseObject;
 import com.gemini11.buildupbackend.model.*;
+import com.gemini11.buildupbackend.repository.OrderRepository;
 import com.gemini11.buildupbackend.repository.StatusRepository;
 import com.gemini11.buildupbackend.service.*;
 import com.gemini11.buildupbackend.utility.JwtHelper;
@@ -41,6 +43,9 @@ public class OrderController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    OrderRepository orderRepository;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<Order>> getAllOrders() {
@@ -195,23 +200,18 @@ public class OrderController {
                     null
             ), HttpStatus.BAD_REQUEST);
         }
-//        Iterable<Order> orders = orderService.getOrdersByAccountId(
-//                account.get().getAccountId()
-//        );
-//        orders.forEach(order -> order.setAccount(null));
-//        return new ResponseEntity<>(new ResponseObject(
-//                LocalDateTime.now(),
-//                HttpStatus.OK,
-//                "",
-//                orders
-//        ), HttpStatus.OK);
 
-        List<Order> orderdata = orderService.findOrderByToken(account.get().getAccountId());
+        List<List<Object>> data = orderRepository.findOrderByAccountId(account.get().getAccountId());
+        List<OrderAndOrderItem> orders = new ArrayList<>();
+        data.forEach(each -> orders.add(new OrderAndOrderItem(
+                (Integer) each.get(0), (Integer) each.get(1), (Integer) each.get(2), (Integer) each.get(3),
+                (String) each.get(4), (String) each.get(5), (String) each.get(6), (Double) each.get(7), (Integer) each.get(8)
+        )));
         return new ResponseEntity<>(new ResponseObject(
                 LocalDateTime.now(),
                 HttpStatus.OK,
                 "",
-                orderdata
+                orders
         ), HttpStatus.OK);
     }
 

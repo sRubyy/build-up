@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -25,7 +24,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Iterable<Order> getOrders() {
-
         try {
             return orderRepository.findAll();
         } catch (Exception e) {
@@ -62,15 +60,6 @@ public class OrderServiceImpl implements OrderService {
             orderRepository.deleteById(id);
             return id;
         } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Override
-    public List<Order> findOrderByToken(int account_id){
-        try{
-            return orderRepository.findOrderByToken(account_id);
-        }catch (Exception e){
             return null;
         }
     }
