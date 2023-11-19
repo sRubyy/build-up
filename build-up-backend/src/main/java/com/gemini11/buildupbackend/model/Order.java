@@ -96,4 +96,6 @@ public class Order {
     public void setShippingAddress(ShippingAddress shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
+
+    public int getOrderID() {return orderId; }
 }

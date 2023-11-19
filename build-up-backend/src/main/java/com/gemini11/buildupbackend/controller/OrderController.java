@@ -1,6 +1,7 @@
 package com.gemini11.buildupbackend.controller;
 
 import com.gemini11.buildupbackend.entity.BuyerCheckoutDTO;
+import com.gemini11.buildupbackend.entity.LoginTokenDTO;
 import com.gemini11.buildupbackend.entity.ResponseObject;
 import com.gemini11.buildupbackend.model.*;
 import com.gemini11.buildupbackend.repository.StatusRepository;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/order")
@@ -171,4 +173,46 @@ public class OrderController {
                 newOrder
         ), HttpStatus.OK);
     }
+
+    @CrossOrigin
+    @PostMapping("/findOrderByToken")
+    public ResponseEntity<ResponseObject> getOrderByToken(@RequestBody LoginTokenDTO tokenDTO) {
+        String username = new JwtHelper().extractUsernameFromToken(tokenDTO.token());
+        if (username == null) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST,
+                    "",
+                    null
+            ), HttpStatus.BAD_REQUEST);
+        }
+        Optional<Account> account = accountService.getAccountByUsername(username);
+        if (account.isEmpty()) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.BAD_REQUEST,
+                    "",
+                    null
+            ), HttpStatus.BAD_REQUEST);
+        }
+//        Iterable<Order> orders = orderService.getOrdersByAccountId(
+//                account.get().getAccountId()
+//        );
+//        orders.forEach(order -> order.setAccount(null));
+//        return new ResponseEntity<>(new ResponseObject(
+//                LocalDateTime.now(),
+//                HttpStatus.OK,
+//                "",
+//                orders
+//        ), HttpStatus.OK);
+
+        List<Order> orderdata = orderService.findOrderByToken(account.get().getAccountId());
+        return new ResponseEntity<>(new ResponseObject(
+                LocalDateTime.now(),
+                HttpStatus.OK,
+                "",
+                orderdata
+        ), HttpStatus.OK);
+    }
+
 }
