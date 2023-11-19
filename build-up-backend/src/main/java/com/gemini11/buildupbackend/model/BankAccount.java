@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 public class BankAccount {
 
     @Id
-    @Column(name = "back_account_id")
+    @Column(name = "bank_account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bankAccountId;
 
