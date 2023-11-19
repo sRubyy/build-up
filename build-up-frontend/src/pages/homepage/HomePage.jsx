@@ -99,6 +99,58 @@ function HomePage() {
           <ItemShowcaseList items={justDroppedItems} />
         </div>
       </div>
+      <div className={'footer'}>
+        <img
+          alt={''}
+          src={require('../../images/footer/smoke-1.png')}
+          className={'footer__smoke-1'}
+        />
+        <img
+          alt={''}
+          src={require('../../images/footer/smoke-2.png')}
+          className={'footer__smoke-2'}
+        />
+        <img
+          alt={''}
+          src={require('../../images/footer/smoke-1.png')}
+          className={'footer__smoke-3'}
+        />
+        <div className={'footer__inner'}>
+          <div className={'footer__inner--text'}>
+            <div className={'footer__inner--text--title'}>#BuildYourStyle</div>
+            <span className={'footer__inner--text--subtitle'}>
+              Snap a photo with your shoe and share us to know your style
+            </span>
+          </div>
+          <div className={'footer__inner--banner'}>
+            <img
+              alt={''}
+              src={require('../../images/footer/footer-banner-1.png')}
+              className={'footer__inner--banner--each'}
+            />
+            <img
+              alt={''}
+              src={require('../../images/footer/footer-banner-2.png')}
+              className={'footer__inner--banner--each'}
+            />
+            <img
+              alt={''}
+              src={require('../../images/footer/footer-banner-3.png')}
+              className={'footer__inner--banner--each'}
+            />
+            <img
+              alt={''}
+              src={require('../../images/footer/footer-banner-4.png')}
+              className={'footer__inner--banner--each'}
+            />
+          </div>
+        </div>
+      </div>
+      <div className={'copyright'}>
+        <div>2023 Copyright | Buildup</div>
+        <div>Term & Conditions</div>
+        <div>Privacy Policy</div>
+      </div>
     </div>
   );
 }
