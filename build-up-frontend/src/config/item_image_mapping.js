@@ -33,8 +33,12 @@ export const itemImageMapping = {
     snippetImage: require('../images/products/snippet_images/adidas_samba_og_white_green.png'),
     detailImage: require('../images/products/snippet_images/adidas_samba_og_white_green.png'),
   },
-  'Supreme NBA Youngboy Tee': {
-    snippetImage: require('../images/products/snippet_images/supreme_nba_youngboy_tee.jpg'),
-    detailImage: require('../images/products/snippet_images/supreme_nba_youngboy_tee.jpg'),
+  'Fear of God Essentials Pullover Hoodie Applique Logo Buttercream': {
+    snippetImage: require('../images/products/snippet_images/fear-of-god-essentials-pullover-hoodie-applique-logo-buttercream.jpg'),
+    detailImage: require('../images/products/snippet_images/fear-of-god-essentials-pullover-hoodie-applique-logo-buttercream.jpg'),
+  },
+  'Stussy Diced Out T-Shirt Black': {
+    snippetImage: require('../images/products/snippet_images/stussy-diced-out-t-shirt-black.jpg'),
+    detailImage: require('../images/products/snippet_images/stussy-diced-out-t-shirt-black.jpg'),
   },
 };
