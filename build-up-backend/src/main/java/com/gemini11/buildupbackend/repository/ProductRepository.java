@@ -15,7 +15,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Iterable<Product> findByAccount(Optional<Account> seller);
 
-    List<Product> findByName(String name);
+    @Query(value = """
+            SELECT * FROM product WHERE name LIKE %:name%
+            """,
+            nativeQuery = true
+    )
+    List<Product> findByName(@Param("name") String name);
 
     List<Product> findByType(String name);
 

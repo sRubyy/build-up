@@ -82,6 +82,7 @@ export const SearchResult = () => {
   return (
     <div className="product-detail" style={{ margin: '5% 10%' }}>
       <div className={'search-title'}>Search results</div>
+      <div className={'search-query-text'}>for: "{query}"</div>
       <div className="showcase-list">
         {results.map((item, i) => (
           <div

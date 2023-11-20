@@ -60,6 +60,10 @@ svg {
   &__search-icon {
     min-width: 20px;
     height: 20px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__right {
