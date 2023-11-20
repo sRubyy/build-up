@@ -184,7 +184,7 @@
 
   &__pic {
     width: 256px;
-    height: 256px;
+    height: auto !important;
   }
 
   &__text {
@@ -213,6 +213,7 @@
 }
 
 .item-showcase-list {
+  align-items: flex-end;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
