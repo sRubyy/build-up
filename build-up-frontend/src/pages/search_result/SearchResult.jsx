@@ -61,7 +61,7 @@ export const SearchResult = () => {
             responseJson[key].brandNew
           );
 
-          product.setCreatedAt(responseJson[key].createAt);
+          product.setCreatedAt(responseJson[key].createdAt);
           product.setPurchaseDate(responseJson[key].purchaseDate);
           product.setId(responseJson[key].productId);
 
@@ -91,9 +91,9 @@ export const SearchResult = () => {
           >
             <ItemShowcase
               name={item.name}
-              price={item.price}
+              price={Number(item.price).toFixed(2)}
               imageUrl={itemImageMapping[item.name]?.snippetImage}
-              isAvgPrice={false}
+              isAvgPrice={true}
             />
           </div>
         ))}

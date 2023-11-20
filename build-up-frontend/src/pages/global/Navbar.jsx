@@ -38,7 +38,7 @@ function Navbar() {
     } catch (e) {
       console.log('error found');
     }
-  });
+  }, []);
 
   const handleLogout = async () => {
     const url = `http://localhost:8080/api/auth/logout?token=${token}`;

@@ -16,13 +16,44 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     Iterable<Product> findByAccount(Optional<Account> seller);
 
     @Query(value = """
-            SELECT * FROM product WHERE name LIKE %:name%
+            SELECT
+                product_id,
+                created_at,
+                description,
+                is_brand_new,
+                name,
+                purchase_date,
+                size,
+                type,
+                seller_account_id,
+                AVG(price) AS price
+                FROM product
+                WHERE name LIKE %:name%
+                GROUP BY name
+            """,
+            nativeQuery = true)
+    List<Product> findByName(@Param("name") String name);
+
+
+    @Query(value = """
+            SELECT
+                product_id,
+                created_at,
+                description,
+                is_brand_new,
+                name,
+                purchase_date,
+                size,
+                type,
+                seller_account_id,
+                AVG(price) AS price
+            FROM product
+            WHERE type = :type
+            GROUP BY name
             """,
             nativeQuery = true
     )
-    List<Product> findByName(@Param("name") String name);
-
-    List<Product> findByType(String name);
+    List<Product> findByType(@Param("type") String type);
 
     @Query(value = """
             SELECT
