@@ -70,7 +70,7 @@ export const MySelllProduct = () => {
         {products.map((item, i) => (
           <div key={i} onClick={() => handleClick(item)}>
             <ItemShowcase
-              isSellerMode={true}
+              isAvgPrice={false}
               name={item.name}
               price={item.price}
               imageUrl={itemImageMapping[item.name].snippetImage}
