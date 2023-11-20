@@ -2,12 +2,12 @@ import CartItem from '../../cart/components/CartItem';
 
 export const OrderDetail = ({ items }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {items.map((item, i) => (
         <div
           style={{
             borderBottom: '#d9d9d9 1px solid',
-            paddingBottom: '32px',
+            paddingBottom: '16px',
           }}
         >
           <CartItem

@@ -65,6 +65,16 @@ function Navbar() {
     navigate('/search-result', { state: { data } });
   };
 
+  const handleInputEnter = (e) => {
+    if (e.key === 'Enter') {
+      const data = {
+        query: query,
+        method: 'name',
+      };
+      navigate('/search-result', { state: { data } });
+    }
+  };
+
   const handleCategory = (value) => {
     setCategory(value);
     const data = {
@@ -83,13 +93,21 @@ function Navbar() {
         <div>
           <div className="dropdown">
             <button
-              className="btn dropdown-toggle"
+              className="btn"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              style={{ padding: '0 12px' }}
+              style={{
+                padding: '0 12px',
+                display: 'flex',
+                alignItems: 'center',
+              }}
             >
-              {category}
+              <div>{category}</div>
+              <div
+                className={'dropdown-toggle'}
+                style={{ margin: '3px 6px 0' }}
+              />
             </button>
             <ReturnCategory handleCategory={handleCategory} />
           </div>
@@ -102,6 +120,7 @@ function Navbar() {
           type="text"
           placeholder="search your style here"
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleInputEnter}
         />
         <div className="global-nav__search-icon" onClick={() => handleQuery()}>
           <svg
@@ -114,9 +133,9 @@ function Navbar() {
             <path
               d="M19.0002 19.0002L14.6572 14.6572M14.6572 14.6572C15.4001 13.9143 15.9894 13.0324 16.3914 12.0618C16.7935 11.0911 17.0004 10.0508 17.0004 9.00021C17.0004 7.9496 16.7935 6.90929 16.3914 5.93866C15.9894 4.96803 15.4001 4.08609 14.6572 3.34321C13.9143 2.60032 13.0324 2.01103 12.0618 1.60898C11.0911 1.20693 10.0508 1 9.00021 1C7.9496 1 6.90929 1.20693 5.93866 1.60898C4.96803 2.01103 4.08609 2.60032 3.34321 3.34321C1.84288 4.84354 1 6.87842 1 9.00021C1 11.122 1.84288 13.1569 3.34321 14.6572C4.84354 16.1575 6.87842 17.0004 9.00021 17.0004C11.122 17.0004 13.1569 16.1575 14.6572 14.6572Z"
               stroke="#ADADAD"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>
@@ -147,9 +166,9 @@ function Navbar() {
           </svg>
         </div>
         {isLoggedIn ? (
-          <div class="dropdown">
+          <div className="dropdown">
             <button
-              class="btn dropdown-toggle"
+              className="btn dropdown-toggle"
               style={{
                 marginTop: '-1%',
                 display: 'flex',
@@ -163,13 +182,13 @@ function Navbar() {
             >
               <CgProfile size={24} />
             </button>
-            <ul class="dropdown-menu">
+            <ul className="dropdown-menu">
               <li>
-                <div class="dropdown-item" onClick={handleLogout}>
+                <div className="dropdown-item" onClick={handleLogout}>
                   Log out
                 </div>
                 <div
-                  class="dropdown-item"
+                  className="dropdown-item"
                   onClick={() => navigate('/buying-history')}
                 >
                   History Bills
