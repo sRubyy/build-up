@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ProductModel from '../../models/ProductModel';
-import ItemShowcase from '../search_result/components/itemShowcase';
+import ItemShowcase from '../homepage/components/ItemShowcase';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { itemImageMapping } from '../../config/item_image_mapping';
 import '../../scss/search_result/search_result.scss';
@@ -93,6 +93,7 @@ export const SearchResult = () => {
               name={item.name}
               price={item.price}
               imageUrl={itemImageMapping[item.name]?.snippetImage}
+              isAvgPrice={false}
             />
           </div>
         ))}
