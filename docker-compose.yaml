@@ -13,21 +13,28 @@ services:
     container_name: service
     build:
       context: ./build-up-backend
+    environment:
+      SPRING_CONFIG_LOCATION: "file:/app/application.properties"
     ports:
       - "8080:8080"
-    restart: always
-#    depends_on:
-#      - mysql
+    depends_on:
+      - mysql
+    networks:
+      - services_network
 
   mysql:
     container_name: db
-    image: mysql:8.0
+    image: mysql
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_DATABASE: 'build_up_db'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
-    restart: always
+      MYSQL_DATABASE: "build_up_db"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
     ports:
-      - "3307:3307"
+      - "3307:3306"
+    networks:
+      - services_network
+
+networks:
+  services_network:
