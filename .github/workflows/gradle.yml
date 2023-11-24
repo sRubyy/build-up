@@ -8,10 +8,15 @@
 name: Java CI with Gradle
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    types:
+      - opened
+    branches:
+      - main
+      - dev
+    paths:
+      - 'builup-backend/**'
+      
 
 permissions:
   contents: read
