@@ -14,7 +14,13 @@ services:
     build:
       context: ./build-up-backend
     environment:
-      SPRING_CONFIG_LOCATION: "file:/app/application.properties"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/build_up_db"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "password"
+      SPRING_SQL_INIT_MODE: "always"
+      SPRING_JPA_DEFER_DATASOURCE_INITIALIZATION: "true"
+      SPRING_DATASOURCE_DATA: "file:./app/data.sql"
+    restart: always
     ports:
       - "8080:8080"
     depends_on:
@@ -31,6 +37,7 @@ services:
       MYSQL_USER: "user"
       MYSQL_PASSWORD: "password"
       MYSQL_ROOT_PASSWORD: "password"
+    restart: always
     ports:
       - "3307:3306"
     networks:
