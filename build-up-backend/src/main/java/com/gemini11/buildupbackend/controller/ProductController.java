@@ -89,6 +89,15 @@ public class ProductController {
     @GetMapping("/groupByName")
     public ResponseEntity<ResponseObject> groupByName() {
         List<List<Object>> res = productService.groupByName();
+        if (res == null) {
+            return new ResponseEntity<>(new ResponseObject(
+                    LocalDateTime.now(),
+                    HttpStatus.NOT_FOUND,
+                    "",
+                    null
+            ), HttpStatus.NOT_FOUND);
+        }
+
         Stream<ProductSnippet> data = res.stream().map(
                 record -> new ProductSnippet((String) record.get(0), (String) record.get(1), (Double) record.get(2))
         );

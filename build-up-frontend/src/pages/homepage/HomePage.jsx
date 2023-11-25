@@ -17,8 +17,10 @@ function HomePage() {
         const res = await fetch(`${baseUrl}/api/product/groupByName`);
         const data = await res.json();
 
-        setProducts(data.data);
-      } catch (e) {}
+        setProducts(data?.data ?? []);
+      } catch (e) {
+        setProducts([]);
+      }
     };
 
     fetchProducts();
