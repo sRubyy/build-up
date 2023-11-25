@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ProductModel from '../../models/ProductModel';
 import '../../scss/my_sell_product/sell_checkout.scss';
+import Cookies from 'universal-cookie';
 export const ProductCheckout = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,7 +25,10 @@ export const ProductCheckout = () => {
   };
 
   async function addProduct() {
-    const url = `http://localhost:8080/api/product/addProduct`;
+    const cookies = new Cookies();
+    const username = cookies.get('username');
+
+    const url = `http://localhost:8080/api/product/addProduct/${username}`;
     if (
       data.size !== 'Select size (US)' &&
       data.condition !== 'Select condition' &&

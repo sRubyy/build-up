@@ -145,11 +145,22 @@ public class ProductController {
     }
 
     @CrossOrigin
-    @PostMapping("/addProduct")
-    public ResponseEntity<Product> addProduct(@RequestBody Product _product) {
-        Product product = productService.addProduct(_product);
+    @GetMapping("/findProductsByUsername/{username}")
+    public ResponseEntity<List<Product>> getProductsByUsername(@PathVariable("username") String username) {
+        List<Product> products = (List<Product>) productService.getProductsByUsername(username);
+        if (products == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        }
+    }
+
+    @CrossOrigin
+    @PostMapping("/addProduct/{username}")
+    public ResponseEntity<Product> addProduct(@RequestBody Product _product, @PathVariable("username") String username) {
+        Product product = productService.addProduct(_product, username);
         if (product == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>(product, HttpStatus.CREATED);
         }
