@@ -42,7 +42,7 @@ export const ProductDescription = () => {
             />
           </svg>
         </div>
-        <div>Shoes</div>
+        <div>Product</div>
         <div style={{ marginLeft: '1%', marginRight: '1%' }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
