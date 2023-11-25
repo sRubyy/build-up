@@ -18,6 +18,9 @@ export const Details = () => {
   const [condition, setCondition] = useState(null);
   const [conditionBoolean, setConditionBoolean] = useState(true);
   const [price, setPrice] = useState('');
+  const [ sizeValidate, setSizeValidate] = useState(true);
+  const [ conditionValidate, setConditionValidate] = useState(true);
+  const [ priceValidate, setPriceValidate] = useState(true);
 
   if (!productDetail) {
     return <ErrorFetchProductDetail />;
@@ -53,7 +56,19 @@ export const Details = () => {
       description: productDetail.description,
     };
 
-    navigate('/sell-confirmation', { state: { data } });
+    if(size !== 'Select size (US)' && condition !== 'Select condition' && price !== ''){
+      navigate('/sell-confirmation', { state: { data } });
+    }else{
+      if(size === 'Select size (US)'){
+        setSizeValidate(false)
+      }
+      if(condition === 'Select condition'){
+        setConditionValidate(false)
+      }
+      if(price === ''){
+        setPriceValidate(false)
+      }
+    }
   };
 
   return (
@@ -79,7 +94,7 @@ export const Details = () => {
       >
         <div className="d-flex justify-content-start">
           <div className="info-entry__sub-entry">
-            Size <span className="info-entry__sub-entry--danger">*</span>
+          {sizeValidate ? <div> Size </div> : <div>Size <span className="info-entry__sub-entry--danger">*</span></div>}
           </div>
         </div>
         <div>
@@ -102,7 +117,8 @@ export const Details = () => {
       >
         <div className="d-flex justify-content-start">
           <div className="info-entry__sub-entry">
-            Condition <span className="info-entry__sub-entry--danger">*</span>
+          {conditionValidate ? <div> Condition </div> : <div>Condition <span className="info-entry__sub-entry--danger">*</span></div>}
+
           </div>
         </div>
         <div>
@@ -128,7 +144,7 @@ export const Details = () => {
       >
         <div className="d-flex justify-content-start">
           <div className={'info-entry__sub-entry'}>
-            Ask Price <span className={'info-entry__sub-entry--danger'}>*</span>
+          {priceValidate ? <div> Ask Price </div> : <div>Ask Price <span className="info-entry__sub-entry--danger">*</span></div>}
           </div>
         </div>
         <div className="d-flex justify-content-end align-items-center">
