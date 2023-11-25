@@ -5,6 +5,7 @@ import { GoShieldCheck, GoPackage, GoShieldLock } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
 import { ProductContext } from '../../../data/context';
 import { ErrorFetchProductDetail } from './ErrorFetchProductDetail';
+import Cookies from 'universal-cookie';
 
 export const Description = () => {
   const navigate = useNavigate();
@@ -14,6 +15,26 @@ export const Description = () => {
   const navigateToBuyerPath = () => {
     navigate(`/product/${productDetail.name}/buy`);
   };
+
+  const navigateToSellerPath = async () => {
+    const cookies = new Cookies();
+    const token = cookies.get('loginToken')
+    const username = cookies.get('username')
+    const url = `http://localhost:8080/api/auth/verify?subject=${username}&token=${token}`;
+
+      const request = {
+        method: 'GET',
+      };
+
+      const response = await fetch(url, request);
+
+      if (response.ok) {
+        navigate(`/product/${productDetail.name}/sell`)
+      } else {
+        navigate('/sign-in')
+      }
+    
+  }
 
   if (!productDetail) {
     return <ErrorFetchProductDetail />;
@@ -272,7 +293,7 @@ export const Description = () => {
               backgroundColor: 'black',
               fontSize: '18px',
             }}
-            onClick={() => navigate(`/product/${productDetail.name}/sell`)}
+            onClick={navigateToSellerPath}
           >
             Sell
           </button>
