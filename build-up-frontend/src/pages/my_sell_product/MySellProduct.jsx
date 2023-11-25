@@ -4,6 +4,7 @@ import ProductModel from '../../models/ProductModel';
 import ItemShowcase from '../homepage/components/ItemShowcase';
 import { itemImageMapping } from '../../config/item_image_mapping';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 export const MySelllProduct = () => {
   const [products, setProducts] = useState([]);
   const [httpError, setHttpError] = useState(null);
@@ -16,8 +17,13 @@ export const MySelllProduct = () => {
   };
 
   useEffect(() => {
+
     const fetchSellerProducts = async () => {
-      const url = 'http://localhost:8080/api/product/findAll';
+
+      const cookies = new Cookies()
+      const username = cookies.get('username')
+
+      const url = `http://localhost:8080/api/product/findProductsByUsername/${username}`;
 
       const response = await fetch(url);
 
@@ -73,7 +79,7 @@ export const MySelllProduct = () => {
               isAvgPrice={false}
               name={item.name}
               price={item.price}
-              imageUrl={itemImageMapping[item.name].snippetImage}
+              imageUrl={itemImageMapping[item.name]?.snippetImage}
             />
           </div>
         ))}

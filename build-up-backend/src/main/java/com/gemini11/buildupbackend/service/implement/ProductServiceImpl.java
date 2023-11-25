@@ -84,14 +84,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Iterable<Product> getProductsByUsername(String username) {
+
+        try {
+            Optional<Account> user = Optional.ofNullable(accountRepository.findByUsername(username));
+            if (user.isPresent()) {
+                return productRepository.findByAccount(user);
+            } else {
+                return Collections.emptyList();
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public Product getProductById(int id) {
         return productRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Product addProduct(Product product) {
+    public Product addProduct(Product product, String username) {
         try {
-            return productRepository.save(product);
+            Optional<Account> user = Optional.ofNullable(accountRepository.findByUsername(username));
+            if (user.isPresent()) {
+                product.setAccount(user.orElse(null));
+                return productRepository.save(product);
+            }
+            else{
+                return null;
+            }
         } catch (Exception e) {
             return null;
         }
