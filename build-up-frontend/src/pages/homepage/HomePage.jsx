@@ -28,7 +28,7 @@ function HomePage() {
     return products.map((product) => ({
       name: product.name,
       price: Number(product.averagePrice.toFixed(2)),
-      imageUrl: itemImageMapping[product.name].snippetImage,
+      imageUrl: itemImageMapping[product.name]?.snippetImage,
     }));
   }, [products]);
 
@@ -59,7 +59,7 @@ function HomePage() {
     return items.map((item) => ({
       name: item.name,
       price: Number(item.averagePrice.toFixed(2)),
-      imageUrl: itemImageMapping[item.name].snippetImage,
+      imageUrl: itemImageMapping[item.name]?.snippetImage,
     }));
   }, [products]);
 
