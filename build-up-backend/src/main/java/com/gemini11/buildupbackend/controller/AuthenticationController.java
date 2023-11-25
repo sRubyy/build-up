@@ -106,7 +106,9 @@ public class AuthenticationController {
                     bCryptPasswordEncoder.encode(account.getPassword())
             ));
         } catch (Exception error) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseObject(
+            return ResponseEntity.status(
+                    isDuplicate ? HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR
+            ).body(new ResponseObject(
                     LocalDateTime.now(),
                     isDuplicate ? HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR,
                     error.getMessage(),
