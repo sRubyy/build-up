@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../scss/edit_product/edit_product.scss';
 import { useLocation } from 'react-router-dom';
 import { EditInfo } from './components/EditInfo';
+import { itemImageMapping } from '../../config/item_image_mapping';
 
 export const EditProduct = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ export const EditProduct = () => {
             />
           </svg>
         </div>
-        <div>Shoes</div>
+        <div>My Products</div>
         <div style={{ marginLeft: '1%', marginRight: '1%' }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +84,7 @@ export const EditProduct = () => {
         <div className="col mt-5 d-flex justify-content-center">
           <img
             className="img_shoes"
-            src={require('../../images/default_shoe.png')}
+            src={itemImageMapping[data?.item.name]?.snippetImage}
           />
         </div>
         {component === '/rem' ? (
