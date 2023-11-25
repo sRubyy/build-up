@@ -22,7 +22,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Account createAccount(Account account) {
-        return accountRepository.save(account);
+        try {
+            return accountRepository.save(account);
+        } catch (Exception ignored) {
+            throw new RuntimeException();
+        }
     }
 
     public List<Account> getAccounts() {
@@ -30,7 +34,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Optional<Account> getAccountByUsername(String username) {
-        return Optional.ofNullable(accountRepository.findByUsername(username));
+        try {
+            return Optional.ofNullable(accountRepository.findByUsername(username));
+        } catch (Exception ignored) {
+            throw new RuntimeException();
+        }
     }
 
     public Optional<Account> getAccountById(Integer id) {
