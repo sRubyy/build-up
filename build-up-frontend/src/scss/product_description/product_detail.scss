@@ -1,3 +1,26 @@
+.next-btn {
+  &--allow,
+  &:hover,
+  &:active {
+    background-color: #00b227 !important;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &--not-allow,
+  ,
+  &:hover,
+  &:active {
+    background-color: #9d9d9d !important;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+}
+
 .info-header {
   color: #252525;
   text-align: center;

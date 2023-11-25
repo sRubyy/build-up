@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ProductModel from '../../models/ProductModel';
 import '../../scss/my_sell_product/sell_checkout.scss';
+import { itemImageMapping } from '../../config/item_image_mapping';
 export const ProductCheckout = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,8 +32,8 @@ export const ProductCheckout = () => {
       data.price !== ''
     ) {
       const product = new ProductModel(
-        'New Balance 530 White Silver Navy',
-        'NEW BALANCE | MR530SG',
+        data.name,
+        data.description,
         parseFloat(data.price),
         'shoes',
         data.size,
@@ -129,7 +130,7 @@ export const ProductCheckout = () => {
             />
           </svg>
         </div>
-        <div>Shoes</div>
+        <div>Product</div>
         <div style={{ marginLeft: '1%', marginRight: '1%' }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +145,7 @@ export const ProductCheckout = () => {
             />
           </svg>
         </div>
-        <div>New Balance 530 White Silver Navy</div>
+        <div>{(data && data.name) || (data?.item && data.item.name)}</div>
       </div>
 
       <div className="row" style={{ gap: '64px' }}>
@@ -155,7 +156,11 @@ export const ProductCheckout = () => {
                 <img
                   className="img_shoe"
                   style={{ width: '160px', height: '130px' }}
-                  src={require('../../images/default_shoe.png')}
+                  src={
+                    itemImageMapping[
+                      (data && data.name) || (data?.item && data.item.name)
+                    ]?.snippetImage
+                  }
                 />
               </div>
               <div>
@@ -251,31 +256,6 @@ export const ProductCheckout = () => {
               <p className="sell-checkout__font">Confirmation</p>
             </div>
           </div>
-          <div className="d-flex justify-content-between mt-5 mb-3">
-            <div className="d-flex justify-content-start align-items-center">
-              <FiMapPin
-                size={27}
-                color="#9D9D9D"
-                style={{ marginRight: '17px' }}
-              />
-              <div>
-                <div
-                  className="sell-checkout__info-entry"
-                  style={{ color: '#9D9D9D' }}
-                >
-                  Shipping address
-                </div>
-              </div>
-            </div>
-            <div className="d-flex justify-content-end align-items-center">
-              <div>
-                <div className="sell-checkout__info-entry--black">
-                  98/139 icondo salaya building c..
-                </div>
-              </div>
-              <IoIosArrowForward size={24} color="#9D9D9D" />
-            </div>
-          </div>
           <div className="d-flex justify-content-between mb-4">
             <div className="d-flex justify-content-start align-items-center">
               <GoCreditCard
@@ -292,13 +272,16 @@ export const ProductCheckout = () => {
                 </div>
               </div>
             </div>
-            <div className="d-flex justify-content-end align-items-center">
+            <div
+              className="d-flex justify-content-end align-items-center"
+              style={{ gap: '4px' }}
+            >
               <div>
                 <div
                   className="sell-checkout__info-entry"
                   style={{ color: '#9D9D9D' }}
                 >
-                  Payment Method
+                  Account Setting
                 </div>
               </div>
               <IoIosArrowForward size={24} color="#9D9D9D" />
@@ -335,7 +318,7 @@ export const ProductCheckout = () => {
                   className="sell-checkout__info-entry"
                   style={{ color: '#9D9D9D' }}
                 >
-                  Transcation fee 7%
+                  Transaction Fee 7%
                 </p>
               </div>
             </div>
@@ -360,7 +343,7 @@ export const ProductCheckout = () => {
                   className="sell-checkout__info-entry"
                   style={{ color: '#9D9D9D' }}
                 >
-                  Payment Processing fee 30%
+                  Payment Processing Fee 3%
                 </p>
               </div>
             </div>
@@ -437,7 +420,7 @@ export const ProductCheckout = () => {
                   width: '100%',
                   height: '50px',
                   borderRadius: '8px',
-                  backgroundColor: '#9D9D9D',
+                  backgroundColor: '#00b227',
                   fontSize: '18px',
                 }}
                 onClick={data.method === 'POST' ? addProduct : editProduct}

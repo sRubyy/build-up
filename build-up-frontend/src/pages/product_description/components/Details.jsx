@@ -7,13 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { ProductContext } from '../../../data/context';
 import { ErrorFetchProductDetail } from './ErrorFetchProductDetail';
 import '../../../scss/product_description/product_detail.scss';
+import Cookies from 'universal-cookie';
 
 export const Details = () => {
   const navigate = useNavigate();
   const productDetail = useContext(ProductContext);
+  const cookies = new Cookies();
 
-  const [size, setSize] = useState('Select size (US)');
-  const [condition, setCondition] = useState('Select condition');
+  const [size, setSize] = useState(null);
+  const [condition, setCondition] = useState(null);
   const [conditionBoolean, setConditionBoolean] = useState(true);
   const [price, setPrice] = useState('');
 
@@ -32,7 +34,15 @@ export const Details = () => {
     }
   };
 
+  const isAllowNext = () => {
+    return size && condition && price && cookies.get('loginToken');
+  };
+
   const handleClick = () => {
+    if (!isAllowNext()) {
+      return;
+    }
+
     const data = {
       size: size,
       condition: condition,
@@ -80,7 +90,7 @@ export const Details = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              {size}
+              {size ?? 'Select size (US)'}
             </button>
             <ReturnSize handleSize={handleSize} />
           </div>
@@ -103,7 +113,7 @@ export const Details = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              {condition}
+              {condition ?? 'Select condition'}
             </button>
             <ReturnCondition handleCondition={handleCondition} />
           </div>
@@ -194,13 +204,14 @@ export const Details = () => {
         </div>
         <div className="d-flex justify-content-around" style={{ width: '49%' }}>
           <button
-            className=" btn text-light"
+            className={`btn text-light ${
+              isAllowNext() ? 'next-btn--allow' : 'next-btn--not-allow'
+            }`}
             type="button"
             style={{
               width: '100%',
               height: '50px',
               borderRadius: '8px',
-              backgroundColor: '#00B227',
               fontSize: '18px',
             }}
             onClick={() => handleClick()}
