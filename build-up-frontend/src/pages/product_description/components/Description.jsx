@@ -18,23 +18,22 @@ export const Description = () => {
 
   const navigateToSellerPath = async () => {
     const cookies = new Cookies();
-    const token = cookies.get('loginToken')
-    const username = cookies.get('username')
+    const token = cookies.get('loginToken');
+    const username = cookies.get('username');
     const url = `http://localhost:8080/api/auth/verify?subject=${username}&token=${token}`;
 
-      const request = {
-        method: 'GET',
-      };
+    const request = {
+      method: 'GET',
+    };
 
-      const response = await fetch(url, request);
+    const response = await fetch(url, request);
 
-      if (response.ok) {
-        navigate(`/product/${productDetail.name}/sell`)
-      } else {
-        navigate('/sign-in')
-      }
-    
-  }
+    if (response.ok) {
+      navigate(`/product/${productDetail.name}/sell`);
+    } else {
+      navigate('/sign-in');
+    }
+  };
 
   if (!productDetail) {
     return <ErrorFetchProductDetail />;

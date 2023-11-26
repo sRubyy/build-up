@@ -184,14 +184,20 @@ function Navbar() {
             </button>
             <ul className="dropdown-menu">
               <li>
-                <div className="dropdown-item" onClick={handleLogout}>
-                  Log out
-                </div>
                 <div
                   className="dropdown-item"
                   onClick={() => navigate('/buying-history')}
                 >
                   History Bills
+                </div>
+                <div
+                  className="dropdown-item"
+                  onClick={() => navigate('/my-sell-product')}
+                >
+                  My Sell Products
+                </div>
+                <div className="dropdown-item" onClick={handleLogout}>
+                  Log out
                 </div>
               </li>
             </ul>

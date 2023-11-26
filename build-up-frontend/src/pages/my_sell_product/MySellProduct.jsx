@@ -17,11 +17,9 @@ export const MySelllProduct = () => {
   };
 
   useEffect(() => {
-
     const fetchSellerProducts = async () => {
-
-      const cookies = new Cookies()
-      const username = cookies.get('username')
+      const cookies = new Cookies();
+      const username = cookies.get('username');
 
       const url = `http://localhost:8080/api/product/findProductsByUsername/${username}`;
 
