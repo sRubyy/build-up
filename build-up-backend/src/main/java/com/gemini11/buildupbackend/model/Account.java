@@ -35,7 +35,6 @@ public class Account {
         this.username = username;
         this.password = password;
     }
-
     public Integer getAccountId() {
         return accountId;
     }
