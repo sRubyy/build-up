@@ -11,7 +11,7 @@ on:
 
 jobs:
   build-image-and-run-compose-up:
-    run-ons: ubuntu-lastest
+    run-ons: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: isbang/compose-action@v1.5.1
