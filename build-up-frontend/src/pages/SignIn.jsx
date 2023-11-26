@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../scss/register_and_sign_in/register-and-sign-in.scss';
 import Cookies from 'universal-cookie';
@@ -24,12 +24,7 @@ const SignIn = () => {
         cookies.set('loginToken', responseJson.data);
         cookies.set('username', username);
 
-        // const data = {
-        //   username: username,
-        //   token: responseJson.data,
-        // };
-
-        navigate('/');
+        navigate(-1);
         console.log('Sign-in successful');
       } else {
         // Handle sign-in errors here
