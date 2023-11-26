@@ -14,8 +14,8 @@ services:
     build:
       context: ./build-up-backend
     environment:
-#      Suppose we try to omit datasource url in Spring boot app, then Docker workflow must fail.
-#      SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/build_up_db"
+#      Suppose we try to provide a wrong datasource url in Spring boot app, then Docker workflow must fail.
+      SPRING_DATASOURCE_URL: "jdbc:mysql://RANDOM_HOST_DWUQHDQUIWDHIUDHQUIDQUID:3306/build_up_db"
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: "password"
       SPRING_SQL_INIT_MODE: "always"
