@@ -15,5 +15,7 @@ public interface AccountService {
 
     void deleteAccountByUsername(String username);
 
+    void deleteById(int id);
+
     Optional<Account> getAccountById(Integer id);
 }
