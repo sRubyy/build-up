@@ -2,7 +2,8 @@ FROM gradle:8.4.0-jdk17-alpine AS build
 
 WORKDIR /app
 
-COPY build.gradle gradlew gradlew.bat settings.gradle ./
+# try to not include 'build.gradle' for making build fail, and see the Docker workflow response to it.
+COPY gradlew gradlew.bat settings.gradle ./
 COPY src ./src
 
 RUN gradle build --no-daemon
