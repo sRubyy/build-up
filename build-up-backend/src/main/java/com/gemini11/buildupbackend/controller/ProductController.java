@@ -151,7 +151,13 @@ public class ProductController {
         if (products == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(products, HttpStatus.OK);
+            List<Product> availableProducts = new ArrayList<>();
+            products.forEach(each -> {
+                if (each.getPurchaseDate() == null) {
+                    availableProducts.add(each);
+                }
+            });
+            return new ResponseEntity<>(availableProducts, HttpStatus.OK);
         }
     }
 
@@ -169,6 +175,8 @@ public class ProductController {
     @CrossOrigin
     @PutMapping("/editProduct/{id}")
     public ResponseEntity<Product> editProduct(@PathVariable("id") int id, @RequestBody Product _product) {
+        _product.setAccount(productService.getProductById(id).getAccount());
+
         Product product = productService.editProduct(id, _product);
         if (product == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
