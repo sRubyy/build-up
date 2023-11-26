@@ -7,7 +7,7 @@ COPY src ./src
 
 RUN gradle build --no-daemon
 
-FROM openjdk:17 AS serve
+FROM openjdk:17-jdk-alpine AS serve
 
 WORKDIR /app
 
