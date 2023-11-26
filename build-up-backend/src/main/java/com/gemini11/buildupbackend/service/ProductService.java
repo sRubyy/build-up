@@ -9,7 +9,8 @@ public interface ProductService {
 
     Iterable<Product> getProductsBySellerId(int sellerId);
 
-   Iterable<Product> getProductsByUsername(String username);
+    Iterable<Product> getProductsByUsername(String username);
+
     Product getProductById(int id);
 
     Product addProduct(Product product, String username);

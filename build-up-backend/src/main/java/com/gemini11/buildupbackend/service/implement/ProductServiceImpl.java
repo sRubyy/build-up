@@ -110,8 +110,7 @@ public class ProductServiceImpl implements ProductService {
             if (user.isPresent()) {
                 product.setAccount(user.orElse(null));
                 return productRepository.save(product);
-            }
-            else{
+            } else {
                 return null;
             }
         } catch (Exception e) {
