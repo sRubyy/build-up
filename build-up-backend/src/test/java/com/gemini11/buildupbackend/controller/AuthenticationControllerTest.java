@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Optional;
@@ -98,6 +99,83 @@ public class AuthenticationControllerTest {
                             .content(objectMapper.writeValueAsString(authRequestBody))
                     )
                     .andExpect(status().isCreated());
+        }
+    }
+
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    @Nested
+    public class AuthenticationTest {
+
+        @Mock
+        AccountService accountService;
+
+        @Mock
+        BCryptPasswordEncoder bCryptPasswordEncoder;
+
+        @InjectMocks
+        AuthenticationController authenticationController;
+
+        private MockMvc mockMvc;
+
+        private ObjectMapper objectMapper;
+
+        @BeforeEach
+        public void setupForEach() {
+            this.mockMvc = MockMvcBuilders.standaloneSetup(authenticationController).build();
+            this.objectMapper = new ObjectMapper();
+        }
+
+        @AfterEach
+        public void teardownForEach() {
+            Mockito.reset(accountService);
+        }
+
+        @Test
+        public void testAuthAccountIsNotPresent() throws Exception {
+            AuthRequestBody authRequestBody = new AuthRequestBody("badUsername", "badPassword");
+
+            when(accountService.getAccountByUsername(authRequestBody.username())).thenReturn(Optional.empty());
+
+            mockMvc.perform(post("/api/auth")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(authRequestBody))
+                    )
+                    .andExpect(MockMvcResultMatchers.status().isUnauthorized())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("The username or password is incorrect."));
+        }
+
+        @Test
+        public void testAuthIncorrectPassword() throws Exception {
+            AuthRequestBody authRequestBody = new AuthRequestBody("goodUsername", "badPassword");
+
+            Account mockAccount = new Account("goodUsername", "goodPassword");
+
+            when(accountService.getAccountByUsername(authRequestBody.username())).thenReturn(Optional.of(mockAccount));
+            when(bCryptPasswordEncoder.matches(authRequestBody.password(), mockAccount.getPassword())).thenReturn(false);
+
+            mockMvc.perform(post("/api/auth")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(authRequestBody))
+                    )
+                    .andExpect(MockMvcResultMatchers.status().isUnauthorized())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("The username or password is incorrect."));
+        }
+
+        @Test
+        public void testAuthSuccess() throws Exception {
+            AuthRequestBody authRequestBody = new AuthRequestBody("goodUsername", "goodPassword");
+
+            Account mockAccount = new Account("goodUsername", "goodPassword");
+
+            when(accountService.getAccountByUsername(authRequestBody.username())).thenReturn(Optional.of(mockAccount));
+            when(bCryptPasswordEncoder.matches(authRequestBody.password(), mockAccount.getPassword())).thenReturn(true);
+
+            mockMvc.perform(post("/api/auth")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(authRequestBody))
+                    )
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.data").exists());
         }
     }
 }
