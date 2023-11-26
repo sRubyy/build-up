@@ -1,4 +1,4 @@
-name: Test Build Image And Run Compose Up
+name: Docker Compose Action
 
 on:
   pull_request:
@@ -10,11 +10,13 @@ on:
       - dev
 
 jobs:
-  build-image-and-run-compose-up:
+  build_image_and_test_compose_up:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: isbang/compose-action@v1.5.1
+      - name: Initialize
+        uses: actions/checkout@v3
+      - name: Build Docker images and compose up
+        uses: isbang/compose-action@v1.5.1
         with:
           compose-file: "./docker-compose.yaml"
           down-flags: "--rmi local -v"
