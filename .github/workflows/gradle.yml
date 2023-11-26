@@ -15,8 +15,8 @@ on:
       - reopened
     branches:
       - dev
-    paths:
-      - 'builup-backend/**'
+    # paths:
+    #   - 'builup-backend/**'
   workflow_dispatch:
 
 jobs:
