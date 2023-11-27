@@ -1,4 +1,4 @@
-FROM node:21-slim AS build
+FROM node:16.20.2-alpine3.18 AS build
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY src ./src
 RUN ["npm", "ci"]
 RUN ["npm", "run", "build"]
 
-FROM node:21-slim AS serve
+FROM node:16.20.2-alpine3.18 AS serve
 
 WORKDIR /app
 
