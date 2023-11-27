@@ -5,6 +5,8 @@ import ItemShowcase from '../homepage/components/ItemShowcase';
 import { itemImageMapping } from '../../config/item_image_mapping';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+
+
 export const MySelllProduct = () => {
   const [products, setProducts] = useState([]);
   const [httpError, setHttpError] = useState(null);
