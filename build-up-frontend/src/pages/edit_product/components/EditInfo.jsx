@@ -32,6 +32,7 @@ export const EditInfo = (props) => {
       name: props.data.item.name,
       price: price,
       size: size,
+      item: props.data.item,
       conditionBoolean: conditionBoolean,
       method: 'put',
     };
