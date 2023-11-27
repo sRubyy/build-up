@@ -81,9 +81,9 @@ export const ProductCheckout = () => {
       const product = new ProductModel(
         data.item.name,
         data.item.description,
-        parseFloat(data.item.price),
+        parseFloat(data.price),
         data.item.type,
-        data.item.size,
+        data.size,
         data.conditionBoolean
       );
       const now = new Date();
