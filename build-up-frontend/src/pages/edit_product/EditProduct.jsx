@@ -14,7 +14,7 @@ export const EditProduct = () => {
   useEffect(() => {
     if (location.state && location.state.data) {
       setData(location.state.data);
-      console.log(data)
+      console.log(data);
     } else {
       console.error('Data is not available in location state.');
     }
