@@ -24,7 +24,7 @@ const SignIn = () => {
         cookies.set('loginToken', responseJson.data);
         cookies.set('username', username);
 
-        navigate(-1);
+        navigate('/');
         console.log('Sign-in successful');
       } else {
         // Handle sign-in errors here
