@@ -29,7 +29,9 @@ export const EditInfo = (props) => {
   const handleClick = () => {
     props.data.item.price = price;
     const data = {
-      item: props.data.item,
+      name: props.data.item.name,
+      price: price,
+      size: size,
       conditionBoolean: conditionBoolean,
       method: 'put',
     };
