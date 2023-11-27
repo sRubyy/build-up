@@ -14,6 +14,7 @@ export const EditProduct = () => {
   useEffect(() => {
     if (location.state && location.state.data) {
       setData(location.state.data);
+      console.log(data)
     } else {
       console.error('Data is not available in location state.');
     }
@@ -156,7 +157,7 @@ export const EditProduct = () => {
               <div className="d-flex justify-content-end">
                 <div>
                   <p className="info-list--bold">
-                    {data?.item && data.item.condition ? 'Brand new' : 'Used'}
+                    {data?.item && data.item.brandNew ? 'Brand new' : 'Used'}
                   </p>
                 </div>
               </div>
