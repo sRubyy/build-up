@@ -37,6 +37,9 @@ We containerize our application using Docker. Thus, you can effortlessly run thi
 The testing aims to verify that the controller API works as intended by specifying user token. it should find the addresses of the user then return addresses and OK status. 
 If the user token is not found, it should return BAD REQUEST status.
 
+#### Control Flow Graph (CFG)
+<img src="control-flow-graph/shippingAddress_cfg.png" alt="1">
+
 #### Test Requirements (Prime Path Coverage)
 
 | Prime Paths   | Covered By |
@@ -51,19 +54,22 @@ If the user token is not found, it should return BAD REQUEST status.
 
 #### Implement Test Paths
 
-|    | Test Paths            | Test Case Values                                                             | Expected Values          |
-|----|-----------------------|------------------------------------------------------------------------------|--------------------------|
-| T1 | [1,2]                 | Token with null username                                                     | HttpStatus.BAD_REQUEST   |
-| T2 | [1,3,4]               | Token with username of non-existing account                                  | HttpStatus.BAD_REQUEST   |
-| T3 | [1,3,5,6,7,8,7,8,7,9] | Token with username of an existing account that has empty shipping addresses | Addresses, HttpStatus.OK |
-| T4 | [1,3,5,6,7,9]         | Token with username of an existing account that has shipping addresses       | Addresses, HttpStatus.OK |
+|     | Test Paths            | Test Case Values                                                             | Expected Values          |
+|-----|-----------------------|------------------------------------------------------------------------------|--------------------------|
+| T1  | [1,2]                 | Token with null username                                                     | HttpStatus.BAD_REQUEST   |
+| T2  | [1,3,4]               | Token with username of non-existing account                                  | HttpStatus.BAD_REQUEST   |
+| T3  | [1,3,5,6,7,8,7,8,7,9] | Token with username of an existing account that has empty shipping addresses | Addresses, HttpStatus.OK |
+| T4  | [1,3,5,6,7,9]         | Token with username of an existing account that has shipping addresses       | Addresses, HttpStatus.OK |
 
 ### Function: `AuthenticationController.auth(@RequestBody AuthRequestBody authRequestBody)`
 
 #### Testing Goal
 
-The testing aims to verify that the controller API works as intended by specifying ‘username’ and ‘password’. 
-it should return a new ‘user Token’ and OK status if the authentication is successful otherwise it should return a UNAUTHORIZED status with an error message.
+The testing aims to verify that the controller sign-in API works as intended by specifying `username` and `password`. 
+it should return a new `user Token` and OK status if the authentication is successful otherwise it should return a UNAUTHORIZED status with an error message.
+
+#### Control Flow Graph (CFG)
+<img src="control-flow-graph/signIn_cfg.png" alt="2">
 
 #### Test Requirements (Prime Path Coverage)
 
@@ -75,17 +81,22 @@ it should return a new ‘user Token’ and OK status if the authentication is s
 
 #### Implement Test Paths
 
-|    | Test Path | Test Case Values                                     | Expected Values                       |
-|----|-----------|------------------------------------------------------|---------------------------------------|
-| T1 | [1,2]     | `{ username: badUsername, password: badPassword }`   | ErrorMessage, HttpStatus.UNAUTHORIZED |
-| T2 | [1,3,2]   | `{ username: goodUsername, password: badPassword }`  | ErrorMessage, HttpStatus.UNAUTHORIZED |
-| T3 | [1,3,4]   | `{ username: goodUsername, password: goodPassword }` | Token, HttpStatus.OK                  |
+|     | Test Path | Test Case Values                                   | Expected Values                       |
+|-----|-----------|----------------------------------------------------|---------------------------------------|
+| T1  | [1,2]     | `username`: badUsername, `password`: badPassword   | ErrorMessage, HttpStatus.UNAUTHORIZED |
+| T2  | [1,3,2]   | `username`: goodUsername, `password`: badPassword  | ErrorMessage, HttpStatus.UNAUTHORIZED |
+| T3  | [1,3,4]   | `username`: goodUsername, `password`: goodPassword | Token, HttpStatus.OK                  |
 
 ### Function: `AuthenticationController.createAccount(@RequestBody Account account)`
 
 #### Testing Goal
 
-Something...
+The testing aims to verify that the controller register API works correctly by specifying the input for registration process.
+It should return CREATED status if the `username` is not duplicate on the database otherwise return BAD_REQUEST status.
+Also, the API should return INTERNAL_SERVER_ERROR status if the exception occur.
+
+#### Control Flow Graph (CFG)
+<img src="control-flow-graph/register_cfg.png" alt="3">
 
 #### Test Requirements (Prime Path Coverage)
 
@@ -98,12 +109,12 @@ Something...
 
 #### Implement Test Paths
 
-|    | Test Paths  | Test Case Values                                                      | Expected Values                  |
-|----|-------------|-----------------------------------------------------------------------|----------------------------------|
-| T1 | [1,2,4,6,3] | `{ username: any && any != existingAccount.username, password: any }` | HttpStatus.INTERNAL_SERVER_ERROR |
-| T2 | [1,2,4,6,7] | `{ username: any && any != existingAccount.username, password: any }` | HttpStatus.CREATED               |
-| T3 | [1,2,4,5]   | `{ username: existingAccount.username, password: any }`               | HttpStatus.BAD_REQUEST           |
-| T4 | [1,2,3]     | `{ username: any, password: any }`                                    | HttpStatus.INTERNAL_SERVER_ERROR |
+|     | Test Paths  | Test Case Values                                                    | Expected Values                  |
+|-----|-------------|---------------------------------------------------------------------|----------------------------------|
+| T1  | [1,2,4,6,3] | `username`: any && any != existingAccount.username, `password`: any | HttpStatus.INTERNAL_SERVER_ERROR |
+| T2  | [1,2,4,6,7] | `username`: any && any != existingAccount.username, `password`: any | HttpStatus.CREATED               |
+| T3  | [1,2,4,5]   | `username`: existingAccount.username, `password`: any }             | HttpStatus.BAD_REQUEST           |
+| T4  | [1,2,3]     | `username`: any, `password`: any                                    | HttpStatus.INTERNAL_SERVER_ERROR |
 
 ### Execute Unit Tests
 
