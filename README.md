@@ -133,7 +133,7 @@ User stories that we did the automation testing are listed below.
 
 ### Install Robot Framework and Selenium Library (Required)
 
-1. The Robot framework is built on Python. So, ensure you have Python installed on your machine. Try opening the command line and execute the command `python3 --version`.
+1. The Robot framework is built on Python. So, ensure you have Python installed on your machine. Try opening the command line and execute the command `python3 --version` or `pip3 --version`.
 2. If you cannot see the Python version, install [Python](https://www.python.org/downloads/).
 3. Then install Robot framework and Selenium library using this command in the command line `pip3 install robotframework robotframework-seleniumlibrary`.
 
