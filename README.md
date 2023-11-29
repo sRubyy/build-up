@@ -32,6 +32,11 @@ We containerize our application using Docker. Thus, you can effortlessly run thi
 
 ### Function: `ShippingAddressController.findShippingAddressByToken(@RequestBody LoginTokenDTO tokenDTO)`
 
+#### Testing Goal
+
+The testing aims to verify that the controller API works as intended by specifying user token. it should find the addresses of the user then return addresses and OK status. 
+If the user token is not found, it should return BAD REQUEST status.
+
 #### Test Requirements (Prime Path Coverage)
 
 | Prime Paths   | Covered By |
@@ -55,6 +60,11 @@ We containerize our application using Docker. Thus, you can effortlessly run thi
 
 ### Function: `AuthenticationController.auth(@RequestBody AuthRequestBody authRequestBody)`
 
+#### Testing Goal
+
+The testing aims to verify that the controller API works as intended by specifying ‘username’ and ‘password’. 
+it should return a new ‘user Token’ and OK status if the authentication is successful otherwise it should return a UNAUTHORIZED status with an error message.
+
 #### Test Requirements (Prime Path Coverage)
 
 | Prime Path | Covered By |
@@ -72,6 +82,10 @@ We containerize our application using Docker. Thus, you can effortlessly run thi
 | T3 | [1,3,4]   | `{ username: goodUsername, password: goodPassword }` | Token, HttpStatus.OK                  |
 
 ### Function: `AuthenticationController.createAccount(@RequestBody Account account)`
+
+#### Testing Goal
+
+Something...
 
 #### Test Requirements (Prime Path Coverage)
 
@@ -141,4 +155,4 @@ After you install all of these things, you can start to execute the automated te
 
 ### Execute Automated UI Tests
 
-Change directory to `automated-test-cases/test-script` and execute test using this command in your terminal `robot <file.robot>`. 
+Change directory to `automated-test-cases/test-script` and execute a single test module using this command in your terminal `robot <file.robot>`. 
