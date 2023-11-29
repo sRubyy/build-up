@@ -113,7 +113,7 @@ Also, the API should return INTERNAL_SERVER_ERROR status if the exception occur.
 |-----|-------------|---------------------------------------------------------------------|----------------------------------|
 | T1  | [1,2,4,6,3] | `username`: any && any != existingAccount.username, `password`: any | HttpStatus.INTERNAL_SERVER_ERROR |
 | T2  | [1,2,4,6,7] | `username`: any && any != existingAccount.username, `password`: any | HttpStatus.CREATED               |
-| T3  | [1,2,4,5]   | `username`: existingAccount.username, `password`: any }             | HttpStatus.BAD_REQUEST           |
+| T3  | [1,2,4,5]   | `username`: existingAccount.username, `password`: any               | HttpStatus.BAD_REQUEST           |
 | T4  | [1,2,3]     | `username`: any, `password`: any                                    | HttpStatus.INTERNAL_SERVER_ERROR |
 
 ### Execute Unit Tests
