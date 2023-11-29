@@ -10,6 +10,7 @@ ${url_login}    http://localhost:3000/sign-in
 # User Story 1: User login
 User login with valid username and password
     Open Browser    ${url_login}    edge
+    Sleep    0.3
     Click Element    name:username
     Input Text    name:username    user
     Sleep    0.5
@@ -23,6 +24,7 @@ User login with valid username and password
     Should Be Equal As Strings    ${cookie.value}    user
 User login with invalid username and password
     Open Browser    ${url_login}    edge
+    Sleep    0.3
     Click Element    name:username
     Input Text    name:username    dadwad
     Sleep    0.5
@@ -36,6 +38,7 @@ User login with invalid username and password
     Should Be Equal As Strings    ${url_location}    ${url_login}
 User login with valid username but invalid password
     Open Browser    ${url_login}    edge
+    Sleep    0.3
     Click Element    name:username
     Input Text    name:username    user
     Sleep    0.5
@@ -49,6 +52,7 @@ User login with valid username but invalid password
     Should Be Equal As Strings    ${url_location}    ${url_login}
 User login with valid password but invalid username
     Open Browser    ${url_login}    edge
+    Sleep    0.3
     Click Element    name:username
     Input Text    name:username    dadwad
     Sleep    0.5

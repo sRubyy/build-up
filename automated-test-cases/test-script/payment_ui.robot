@@ -11,6 +11,7 @@ ${url_login}    http://localhost:3000/sign-in
 *** Keywords ***
 Login
     Open Browser    ${url_login}    edge
+    Sleep    0.3
     Click Element    name:username
     Input Text    name:username    user
     Sleep    0.5
@@ -19,7 +20,7 @@ Login
     Sleep    0.5
     Click Element    tag:button
 Click target product
-    Execute JavaScript    document.querySelector("div.item-showcase-list > div:first-child").click();
+    Execute JavaScript    document.querySelector("div.item-showcase-list > div:nth-child(3)").click();
 Click buy button
     ${xpath}    Set Variable    //*[@id="root"]/div/div[2]/div[2]/div[2]/div[12]/div[2]/button
     Execute JavaScript  document.evaluate('${xpath}', document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0).click();
