@@ -58,8 +58,8 @@ If the user token is not found, it should return BAD REQUEST status.
 |-----|-----------------------|------------------------------------------------------------------------------|--------------------------|
 | T1  | [1,2]                 | Token with null username                                                     | HttpStatus.BAD_REQUEST   |
 | T2  | [1,3,4]               | Token with username of non-existing account                                  | HttpStatus.BAD_REQUEST   |
-| T3  | [1,3,5,6,7,8,7,8,7,9] | Token with username of an existing account that has empty shipping addresses | Addresses, HttpStatus.OK |
-| T4  | [1,3,5,6,7,9]         | Token with username of an existing account that has shipping addresses       | Addresses, HttpStatus.OK |
+| T3  | [1,3,5,6,7,8,7,8,7,9] | Token with username of an existing account that has shipping addresses       | Addresses, HttpStatus.OK |
+| T4  | [1,3,5,6,7,9]         | Token with username of an existing account that has empty shipping addresses | Addresses, HttpStatus.OK |
 
 ### Function: `AuthenticationController.auth(@RequestBody AuthRequestBody authRequestBody)`
 
